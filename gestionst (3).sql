@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2022 a las 19:25:44
+-- Tiempo de generación: 24-05-2022 a las 19:07:56
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -109,9 +109,11 @@ INSERT INTO `motivos` (`id`, `motivos`) VALUES
 (1, 'Configuración de impresora'),
 (2, 'Problema de impresora'),
 (3, 'Configuración de PC'),
-(4, 'Problema con la PC'),
+(4, 'Reparación de PC'),
 (5, 'Instalación de programas en PC'),
-(6, 'Problema con un programa de la PC');
+(6, 'Problema con un programa de PC'),
+(7, 'Configuración general del Proxy'),
+(8, 'Configuración de Home Office');
 
 -- --------------------------------------------------------
 
@@ -132,17 +134,6 @@ CREATE TABLE `tareas` (
   `usuario_dni` int(11) DEFAULT NULL,
   `motivoCancelacion` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tareas`
---
-
-INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `area_codigo`, `usuario_dni`, `motivoCancelacion`) VALUES
-(1, 2, 'asd', '192.168.0.20', NULL, '2022-05-12 18:58:00', NULL, 4, 3004, 0, '12345689'),
-(2, 2, 'Ejemplo', '192.168.19.20', NULL, '2022-05-12 20:40:21', NULL, 4, 3004, 0, '1234'),
-(3, 3, 'Ejemplo', '192.168.10.70', NULL, '2022-05-13 08:22:16', NULL, 2, 2002, 2, NULL),
-(4, 4, 'qwert', '192.168.0.20', '', '2022-05-17 08:30:24', NULL, 1, 4005, 0, NULL),
-(7, 6, 'poiu', '192.168.10.10', 'Terminadou', '2022-05-17 11:40:31', '2022-05-17 12:44:32', 3, 1000, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -176,24 +167,18 @@ CREATE TABLE `usuario` (
   `apellido` varchar(45) DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
   `usuario` varchar(45) DEFAULT NULL,
-  `contraseña` varchar(45) DEFAULT NULL,
-  `idRol2` int(11) DEFAULT NULL
+  `contraseña` varchar(200) DEFAULT NULL,
+  `idRol2` int(11) DEFAULT NULL,
+  `motivoBaja` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`) VALUES
-(0, NULL, NULL, NULL, NULL, NULL, NULL),
-(1, 'Encargado', 'EN', 'alguien@gmail.com', 'encargado', '1234', 1),
-(2, 'Evaluador', 'EV', NULL, 'evaluador', '1234', 2),
-(3, 'Admin', 'AD', NULL, 'admin', 'admin', 3),
-(25091300, 'Ruben', 'Diaz', 'ruben@gmail.com', 'ruben45', '1234', 2),
-(42913555, 'Fernando', 'Airoldi', 'fernando@gmail.com', 'fer22', '1234', 1),
-(42913599, 'Agustin', 'Videla', 'agustinvidq@gmail.com', 'agusss', '1234', 1),
-(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '1234', 3),
-(42913799, 'Sebastian', 'Gomez', 'sebas@gmail.com', 'sebas2222', '1234', 2);
+INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`) VALUES
+(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$IyctN/Vx3zkPUY4y0rZWquA4EFJY5eEZ2DNcbXDGSvURLhKryuxki', 2, NULL),
+(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -248,13 +233,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `motivos`
 --
 ALTER TABLE `motivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
