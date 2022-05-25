@@ -12,8 +12,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <style>
         .header {
-            margin-left: 200px;
+            margin-left: 250px;
             transition: 0.2s all;
+        }
+
+        .header .settingsUser a:hover{
+            background-color: darkviolet;
         }
 
         #buttonText {
@@ -38,7 +42,7 @@
         }
 
         .sidebar {
-            width: 200px;
+            width: 250px;
             height: 100%;
             color: white;
             transition: 0.2s all;
@@ -48,15 +52,37 @@
             padding: 15px;
         }
 
-        .sidebar .itemsSidebar {
-            background-color: wheat;
+        .sidebar a {
+            padding-left: 20px;
+            padding-right: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar a:hover {
+            background-color: blueviolet;
+        }
+
+        .sidebar a:active {
+            box-shadow: 0 0 5px 0 darkviolet;
+        }
+
+
+        .sidebar #menu a {
+            border-left: 5px solid darkviolet;
+        }
+
+        .sidebar i {
+            color: white;
         }
 
 
 
         .hideSidebar {
             transition: 0.2s all;
-            left: -200px;
+            left: -250px;
         }
 
         .expandHeader {
@@ -73,6 +99,12 @@
                 $('#navSidebar').toggleClass('hideSidebar');
                 //$('.sidebar').hide(200);
             });
+
+            $('#menu').hide();
+            $('#showMenu').click(function() {
+                $('#menu').toggle(100);
+                $('#showMenu i').toggleClass('bi bi-caret-up');
+            })
         })
     </script>
 </head>
@@ -106,32 +138,48 @@
                         </li>
                     </ul>
                 </div>
+
+                <ul class="navbar-nav settingsUser">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+
+                        
+                    </li>
+                </ul>
             </div>
         </nav>
 
-        <nav id="navSidebar" class="navbar navbar-dark bg-dark fixed-top sidebar">
+        <nav id="navSidebar" class="navbar-dark bg-dark fixed-top sidebar">
             <div id="txtRol">
-                <p class="fs-5">RolUsuario</p>
+                <p class="fs-5" style="margin-bottom: 0 !important;">RolUsuario</p>
             </div>
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 itemsSidebar">
+            <ul class="navbar-nav itemsSidebar bg-dark">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link" role="button" id="showMenu">
                         Dropdown
+                        <i class="bi bi-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <ul class="navbar-nav bg-dark" id="menu">
+                        <li><a class="nav-link" href="#">Action</a></li>
+                        <li><a class="nav-link" href="#">Another action</a></li>
+                        <li><a class="nav-link" href="#">Something else here</a></li>
                     </ul>
                 </li>
             </ul>
