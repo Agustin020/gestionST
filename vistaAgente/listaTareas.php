@@ -232,6 +232,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 <p class="fs-5">Tareas</p>
                 <hr>
+                <p class="fs-6">Para manipular las tareas, presione <b>Acción</b></p>
                 <div class="table-responsive-xxl">
 
                     <div id="btnTarea">
@@ -246,6 +247,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </div>
                                         <div class="modal-body">
                                             <p class="fs-6">Ingrese la tarea con sus respectivos datos y asignación a agentes</p>
+
+                                            <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>

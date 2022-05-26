@@ -19,11 +19,8 @@
 
         body {
             /* fallback for old browsers */
-            background: #6a11cb;
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+            background: linear-gradient(to right, #a096c6, #8cbc84 ,#06ad95);
         }
 
         h4 {
@@ -47,11 +44,14 @@
         }
 
 
-
         form {
-            border: 2px solid white;
+            background-color: #343a40;
             border-radius: 20px;
             padding: 30px 20px;
+        }
+
+        p{
+            color: white;
         }
 
         #btn {
@@ -87,7 +87,7 @@
 
         <form action="../controlador/c_login.php" method="post">
             <h4>Acceder</h4>
-            <p class="fs-6" style="color: white;">Ingrese sus credenciales para acceder</p>
+            <p class="fs-6">Ingrese sus credenciales para acceder</p>
 
             <?php
             error_reporting(0);
@@ -103,11 +103,11 @@
             unset($_SESSION['errLogin']);
             ?>
 
-            <div class="form-floating mb-3 input">
+            <div class="form-floating mb-3">
                 <input type="text" name="user" class="form-control" id="floatingInput" placeholder="Usuario">
                 <label for="floatingInput">Usuario</label>
             </div>
-            <div class="form-floating mb-3 input">
+            <div class="form-floating mb-3">
                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Contraseña">
                 <label for="floatingPassword">Contraseña</label>
             </div>

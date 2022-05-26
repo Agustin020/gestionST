@@ -2,12 +2,12 @@
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
-$selectMotivo = $_POST['selectMotivos'];
-$descripcion = $_POST['descripción'];
+$selectMotivos = $_POST['selectMotivos'];
+$descripcion = $_POST['descripcion'];
 $ip = $_POST['ip'];
 $area = $_POST['selectArea'];
 
-if ($co->agregarTareaEncargado($selectMotivo, $descripcion, $ip, $area)) {
+if ($co->agregarTareaEncargado($selectMotivos, $descripcion, $ip, $area)) {
     session_start();
     $_SESSION['tareaOK'] = true;
     header('location: ../vista/index.php?accion=listarTareas');

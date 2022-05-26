@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2022 a las 19:07:56
+-- Tiempo de generación: 26-05-2022 a las 19:26:43
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -126,6 +126,8 @@ CREATE TABLE `tareas` (
   `id_motivos` int(11) DEFAULT NULL,
   `descripcion` varchar(500) DEFAULT NULL,
   `ip` varchar(45) DEFAULT NULL,
+  `nombreApellidoAfectado` varchar(100) DEFAULT NULL,
+  `celular` varchar(20) DEFAULT NULL,
   `solucion` varchar(500) DEFAULT NULL,
   `fechaProblema` datetime DEFAULT NULL,
   `fechaSolucion` datetime DEFAULT NULL,
@@ -134,6 +136,14 @@ CREATE TABLE `tareas` (
   `usuario_dni` int(11) DEFAULT NULL,
   `motivoCancelacion` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tareas`
+--
+
+INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `area_codigo`, `usuario_dni`, `motivoCancelacion`) VALUES
+(1, 1, '1234', '192.168.0.10', NULL, NULL, NULL, '2022-05-26 10:16:15', NULL, 1, 2004, NULL, NULL),
+(23, 1, '12345', '192.168.0.0', 'Alguien', '2612634082', NULL, '2022-05-26 13:22:10', NULL, 1, 4005, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -153,7 +163,8 @@ CREATE TABLE `tipousuario` (
 INSERT INTO `tipousuario` (`idrol`, `nombre`) VALUES
 (1, 'Encargado'),
 (2, 'Agente'),
-(3, 'Admin');
+(3, 'Admin'),
+(4, 'Supervisor');
 
 -- --------------------------------------------------------
 
@@ -177,6 +188,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`) VALUES
+(0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$Q1a0l/Dy8o24/mFgj8TuyeqJkjb/NW5aTZFdk805ADrC8aovd74ni', 1, NULL),
 (2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$IyctN/Vx3zkPUY4y0rZWquA4EFJY5eEZ2DNcbXDGSvURLhKryuxki', 2, NULL),
 (42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL);
 
@@ -239,7 +252,7 @@ ALTER TABLE `motivos`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restricciones para tablas volcadas

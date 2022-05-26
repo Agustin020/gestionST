@@ -211,6 +211,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <div class="modal-body">
                                             <p class="fs-6">Ingrese la tarea con sus respectivos datos y asignación a agentes</p>
 
+                                            <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
+
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
                                                     <option value="" selected>Seleccione...</option>
@@ -232,7 +234,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <div class="form-floating mb-3">
                                                 <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
                                                 <label for="floatingTextarea">Descripción</label>
-                                            </div>
+                                            </div>                                            
 
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="ip" class="form-control" id="floatingInput" placeholder="Nombre del Afectado" required>

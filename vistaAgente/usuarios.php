@@ -128,7 +128,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 <div id="textButton">
                     <div id="text">
-                        <p class="fs-6">Nota: Si se quiere elevar el Rol de un Encargado o Agente a Admin. Se le eliminarán las tareas asignadas <b>Pendientes y En Progreso</b></p>
+                        <p class="fs-6 bg-white">Nota: Si se quiere elevar el Rol de un Encargado o Agente a Admin. Se le eliminarán las tareas asignadas <b>Pendientes y En Progreso</b></p>
                         <p class="fs-6">Las <b>Completas</b> no se eliminarán ya que quedara como registro de que el Agente completó las tareas asignadas</p>
                     </div>
 

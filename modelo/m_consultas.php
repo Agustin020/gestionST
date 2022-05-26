@@ -102,8 +102,8 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.solucion, t.estadoTarea_id, e.nombre, t.fechaProblema, 
-                    t.fechaSolucion, t.area_codigo, a.nombre, t.motivoCancelacion 
+            $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
+                    t.fechaProblema, t.fechaSolucion, t.area_codigo, a.nombre
                     from tareas t, motivos m, estadotarea e, areas a
                     where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.area_codigo = a.codigo";
             $result = mysqli_query($link, $sql);
@@ -138,12 +138,12 @@ class Consultas extends Conexion
     }
 
 
-    public function agregarTareaEncargado($selectMotivo, $descripcion, $ip, $area)
+    public function agregarTareaEncargado($selectMotivos, $descripcion, $ip, $area)
     {
         try {
             $link = parent::Conexion();
             $sql = "INSERT into tareas(id_motivos, descripcion, ip, estadoTarea_id, fechaProblema, area_codigo, usuario_dni)
-                    values('$selectMotivo', '$descripcion', '$ip', '1', NOW(), '$area', '0')";
+                    values('$selectMotivos', '$descripcion', '$ip', '1', NOW(), '$area', '0')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

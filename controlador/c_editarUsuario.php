@@ -13,19 +13,19 @@ $rol = $_POST['rol'];
 
 if ($co->editarDatosUsuario($dni, $nombre, $apellido, $correo, $user, $pass, $userAnterior)) {
     session_start();
-    if ($rol == 1) {
+    if ($rol == 2 || $rol == 3) {
         $_SESSION['datosAct'] = true;
         header('Location: ../vistaAgente/inicio.php');
-    } else if ($rol == 2 || $rol == 3) {
+    } else if ($rol == 1) {
         $_SESSION['datosAct'] = true;
         header('Location: ../vista/inicio.php');
     }
 } else {
     session_start();
-    if ($rol == 1) {
+    if ($rol == 2 || $rol == 3) {
         $_SESSION['datosActError'] = true;
         header('Location: ../vistaAgente/inicio.php');
-    } else if ($rol == 2 || $rol == 3) {
+    } else if ($rol == 1) {
         $_SESSION['datosActError'] = true;
         header('Location: ../vista/inicio.php');
     }
