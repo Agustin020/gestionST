@@ -138,12 +138,12 @@ class Consultas extends Conexion
     }
 
 
-    public function agregarTareaEncargado($selectMotivos, $descripcion, $ip, $area)
+    public function agregarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $area)
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT into tareas(id_motivos, descripcion, ip, estadoTarea_id, fechaProblema, area_codigo, usuario_dni)
-                    values('$selectMotivos', '$descripcion', '$ip', '1', NOW(), '$area', '0')";
+            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, area_codigo, usuario_dni)
+                    values('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$cel', '1', NOW(), '$area', '0')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;
@@ -155,18 +155,21 @@ class Consultas extends Conexion
         }
     }
 
-    public function editarTareaEncargado($selectMotivo, $descripcion, $ip, $codArea, $motivoCancelacion, $solucion, $nroArreglo)
+    public function editarTareaEncargado($selectMotivo, $descripcion, $ip, $nombreApellido, $cel, $codArea, $motivoCancelacion, $solucion, $nroArreglo)
     {
         try {
 
             if ($motivoCancelacion != '' && $solucion == '') {
-                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', estadoTarea_id = '4', 
+                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', 
+                        nombreApellidoAfectado = '$nombreApellido', celular = '$cel', estadoTarea_id = '4', 
                         area_codigo = '$codArea', motivoCancelacion = '$motivoCancelacion' where nroArreglo = '$nroArreglo'";
             } else if ($solucion != '' && $motivoCancelacion == '') {
-                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', estadoTarea_id = '3', solucion = '$solucion',
+                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', 
+                        nombreApellidoAfectado = '$nombreApellido', celular = '$cel', estadoTarea_id = '3', solucion = '$solucion',
                         area_codigo = '$codArea' where nroArreglo = '$nroArreglo'";
             } else {
-                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', 
+                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip',
+                        nombreApellidoAfectado = '$nombreApellido', celular = '$cel',
                         area_codigo = '$codArea' where nroArreglo = '$nroArreglo'";
             }
 

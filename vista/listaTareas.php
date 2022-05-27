@@ -30,16 +30,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 margin-bottom: 10px;
             }
 
-            .bodyModalInfo{
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                column-gap: 20px;
-            }
-
-            .bodyModalInfo p{
-                grid-column: 1/3;
-            }
-
             section th,
             td {
                 vertical-align: middle;
@@ -319,8 +309,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="nombreApellidoAfectada" class="form-control" id="floatingInput" placeholder="ejemplo" required>
-                                                <label for="floatingInput">Nombre y apellido de él/la afectada</label>
+                                                <input type="text" name="nombreApellidoAfectado" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                                <label for="floatingInput">Nombre y apellido del afectado/a</label>
                                             </div>
 
                                             <div class="form-floating mb-3">
@@ -369,11 +359,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <th scope="col">Motivo</th>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">IP</th>
-                                    <th scope="col">Solución</th>
                                     <th scope="col">Estado</th>
-                                    <th scope="col">Motivo de la cancelación</th>
                                     <th scope="col">Fecha Problema</th>
-                                    <th scope="col">Fecha Solución</th>
                                     <th scope="col">Área</th>
                                     <th scope="col">Acción</th>
                                 </tr>
@@ -387,7 +374,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <td><?php echo $listTarea[2]; ?></td>
                                         <td><?php echo $listTarea[3]; ?></td>
                                         <td><?php echo $listTarea[4]; ?></td>
-                                        <td><?php echo $listTarea[7]; ?></td>
                                         <td>
                                             <?php
                                             if ($listTarea[9] == 'Pendiente') {
@@ -401,21 +387,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             }
                                             ?>
                                         </td>
-                                        <td><?php echo $listTarea[10]; ?></td>
                                         <td>
                                             <?php
                                             $date = date_create($listTarea[11]);
                                             $fechaProblema = date_format($date, 'd/m/Y H:i:s');
                                             echo $fechaProblema;
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            if ($listTarea[12] != null) {
-                                                $date = date_create($listTarea[12]);
-                                                $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
-                                                echo $fechaSolucion;
-                                            }
                                             ?>
                                         </td>
                                         <td><?php echo $listTarea[14]; ?></td>
@@ -448,7 +424,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                     <!-- Modal Ver Info Tarea -->
                                     <div class="modal fade modalEditar" id="modalInfoTarea<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="staticBackdropLabel">Información de la tarea</h5>
@@ -481,48 +457,87 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"><?php echo $listTarea[3]; ?></textarea>
+                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
                                                             <label for="floatingTextarea">Descripción</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="..." required>
+                                                            <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
                                                             <label for="floatingInput">IP</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
-                                                                <option value="<?php echo $listTarea[10]; ?>" selected><?php echo $listTarea[11]; ?> (Actual)</option>
-                                                                <?php
-                                                                foreach ($listAreas as $listadoAreas) {
-                                                                ?>
-                                                                    <option value="<?php echo $listadoAreas[0]; ?>">
-                                                                        <?php echo $listadoAreas[1]; ?>
-                                                                    </option>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                            <label for="floatingSelect">Área donde se desempeña</label>
+                                                            <input type="text" name="nombreApellido" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Nombre y apellido del afectado/a</label>
                                                         </div>
 
-                                                        <hr>
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="cel" value="<?php echo $listTarea[6]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Nro de celular de contacto</label>
+                                                        </div>
+
 
                                                         <?php
-                                                        if ($listTarea[12] != '' || $listTarea[12] != null) {
+                                                        if ($listTarea[7] != '') {
                                                         ?>
                                                             <div class="form-floating mb-3">
-                                                                <textarea class="form-control" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[12]; ?></textarea>
+                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[7]; ?>    
+                                                            </textarea>
+                                                                <label for="floatingTextarea">Solución del incoveniente</label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="estadoTarea" value="<?php echo $listTarea[9]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Estado de la tarea</label>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($listTarea[10] != '') {
+                                                        ?>
+                                                            <div class="form-floating mb-3">
+                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[10]; ?>    
+                                                            </textarea>
                                                                 <label for="floatingTextarea">Motivo de la cancelación</label>
                                                             </div>
                                                         <?php
                                                         }
                                                         ?>
 
+                                                        <?php
+                                                        $date = date_create($listTarea[11]);
+                                                        $fechaProblema = date_format($date, 'd/m/Y H:i:s');
+                                                        ?>
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="fechaProblema" value="<?php echo $fechaProblema; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Fecha del problema</label>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($listTarea[12] != '') {
+                                                            $date = date_create($listTarea[12]);
+                                                            $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
+                                                        ?>
+                                                            <div class="form-floating mb-3">
+                                                                <input type="text" name="fechaSolucion" value="<?php echo $fechaSolucion; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                                <label for="floatingInput">Fecha de la solución</label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Área donde se desempeña</label>
+                                                        </div>
+
+
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -574,8 +589,18 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </div>
 
                                                         <div class="form-floating mb-3">
+                                                            <input type="text" name="nombreApellidoAfectado" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                                            <label for="floatingInput">Nombre y apellido del afectado/a</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="tel" name="cel" value="<?php echo $listTarea[6]; ?>" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                                            <label for="floatingInput">Nro de celular</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
                                                             <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
-                                                                <option value="<?php echo $listTarea[10]; ?>" selected><?php echo $listTarea[11]; ?> (Actual)</option>
+                                                                <option value="<?php echo $listTarea[13]; ?>" selected><?php echo $listTarea[14]; ?> (Actual)</option>
                                                                 <?php
                                                                 foreach ($listAreas as $listadoAreas) {
                                                                 ?>
@@ -592,7 +617,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <hr>
 
                                                         <?php
-                                                        if ($listTarea[12] != '' || $listTarea[12] != null) {
+                                                        if ($listTarea[15] != '' || $listTarea[15] != null) {
                                                         ?>
                                                             <div class="form-floating mb-3">
                                                                 <textarea class="form-control" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[12]; ?></textarea>

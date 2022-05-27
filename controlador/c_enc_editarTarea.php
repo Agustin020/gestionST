@@ -5,7 +5,9 @@ $co = new Consultas();
 $selectMotivos = $_POST['selectMotivos'];
 $descripcion = $_POST['descripcion'];
 $ip = $_POST['ip'];
-$selectArea = $_POST['selectArea'];
+$nombreApellido = $_POST['nombreApellidoAfectado'];
+$cel = $_POST['cel'];
+$codArea = $_POST['selectArea'];
 
 if (isset($_POST['motivoCancelacion'])) {
     $motivoCancelacion = $_POST['motivoCancelacion'];
@@ -36,7 +38,7 @@ if (isset($motivoCancelacion)) {
     'solucion: ' . $solucion . '<br>' .
     'nroArreglo: ' . $nroArreglo . '<br>';
 */
-if($co->editarTareaEncargado($selectMotivos, $descripcion, $ip, $selectArea, $motivoCancelacion, $solucion, $nroArreglo)){
+if($co->editarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $codArea, $motivoCancelacion, $solucion, $nroArreglo)){
     session_start();
     $_SESSION['tareaEditada'] = true;
     header('location: ../vista/index.php?accion=listarTareas');
