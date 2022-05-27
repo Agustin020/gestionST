@@ -282,9 +282,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <th scope="col">Motivo</th>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">IP</th>
-                                    <th scope="col">Solución</th>
                                     <th scope="col">Estado</th>
-                                    <th scope="col">Motivo de la cancelación</th>
                                     <th scope="col">Fecha Problema</th>
                                     <th scope="col">Fecha Solución</th>
                                     <th scope="col">Área</th>
@@ -301,39 +299,37 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <td><?php echo $listTarea[2]; ?></td>
                                         <td><?php echo $listTarea[3]; ?></td>
                                         <td><?php echo $listTarea[4]; ?></td>
-                                        <td><?php echo $listTarea[5]; ?></td>
                                         <td>
                                             <?php
-                                            if ($listTarea[7] == 'Pendiente') {
-                                                echo '<span class="badge bg-secondary">' . $listTarea[7] . '</span>';
-                                            } else if ($listTarea[7] == 'En Progreso') {
-                                                echo '<span class="badge bg-primary">' . $listTarea[7] . '</span>';
-                                            } else if ($listTarea[7] == 'Completo') {
-                                                echo '<span class="badge bg-success">' . $listTarea[7] . '</span>';
-                                            } else if ($listTarea[7] == 'Cancelado') {
-                                                echo '<span class="badge bg-danger">' . $listTarea[7] . '</span>';
+                                            if ($listTarea[9] == 'Pendiente') {
+                                                echo '<span class="badge bg-secondary">' . $listTarea[9] . '</span>';
+                                            } else if ($listTarea[9] == 'En Progreso') {
+                                                echo '<span class="badge bg-primary">' . $listTarea[9] . '</span>';
+                                            } else if ($listTarea[9] == 'Completo') {
+                                                echo '<span class="badge bg-success">' . $listTarea[9] . '</span>';
+                                            } else if ($listTarea[9] == 'Cancelado') {
+                                                echo '<span class="badge bg-danger">' . $listTarea[9] . '</span>';
                                             }
                                             ?>
                                         </td>
-                                        <td><?php echo $listTarea[8]; ?></td>
                                         <td>
                                             <?php
-                                            $date = date_create($listTarea[9]);
+                                            $date = date_create($listTarea[11]);
                                             $fechaProblema = date_format($date, 'd/m/Y H:i:s');
                                             echo $fechaProblema;
                                             ?>
                                         </td>
                                         <td>
                                             <?php
-                                            if ($listTarea[10] != null) {
-                                                $date = date_create($listTarea[10]);
+                                            if ($listTarea[12] != null) {
+                                                $date = date_create($listTarea[12]);
                                                 $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
                                                 echo $fechaSolucion;
                                             }
                                             ?>
                                         </td>
-                                        <td><?php echo $listTarea[12]; ?></td>
                                         <td><?php echo $listTarea[14]; ?></td>
+                                        <td><?php echo $listTarea[16]; ?></td>
                                         <td id="accion">
                                             <div class="btn-group" role="group">
                                                 <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -341,7 +337,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                     <?php
-                                                    if ($listTarea[7] != 'Cancelado' && $listTarea[13] == 0) {
+                                                    if ($listTarea[9] != 'Cancelado' && $listTarea[15] == 0) {
                                                     ?>
                                                         <li>
                                                             <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAsignarTarea<?php echo $listTarea[0]; ?>">
@@ -350,7 +346,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </li>
                                                     <?php
                                                     }
-                                                    if ($listTarea[13] != 0 && $listTarea[7] != 'Completo') {
+                                                    if ($listTarea[15] != 0 && $listTarea[9] != 'Completo') {
                                                     ?>
                                                         <li>
                                                             <a class="dropdown-item" href="../controlador/c_quitarTareaAsignado.php?id=<?php echo $listTarea[0]; ?>">
@@ -359,7 +355,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </li>
                                                     <?php
                                                     }
-                                                    if ($listTarea[7] == 'En Progreso') {
+                                                    if ($listTarea[9] == 'En Progreso') {
                                                     ?>
                                                         <li>
                                                             <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalTareaCompletada<?php echo $listTarea[0]; ?>">
@@ -369,7 +365,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                                     <?php
                                                     }
-                                                    if ($listTarea[7] != 'Cancelado' && $listTarea[7] != 'Completo') {
+                                                    if ($listTarea[9] != 'Cancelado' && $listTarea[9] != 'Completo') {
                                                     ?>
                                                         <li>
                                                             <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCancelarTarea<?php echo $listTarea[0]; ?>">

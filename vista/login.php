@@ -19,8 +19,11 @@
 
         body {
             /* fallback for old browsers */
+            background: whitesmoke;
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, #a096c6, #8cbc84, #06ad95);
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to right, #a096c6, #8cbc84 ,#06ad95);
+            background: linear-gradient(to right, #a096c6, #8cbc84, #06ad95);
         }
 
         h4 {
@@ -50,7 +53,7 @@
             padding: 30px 20px;
         }
 
-        p{
+        p {
             color: white;
         }
 
@@ -59,7 +62,7 @@
             justify-content: center;
         }
 
-        button{
+        button {
             background-color: transparent;
             padding: 5px 20px;
             border: 2px solid white;
@@ -68,12 +71,11 @@
             transition: 0.1s all;
         }
 
-        button:active{
+        button:active {
             background-color: #3F11CB;
             border: 2px solid #3F11CB;
             box-shadow: 0 0 0 1px #3F11CB;
         }
-
     </style>
 </head>
 

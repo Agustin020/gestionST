@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2022 a las 19:26:43
+-- Tiempo de generación: 27-05-2022 a las 19:29:17
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -88,7 +88,8 @@ INSERT INTO `estadotarea` (`id`, `nombre`) VALUES
 (1, 'Pendiente'),
 (2, 'En Progreso'),
 (3, 'Completo'),
-(4, 'Cancelado');
+(4, 'Cancelado'),
+(5, 'Eliminado');
 
 -- --------------------------------------------------------
 
@@ -142,8 +143,11 @@ CREATE TABLE `tareas` (
 --
 
 INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `area_codigo`, `usuario_dni`, `motivoCancelacion`) VALUES
-(1, 1, '1234', '192.168.0.10', NULL, NULL, NULL, '2022-05-26 10:16:15', NULL, 1, 2004, NULL, NULL),
-(23, 1, '12345', '192.168.0.0', 'Alguien', '2612634082', NULL, '2022-05-26 13:22:10', NULL, 1, 4005, 0, NULL);
+(23, 1, '12345', '192.168.0.0', 'Alguien', '2612634082', 'Solucionado', '2022-05-26 13:22:10', '2022-05-27 11:56:01', 3, 4005, 2000000, NULL),
+(24, 8, '1234', '192.168.10.120', 'Ejemplo', '2612634070', NULL, '2022-05-27 10:55:21', NULL, 2, 3006, 2000000, NULL),
+(25, 2, '12345525', '192.168.10.70', 'Ejemplo', '2612634091', NULL, '2022-05-27 11:12:01', NULL, 1, 3005, 0, NULL),
+(26, 2, 'wadjoidwio', '192.168.90.20', 'Ejemplo Alguien', '2612634082', NULL, '2022-05-27 12:59:15', NULL, 1, 4002, 0, NULL),
+(27, 3, 'dwdwawd', '192.168.10.10', 'Fernando Airodi', '2612634090', NULL, '2022-05-27 13:46:43', NULL, 5, 3003, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -252,7 +256,7 @@ ALTER TABLE `motivos`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restricciones para tablas volcadas

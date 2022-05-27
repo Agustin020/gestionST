@@ -325,7 +325,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
                     t.fechaProblema, t.fechaSolucion, a.codigo, a.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido
                     from tareas t, motivos m, estadotarea e, areas a, usuario u 
                     where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.area_codigo = a.codigo and t.usuario_dni = u.dni";
@@ -413,12 +413,12 @@ class Consultas extends Conexion
     }
 
     //AGREGAR NUEVA TAREA
-    public function agregarTareaAgente($selectMotivos, $descripcion, $ip, $area)
+    public function agregarTareaAgente($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $area)
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT into tareas(id_motivos, descripcion, ip, estadoTarea_id, fechaProblema, area_codigo, usuario_dni) 
-                    values ('$selectMotivos', '$descripcion', '$ip', '1', NOW(), '$area', '0')";
+            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, area_codigo, usuario_dni) 
+                    values ('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$celular', '1', NOW(), '$area', '0')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;
@@ -426,7 +426,7 @@ class Consultas extends Conexion
                 return false;
             }
         } catch (Exception $e) {
-            $e->getMessage();
+            die('Error:' . $e->getMessage());
         }
     }
 
@@ -627,7 +627,8 @@ class Consultas extends Conexion
         return $listBajas;
     }
 
-    public function altaUsuario($idRol, $dni){
+    public function altaUsuario($idRol, $dni)
+    {
         try {
             $link = parent::Conexion();
             $sql = "UPDATE usuario set idRol2 = '$idRol', motivoBaja = null where dni = '$dni'";
@@ -853,5 +854,4 @@ class Consultas extends Conexion
         }
         return $totalEncargados;
     }
-
 }

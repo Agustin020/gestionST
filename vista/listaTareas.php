@@ -62,27 +62,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 let time = h + ":" + m;
                 var localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + time;
                 $('#tablaDinamicaLoad').DataTable({
-                    dom: 'lBfrtip',
-                    buttons: [{
-                            extend: 'excelHtml5',
-                            title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
-                            messageTop: 'Reporte: ' + localdate,
-                            exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                            }
-                        },
-                        {
-                            extend: 'pdfHtml5',
-                            orientation: 'landscape',
-                            pageSize: 'A4',
-                            download: 'open',
-                            title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
-                            messageTop: 'Reporte: ' + localdate,
-                            exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                            }
-                        },
-                    ],
                     language: {
                         "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                     }
@@ -166,6 +145,27 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
             //AJAX
+
+
+            /*$(function() {
+                $('#selectAgente').change(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'filtrosTareas/filtroSelectAgente.php',
+                        data: 'dni=' + $('#selectAgente').val(),
+                        success: function(r) {
+                            $('#tResultado').html(r);
+                            $('#tPrincipal').hide();
+                            $('#tablaAjax').DataTable({
+                                "destroy": true, //use for reinitialize datatable
+                            });
+                        }
+                    });
+                })
+            })*/
+
+
+
             function enviarDatosRadioPost(radioValor) {
                 $.ajax({
                     type: 'POST',
@@ -185,6 +185,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     data: 'fechaProblema=' + fecha,
                     success: function(r) {
                         $('#tResultado').html(r);
+
                     }
                 });
             }
@@ -262,6 +263,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     Para editar o cancelar una tarea. Aprete el botón <b>Acción</b><br>
                     Para agregar una nueva tarea, el botón <b>Nueva Tarea</b>
                 </p>
+
                 <div class="table-responsive-xxl">
                     <div id="btnTarea">
 
@@ -430,116 +432,113 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     <h5 class="modal-title" id="staticBackdropLabel">Información de la tarea</h5>
                                                     <button type="button" class="btn-close btnCerrarModalEditar" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
+                                                <div class="modal-body bodyModalInfo">
 
-                                                <form action="../controlador/c_enc_editarTarea.php" method="post" style="display: none;">
-                                                    <div class="modal-body bodyModalInfo">
+                                                    <p class="fs-6">Tarea N° <?php echo $listTarea[0]; ?></p>
 
-                                                        <p class="fs-6">Tarea N° <?php echo $listTarea[0]; ?></p>
+                                                    <input type="hidden" name="nroArreglo" value="<?php echo $listTarea[0]; ?>">
 
-                                                        <input type="hidden" name="nroArreglo" value="<?php echo $listTarea[0]; ?>">
-
-                                                        <div class="form-floating mb-3">
-                                                            <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" disabled>
-                                                                <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?></option>
-                                                                <?php
-                                                                foreach ($listMotivos as $motivo) {
-                                                                ?>
-                                                                    <option value="<?php echo $motivo[0]; ?>">
-                                                                        <?php
-                                                                        echo $motivo[1];
-                                                                        ?>
-                                                                    </option>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                            <label for="floatingSelect">Motivo del incoveniente</label>
-                                                        </div>
-
-                                                        <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
-                                                            <label for="floatingTextarea">Descripción</label>
-                                                        </div>
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                            <label for="floatingInput">IP</label>
-                                                        </div>
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" name="nombreApellido" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                            <label for="floatingInput">Nombre y apellido del afectado/a</label>
-                                                        </div>
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" name="cel" value="<?php echo $listTarea[6]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                            <label for="floatingInput">Nro de celular de contacto</label>
-                                                        </div>
-
-
-                                                        <?php
-                                                        if ($listTarea[7] != '') {
-                                                        ?>
-                                                            <div class="form-floating mb-3">
-                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[7]; ?>    
-                                                            </textarea>
-                                                                <label for="floatingTextarea">Solución del incoveniente</label>
-                                                            </div>
-                                                        <?php
-                                                        }
-                                                        ?>
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" name="estadoTarea" value="<?php echo $listTarea[9]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                            <label for="floatingInput">Estado de la tarea</label>
-                                                        </div>
-
-                                                        <?php
-                                                        if ($listTarea[10] != '') {
-                                                        ?>
-                                                            <div class="form-floating mb-3">
-                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[10]; ?>    
-                                                            </textarea>
-                                                                <label for="floatingTextarea">Motivo de la cancelación</label>
-                                                            </div>
-                                                        <?php
-                                                        }
-                                                        ?>
-
-                                                        <?php
-                                                        $date = date_create($listTarea[11]);
-                                                        $fechaProblema = date_format($date, 'd/m/Y H:i:s');
-                                                        ?>
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" name="fechaProblema" value="<?php echo $fechaProblema; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                            <label for="floatingInput">Fecha del problema</label>
-                                                        </div>
-
-                                                        <?php
-                                                        if ($listTarea[12] != '') {
-                                                            $date = date_create($listTarea[12]);
-                                                            $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
-                                                        ?>
-                                                            <div class="form-floating mb-3">
-                                                                <input type="text" name="fechaSolucion" value="<?php echo $fechaSolucion; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                                <label for="floatingInput">Fecha de la solución</label>
-                                                            </div>
-                                                        <?php
-                                                        }
-                                                        ?>
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                            <label for="floatingInput">Área donde se desempeña</label>
-                                                        </div>
-
-
-
+                                                    <div class="form-floating mb-3">
+                                                        <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" disabled>
+                                                            <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?></option>
+                                                            <?php
+                                                            foreach ($listMotivos as $motivo) {
+                                                            ?>
+                                                                <option value="<?php echo $motivo[0]; ?>">
+                                                                    <?php
+                                                                    echo $motivo[1];
+                                                                    ?>
+                                                                </option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <label for="floatingSelect">Motivo del incoveniente</label>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
+
+                                                    <div class="form-floating mb-3">
+                                                        <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
+                                                        <label for="floatingTextarea">Descripción</label>
                                                     </div>
-                                                </form>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">IP</label>
+                                                    </div>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="nombreApellido" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Nombre y apellido del afectado/a</label>
+                                                    </div>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="cel" value="<?php echo $listTarea[6]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Nro de celular de contacto</label>
+                                                    </div>
+
+
+                                                    <?php
+                                                    if ($listTarea[7] != '') {
+                                                    ?>
+                                                        <div class="form-floating mb-3">
+                                                            <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[7]; ?>    
+                                                            </textarea>
+                                                            <label for="floatingTextarea">Solución del incoveniente</label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="estadoTarea" value="<?php echo $listTarea[9]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Estado de la tarea</label>
+                                                    </div>
+
+                                                    <?php
+                                                    if ($listTarea[10] != '') {
+                                                    ?>
+                                                        <div class="form-floating mb-3">
+                                                            <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[10]; ?>    
+                                                            </textarea>
+                                                            <label for="floatingTextarea">Motivo de la cancelación</label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                    <?php
+                                                    $date = date_create($listTarea[11]);
+                                                    $fechaProblema = date_format($date, 'd/m/Y H:i:s');
+                                                    ?>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="fechaProblema" value="<?php echo $fechaProblema; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Fecha del problema</label>
+                                                    </div>
+
+                                                    <?php
+                                                    if ($listTarea[12] != '') {
+                                                        $date = date_create($listTarea[12]);
+                                                        $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
+                                                    ?>
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="fechaSolucion" value="<?php echo $fechaSolucion; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Fecha de la solución</label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Área donde se desempeña</label>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -682,6 +681,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 </div>
 
+                <div class="table-responsive-xxl">
+                    <div id="tResultado">
+
+                    </div>
+                </div>
 
             </section>
         </body>

@@ -16,16 +16,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <style>
                 body {
                     /* fallback for old browsers */
-                    background: #6a11cb;
+                    background: whitesmoke;
                     /* Chrome 10-25, Safari 5.1-6 */
-                    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+                    background: -webkit-linear-gradient(to right, #a096c6, #8cbc84 ,#06ad95);
                     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+                    background: linear-gradient(to right, #a096c6, #8cbc84 ,#06ad95);
                     /*background-image: url('https://wallpaperaccess.com/full/2651841.jpg');*/
-                }
-
-                p {
-                    color: white;
                 }
 
                 section {
@@ -57,7 +53,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 .cajas .caja1 i {
                     font-size: 70px;
-                    color: white;
+                    color: gray;
                 }
 
                 .cajas .caja1:hover i {
@@ -132,8 +128,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     <p class="fs-5 text-center">Tareas</p>
 
                     <div class="principal">
-                        <div class="card text-bg-dark mb-3 principal" style="max-width: auto;">
-                            <div class="card-body caja1">
+                        <div class="card border-dark mb-3 principal" style="max-width: auto;">
+                            <div class="card-body caja1 text-dark">
                                 <div id="txtInfo">
                                     <h1 class="card-title"><?php echo $tareasTotal; ?></h1>
                                     <p class="card-text">Total de tareas</p>
@@ -144,8 +140,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     </div>
 
 
-                    <div class="card text-bg-secondary mb-3" style="max-width: auto;">
-                        <div class="card-body caja1">
+                    <div class="card border-secondary mb-3" style="max-width: auto;">
+                        <div class="card-body caja1 text-secondary">
                             <div id="txtInfo">
                                 <h1 class="card-title"><?php echo $tareasPendientes; ?></h1>
                                 <p class="card-text">Total de tareas 'Pendientes'</p>
@@ -154,8 +150,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         </div>
                     </div>
 
-                    <div class="card text-bg-primary mb-3" style="max-width: auto;">
-                        <div class="card-body caja1">
+                    <div class="card border-primary mb-3" style="max-width: auto;">
+                        <div class="card-body caja1 text-primary">
                             <div id="txtInfo">
                                 <h1 class="card-title"><?php echo $tareasEnProgreso; ?></h1>
                                 <p class="card-text">Total de tareas 'En progreso'</p>
@@ -164,8 +160,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         </div>
                     </div>
 
-                    <div class="card text-bg-success mb-3" style="max-width: auto;">
-                        <div class="card-body caja1">
+                    <div class="card border-success mb-3" style="max-width: auto;">
+                        <div class="card-body caja1 text-success">
                             <div id="txtInfo">
                                 <h1 class="card-title"><?php echo $tareasCompletas; ?></h1>
                                 <p class="card-text">Total de tareas 'Completas'</p>
@@ -174,8 +170,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         </div>
                     </div>
 
-                    <div class="card text-bg-danger mb-3" style="max-width: auto;">
-                        <div class="card-body caja1">
+                    <div class="card border-danger mb-3" style="max-width: auto;">
+                        <div class="card-body caja1 text-danger">
                             <div id="txtInfo">
                                 <h1 class="card-title"><?php echo $tareasCanceladas; ?></h1>
                                 <p class="card-text">Total de tareas 'Canceladas'</p>
@@ -188,8 +184,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     <?php
                     if ($_SESSION['rol'] == 2) {
                     ?>
-                        <div class="card text-bg-success mb-3 principal" style="max-width: auto;">
-                            <div class="card-body caja1">
+                        <div class="card border-success mb-3 principal" style="max-width: auto;">
+                            <div class="card-body caja1 text-success">
                                 <div id="txtInfo">
                                     <h1 class="card-title"><?php echo $nroCompletasUser; ?></h1>
                                     <p class="card-text">Total de tareas 'Completas' por <?php echo $_SESSION['nombreApellido']; ?></p>
@@ -206,38 +202,38 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     ?>
                         <p class="fs-5 text-center">Usuarios</p>
 
-                        <div class="card text-bg-dark mb-3 principal" style="max-width: auto;">
-                            <div class="card-body caja1">
+                        <div class="card border-dark mb-3 principal" style="max-width: auto;">
+                            <div class="card-body caja1 text-dark">
                                 <div id="txtInfo">
                                     <h1 class="card-title"><?php echo $totalUsuarios; ?></h1>
                                     <p class="card-text">Total de Usuarios</p>
                                 </div>
 
-                                <div class="card text-bg-info mb-3" style="max-width: auto;">
-                                    <div class="card-body caja1">
+                                <div class="card border-info mb-3" style="max-width: auto;">
+                                    <div class="card-body caja1 text-info">
                                         <div id="txtInfo">
                                             <h1 class="card-title"><?php echo $totalAdmin; ?></h1>
-                                            <p class="card-text" style="color: black;">Total de usuarios Administradores</p>
+                                            <p class="card-text">Total de usuarios Administradores</p>
                                         </div>
                                         <i class="bi bi-person-lines-fill"></i>
                                     </div>
                                 </div>
 
-                                <div class="card text-bg-info mb-3" style="max-width: auto;">
-                                    <div class="card-body caja1">
+                                <div class="card border-info mb-3" style="max-width: auto;">
+                                    <div class="card-body caja1 text-info">
                                         <div id="txtInfo">
                                             <h1 class="card-title"><?php echo $totalAgentes; ?></h1>
-                                            <p class="card-text" style="color: black;">Total de usuarios Agentes</p>
+                                            <p class="card-text">Total de usuarios Agentes</p>
                                         </div>
                                         <i class="bi bi-people-fill"></i>
                                     </div>
                                 </div>
 
-                                <div class="card text-bg-info mb-3" style="max-width: auto;">
-                                    <div class="card-body caja1">
+                                <div class="card border-info mb-3" style="max-width: auto;">
+                                    <div class="card-body caja1 text-info">
                                         <div id="txtInfo">
                                             <h1 class="card-title"><?php echo $totalEncargados; ?></h1>
-                                            <p class="card-text" style="color: black;">Total de usuarios encargados de los reclamos</p>
+                                            <p class="card-text">Total de usuarios encargados de los reclamos</p>
                                         </div>
                                         <i class="bi bi-person-video3"></i>
                                     </div>
@@ -252,8 +248,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                     <p class="fs-5 text-center">Áreas</p>
 
-                    <div class="card text-bg-dark mb-3 principal" style="max-width: auto;">
-                        <div class="card-body caja1">
+                    <div class="card border-dark mb-3 principal" style="max-width: auto;">
+                        <div class="card-body text-dark caja1">
                             <div id="txtInfo">
                                 <h1 class="card-title"><?php echo $totalAreas; ?></h1>
                                 <p class="card-text">Total de Áreas</p>
