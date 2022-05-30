@@ -15,6 +15,12 @@ switch ($accion) {
         $controller->listarTareasAdminContr();
         break;
 
+    case 'listarTareasEliminadas':
+        require('../controlador/c_admin.php');
+        $controller = new ControladorAdmin();
+        $controller->listarTareasEliminadasContr();
+        break;
+
     case 'listarAgentes':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();

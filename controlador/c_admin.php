@@ -45,6 +45,16 @@ class ControladorAdmin
         require('listarTareasAdmin.php');
     }
 
+    public function listarTareasEliminadasContr(){
+        echo ('<title>Listado de Tareas Eliminadas - Gestión ST</title>');
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listTareasEliminadas = $co->listarTareasEliminadas();
+        require('libreriaEstilos.php');
+        require('headerNav.php');
+        require('listaTareasEliminadas.php');
+    }
+
     public function listarAgentesContr()
     {
         echo ('<title>Listado de Agentes - Gestión ST</title>');

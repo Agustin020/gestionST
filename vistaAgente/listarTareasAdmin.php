@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
-    if ($_SESSION['rol'] == 3) {
+    if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -85,6 +85,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         }
                     })
                 })
+
+                function validarInputNumerico(valor) {
+                    const ip = /^[0-9.]+$/;
+                    if (!ip.test(valor.value)) {
+                        valor.value = valor.value.substring(0, valor.value.length - 1);
+                    }
+                }
             </script>
         </head>
 
@@ -234,11 +241,21 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <div class="form-floating mb-3">
                                                 <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
                                                 <label for="floatingTextarea">Descripción</label>
-                                            </div>                                            
+                                            </div>
 
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="ip" class="form-control" id="floatingInput" placeholder="Nombre del Afectado" required>
+                                                <input type="text" name="ip" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="Nombre del Afectado">
                                                 <label for="floatingInput">IP</label>
+                                            </div>
+
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="nombreApellidoAfectado" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                <label for="floatingInput">Nombre y apellido del afectado/a</label>
+                                            </div>
+
+                                            <div class="form-floating mb-3">
+                                                <input type="tel" name="cel" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                <label for="floatingInput">Nro de celular</label>
                                             </div>
 
                                             <div class="form-floating mb-3">
@@ -282,6 +299,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <th scope="col">Motivo</th>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">IP</th>
+                                    <th scope="col">Afectado/a</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
                                     <th scope="col">Fecha Solución</th>
@@ -299,6 +317,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <td><?php echo $listTarea[2]; ?></td>
                                         <td><?php echo $listTarea[3]; ?></td>
                                         <td><?php echo $listTarea[4]; ?></td>
+                                        <td><?php echo $listTarea[5]; ?></td>
                                         <td>
                                             <?php
                                             if ($listTarea[9] == 'Pendiente') {
@@ -336,6 +355,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     Acción
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                                    <li>
+                                                        <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVerInfo<?php echo $listTarea[0]; ?>">
+                                                            Ver más info
+                                                        </a>
+                                                    </li>
+
                                                     <?php
                                                     if ($listTarea[9] != 'Cancelado' && $listTarea[15] == 0) {
                                                     ?>
@@ -382,15 +408,184 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                             Editar tarea
                                                         </a>
                                                     </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="../controlador/c_eliminarTarea.php?id=<?php echo $listTarea[0]; ?>">
-                                                            Eliminar tarea
-                                                        </a>
-                                                    </li>
+                                                    <?php
+                                                    if ($_SESSION['rol'] == 3) {
+                                                    ?>
+                                                        <li>
+                                                            <a class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#modalEliminarTarea<?php echo $listTarea[0]; ?>">
+                                                                Eliminar tarea
+                                                            </a>
+                                                        </li>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <script>
+                                        function accionEliminar() {
+                                            event.preventDefault();
+                                            Swal.fire({
+                                                title: 'Aviso',
+                                                text: "Eliminar la tarea?",
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Confirmar',
+                                                cancelButtonText: 'Cancelar'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    document.getElementById('formEliminarTarea').submit();
+                                                }
+                                            })
+                                        }
+                                    </script>
+
+                                    <!-- Modal Ver Info Tarea -->
+                                    <div class="modal fade modalEditar" id="modalVerInfo<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Información de la tarea</h5>
+                                                    <button type="button" class="btn-close btnCerrarModalEditar" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body bodyModalInfo">
+
+                                                    <p class="fs-6">Tarea N° <?php echo $listTarea[0]; ?></p>
+
+                                                    <input type="hidden" name="nroArreglo" value="<?php echo $listTarea[0]; ?>">
+
+                                                    <div class="form-floating mb-3">
+                                                        <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" disabled>
+                                                            <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?></option>
+                                                            <?php
+                                                            foreach ($listMotivos as $motivo) {
+                                                            ?>
+                                                                <option value="<?php echo $motivo[0]; ?>">
+                                                                    <?php
+                                                                    echo $motivo[1];
+                                                                    ?>
+                                                                </option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <label for="floatingSelect">Motivo del incoveniente</label>
+                                                    </div>
+
+                                                    <div class="form-floating mb-3">
+                                                        <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
+                                                        <label for="floatingTextarea">Descripción</label>
+                                                    </div>
+
+                                                    <?php 
+                                                    if($listTarea[4] == '' || $listTarea[4] == null){
+                                                        $ip = 'No proporcionado';
+                                                    }else{
+                                                        $ip = $listTarea[4];
+                                                    }
+                                                    ?>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="ip" value="<?php echo $ip; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">IP</label>
+                                                    </div>
+
+                                                    <?php 
+                                                    if($listTarea[5] == '' || $listTarea[5] == null){
+                                                        $nombreApellidoAfectado = 'No proporcionado';
+                                                    }else{
+                                                        $nombreApellidoAfectado = $listTarea[5];
+                                                    }
+                                                    ?>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="nombreApellido" value="<?php echo $nombreApellidoAfectado; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Nombre y apellido del afectado/a</label>
+                                                    </div>
+
+                                                    <?php 
+                                                    if($listTarea[6] == '' || $listTarea[6] == null){
+                                                        $cel = 'No proporcionado';
+                                                    }else{
+                                                        $cel = $listTarea[5];
+                                                    }
+                                                    ?>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="cel" value="<?php echo $cel; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Nro de celular de contacto</label>
+                                                    </div>
+
+
+                                                    <?php
+                                                    if ($listTarea[7] != '') {
+                                                    ?>
+                                                        <div class="form-floating mb-3">
+                                                            <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[7]; ?>    
+                                                            </textarea>
+                                                            <label for="floatingTextarea">Solución del incoveniente</label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="estadoTarea" value="<?php echo $listTarea[9]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Estado de la tarea</label>
+                                                    </div>
+
+                                                    <?php
+                                                    if ($listTarea[10] != '') {
+                                                    ?>
+                                                        <div class="form-floating mb-3">
+                                                            <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[10]; ?>    
+                                                            </textarea>
+                                                            <label for="floatingTextarea">Motivo de la cancelación</label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                    <?php
+                                                    $date = date_create($listTarea[11]);
+                                                    $fechaProblema = date_format($date, 'd/m/Y H:i:s');
+                                                    ?>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="fechaProblema" value="<?php echo $fechaProblema; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Fecha del problema</label>
+                                                    </div>
+
+                                                    <?php
+                                                    if ($listTarea[12] != '') {
+                                                        $date = date_create($listTarea[12]);
+                                                        $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
+                                                    ?>
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="fechaSolucion" value="<?php echo $fechaSolucion; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Fecha de la solución</label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Área donde se desempeña</label>
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <!--Modal Asignar Tarea-->
                                     <div class="modal fade" id="modalAsignarTarea<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -590,6 +785,39 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                                         <button type="submit" class="btn btn-success">Terminar tarea</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal Eliminar Tarea -->
+                                    <div class="modal fade" id="modalEliminarTarea<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Eliminar tarea N°<?php echo $listTarea[0]; ?></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+
+                                                <form action="../controlador/c_eliminarTarea.php" id="formEliminarTarea" method="post" style="display: none;">
+
+                                                    <div class="modal-body">
+
+                                                        <p class="fs-6">Para eliminar la tarea debe completar lo siguiente</p>
+
+                                                        <input type="hidden" name="id" value="<?php echo $listTarea[0]; ?>">
+
+                                                        <div class="form-floating mb-3">
+                                                            <textarea class="form-control" name="motivoEliminacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                            <label for="floatingTextarea">Motivo de la eliminación</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="button" onclick="accionEliminar();" class="btn btn-danger">Eliminar tarea</button>
                                                     </div>
 
                                                 </form>

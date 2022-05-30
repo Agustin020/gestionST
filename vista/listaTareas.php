@@ -456,26 +456,44 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingSelect">Motivo del incoveniente</label>
                                                     </div>
 
-                                                    <div class="form-floating mb-3">
-                                                        <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
-                                                        <label for="floatingTextarea">Descripción</label>
-                                                    </div>
+                                                    <?php
+                                                    if ($listTarea[4] == '' || $listTarea[4] == null) {
+                                                        $ip = 'No proporcionado';
+                                                    } else {
+                                                        $ip = $listTarea[4];
+                                                    }
+                                                    ?>
 
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <input type="text" name="ip" value="<?php echo $ip; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
                                                         <label for="floatingInput">IP</label>
                                                     </div>
 
+                                                    <?php
+                                                    if ($listTarea[5] == '' || $listTarea[5] == null) {
+                                                        $nombreApellidoAfectado = 'No proporcionado';
+                                                    } else {
+                                                        $nombreApellidoAfectado = $listTarea[5];
+                                                    }
+                                                    ?>
+
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="nombreApellido" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <input type="text" name="nombreApellido" value="<?php echo $nombreApellidoAfectado; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
                                                         <label for="floatingInput">Nombre y apellido del afectado/a</label>
                                                     </div>
 
+                                                    <?php
+                                                    if ($listTarea[6] == '' || $listTarea[6] == null) {
+                                                        $cel = 'No proporcionado';
+                                                    } else {
+                                                        $cel = $listTarea[6];
+                                                    }
+                                                    ?>
+
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" name="cel" value="<?php echo $listTarea[6]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <input type="text" name="cel" value="<?php echo $cel; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
                                                         <label for="floatingInput">Nro de celular de contacto</label>
                                                     </div>
-
 
                                                     <?php
                                                     if ($listTarea[7] != '') {

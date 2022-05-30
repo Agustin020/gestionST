@@ -31,6 +31,14 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
             header('Location: ../vistaAgente/inicio.php');
             break;
+        case 4:
+            session_start();
+            $_SESSION['username'] = $user;
+            $_SESSION['dni'] = $co->listarDniUserActual($user);
+            $_SESSION['rol'] = $co->verificarTipoUsuario($user);
+            $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
+            header('Location: ../vistaAgente/inicio.php');
+            break;
         default:
             header('Location: ../vista/login.php');
             break;

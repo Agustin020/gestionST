@@ -48,6 +48,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             background-color: #6a11cb;
         }
 
+        nav #itemsNav #desplegarMenuTarea li {
+            border-left: 5px solid #6a11cb;
+
+        }
+
+        nav #itemsNav #desplegarMenuTarea li a {
+            padding-left: 10px;
+
+        }
     </style>
 
     <script>
@@ -80,6 +89,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     $('.pass').prop('type', 'password');
                 }
             })
+
+            $('#desplegarMenuTarea').hide();
+            $('#menuTarea').click(function() {
+                $('#desplegarMenuTarea').toggle(150);
+                $('#menuTarea i').toggleClass('bi bi-caret-up');
+
+            });
         });
 
         function verificarPassIguales(confirmarPass) {
@@ -209,9 +225,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         ?>
             <span class="fs-4 titlePage">Agente</span>
         <?php
-        } else {
+        } else if ($_SESSION['rol'] == 3) {
         ?>
             <span class="fs-4 titlePage">Admin</span>
+        <?php
+        } else {
+        ?>
+            <span class="fs-4 titlePage">Supervisor</span>
         <?php
         }
         ?>
@@ -219,13 +239,33 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
 
             <?php
-            if ($_SESSION['rol'] == 3) {
+            if ($_SESSION['rol'] == 4) {
             ?>
                 <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin"><i class="bi bi-list-check"></i>Tareas</a>
             <?php
-            } else {
+            } else if ($_SESSION['rol'] == 2) {
             ?>
                 <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas"><i class="bi bi-list-check"></i>Tareas</a>
+            <?php
+            } else if ($_SESSION['rol'] == 3) {
+            ?>
+                <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div id="textItem">
+                        <i class="bi bi-list-check"></i>
+                        <span style="margin-left: -5px;">
+                            Tareas
+                        </span>
+                    </div>
+                    <i class="bi bi-caret-down"></i>
+                </a>
+                <ul class="navbar-nav" id="desplegarMenuTarea">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin">Lista de tareas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasEliminadas">Tareas eliminadas</a>
+                    </li>
+                </ul>
             <?php
             }
             ?>

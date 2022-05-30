@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2022 a las 19:29:17
+-- Tiempo de generación: 30-05-2022 a las 19:28:16
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -135,19 +135,22 @@ CREATE TABLE `tareas` (
   `estadoTarea_id` int(11) DEFAULT NULL,
   `area_codigo` int(11) DEFAULT NULL,
   `usuario_dni` int(11) DEFAULT NULL,
-  `motivoCancelacion` varchar(500) DEFAULT NULL
+  `motivoCancelacion` varchar(500) DEFAULT NULL,
+  `motivoEliminacion` varchar(500) DEFAULT NULL,
+  `fechaEliminado` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tareas`
 --
 
-INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `area_codigo`, `usuario_dni`, `motivoCancelacion`) VALUES
-(23, 1, '12345', '192.168.0.0', 'Alguien', '2612634082', 'Solucionado', '2022-05-26 13:22:10', '2022-05-27 11:56:01', 3, 4005, 2000000, NULL),
-(24, 8, '1234', '192.168.10.120', 'Ejemplo', '2612634070', NULL, '2022-05-27 10:55:21', NULL, 2, 3006, 2000000, NULL),
-(25, 2, '12345525', '192.168.10.70', 'Ejemplo', '2612634091', NULL, '2022-05-27 11:12:01', NULL, 1, 3005, 0, NULL),
-(26, 2, 'wadjoidwio', '192.168.90.20', 'Ejemplo Alguien', '2612634082', NULL, '2022-05-27 12:59:15', NULL, 1, 4002, 0, NULL),
-(27, 3, 'dwdwawd', '192.168.10.10', 'Fernando Airodi', '2612634090', NULL, '2022-05-27 13:46:43', NULL, 5, 3003, 0, NULL);
+INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `area_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`) VALUES
+(23, 1, '12345', '192.168.0.0', 'Alguien', '2612634082', 'Solucionado', '2022-05-26 13:22:10', '2022-05-27 11:56:01', 3, 4005, 2000000, NULL, NULL, NULL),
+(24, 8, '1234', '192.168.10.120', 'Ejemplo', '2612634070', NULL, '2022-05-27 10:55:21', NULL, 2, 3006, 2000000, NULL, NULL, NULL),
+(30, 5, 'Ejemplo', '192.168.10.120', 'Alguien', '2612634090', NULL, '2022-05-30 09:16:13', NULL, 5, 2000, 0, NULL, '1234', '2022-05-30 12:49:14'),
+(31, 2, 'Ejemplo', '192.168.10.120', '', '', NULL, '2022-05-30 09:18:07', NULL, 1, 1001, 0, NULL, NULL, NULL),
+(32, 3, '122121e', '192.168.29.50', 'Fernando Airodi', '2612634098', NULL, '2022-05-30 09:33:21', NULL, 1, 4005, 0, NULL, NULL, NULL),
+(33, 2, 'ffwawfa', '', '', '', NULL, '2022-05-30 09:49:53', NULL, 1, 3004, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -195,6 +198,7 @@ INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contra
 (0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$Q1a0l/Dy8o24/mFgj8TuyeqJkjb/NW5aTZFdk805ADrC8aovd74ni', 1, NULL),
 (2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$IyctN/Vx3zkPUY4y0rZWquA4EFJY5eEZ2DNcbXDGSvURLhKryuxki', 2, NULL),
+(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$eNk63ius1xXgilJnWREtQud96EbZ.uJKqPo6lomA1cQibipAkjFJG', 4, NULL),
 (42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL);
 
 --
@@ -256,7 +260,7 @@ ALTER TABLE `motivos`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Restricciones para tablas volcadas

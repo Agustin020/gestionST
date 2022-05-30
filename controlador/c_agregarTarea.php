@@ -19,13 +19,13 @@ $rol = $_POST['rol'];
 'rol: ' . $rol . '<br>';*/
 
 if ($rol == 2) {
-    if ($co->agregarTareaAgente($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $area)) {
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $area)) {
         session_start();
         $_SESSION['tareaOK'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareas');
     }
 }else {
-    if ($co->agregarTareaAgente($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $area)) {
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $area)) {
         session_start();
         $_SESSION['tareaOK'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareasAdmin');
