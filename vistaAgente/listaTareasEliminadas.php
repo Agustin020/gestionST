@@ -96,35 +96,11 @@ if (isset($_SESSION['rol'])) {
                                                         Ver más info
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a class="dropdown-item" id="btnBaja" role="button" onclick="accionRestaurar();">
-                                                        Restaurar
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </td>
                                 </tr>
 
-                                <script>
-                                    function accionRestaurar() {
-                                        event.preventDefault();
-                                        Swal.fire({
-                                            title: 'Aviso',
-                                            text: "Restaurar la tarea N°<?php echo $tarea[0]; ?>?",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#3085d6',
-                                            cancelButtonColor: '#d33',
-                                            confirmButtonText: 'Confirmar',
-                                            cancelButtonText: 'Cancelar'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                location.href = '../controlador/c_restaurarTarea?nroArreglo=<?php echo $tarea[0]; ?>';
-                                            }
-                                        })
-                                    }
-                                </script>
 
                                 <!-- Modal Ver Info Tarea -->
                                 <div class="modal fade modalEditar" id="modalInfoTarea<?php echo $tarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

@@ -66,6 +66,17 @@ class ControladorAdmin
         require('listaAgentes.php');
     }
 
+    public function listarTareaAgenteContr($dni){
+        echo ('<title>Tareas de Agente - Gestión ST</title>');
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listTareaAgente = $co->listarTareaAgente($dni);
+        $agente = $co->listarUserActual($dni);
+        require('libreriaEstilos.php');
+        require('headerNav.php');
+        require('listarTareaAgente.php');
+    }
+
     public function listarAreasContr()
     {
         echo ('<title>Listado de Áreas - Gestión ST</title>');

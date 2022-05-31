@@ -113,7 +113,23 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 <td><?php echo $list[4]; ?></td>
                                 <td><?php echo $list[5]; ?></td>
                                 <td id="accion">
-                                    <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalMotivoCancelacion<?php echo $list[0]; ?>">Dar de Baja</a>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Acción
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                            <li>
+                                                <a type="button" class="dropdown-item" href="index.php?accion=listarTareaAgente&agente=<?php echo $list[0]; ?>">
+                                                    Ver tareas de <?php echo $list[1] . ' ' . $list[2]; ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalMotivoCancelacion<?php echo $list[0]; ?>">
+                                                    Dar de Baja
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
 

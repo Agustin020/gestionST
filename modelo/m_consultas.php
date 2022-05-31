@@ -41,6 +41,21 @@ class Consultas extends Conexion
         return $dni;
     }
 
+    public function listarUserActual($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT concat(u.nombre, ' ', u.apellido) from usuario u where u.dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $userActual = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $userActual;
+    }
+
     public function verificarTipoUsuario($usuario)
     {
         try {
@@ -267,6 +282,8 @@ class Consultas extends Conexion
         }
     }
 
+
+    //PAGE ADMIN
     public function listarAgentes()
     {
         try {
@@ -285,6 +302,29 @@ class Consultas extends Conexion
         }
         return $listEmpleados;
     }
+
+    public function listarTareaAgente($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT t.nroArreglo, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.nombre, t.motivoCancelacion, 
+                    t.fechaProblema, t.fechaSolucion, a.nombre, concat(u.nombre, ' ', u.apellido) as nombreApellido, t.motivoEliminacion
+                    from tareas t, motivos m, estadotarea e, areas a, usuario u 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.area_codigo = a.codigo and t.usuario_dni = u.dni and u.dni = '$dni' and t.estadoTarea_id < 5";
+            $result = mysqli_query($link, $sql);
+            $listTareaAgente = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listTareaAgente[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $listTareaAgente;
+    }
+
+
 
     //INICIO 
 
@@ -363,6 +403,8 @@ class Consultas extends Conexion
         }
         return $listTareasEliminadas;
     }
+
+    
 
     //TOMAR TAREA
     public function tomarTareaAgente($dni, $nroArreglo)

@@ -372,6 +372,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </li>
                                                     <?php
                                                     }
+                                                    ?>
+                                                    <?php
+                                                    if ($listTarea[9] != 'Cancelado' && $listTarea[15] == 0 && $_SESSION['rol'] == 4) {
+                                                    ?>
+                                                        <li>
+                                                            <a class="dropdown-item" href="../controlador/c_tomarTarea.php?id=<?php echo $listTarea[0]; ?>&dni=<?php echo $_SESSION['dni']; ?>">
+                                                                Asignarme la tarea
+                                                            </a>
+                                                        </li>
+                                                    <?php
+                                                    }
                                                     if ($listTarea[15] != 0 && $listTarea[9] != 'Completo') {
                                                     ?>
                                                         <li>
@@ -424,25 +435,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </td>
                                     </tr>
 
-                                    <script>
-                                        function accionEliminar() {
-                                            event.preventDefault();
-                                            Swal.fire({
-                                                title: 'Aviso',
-                                                text: "Eliminar la tarea?",
-                                                icon: 'warning',
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#3085d6',
-                                                cancelButtonColor: '#d33',
-                                                confirmButtonText: 'Confirmar',
-                                                cancelButtonText: 'Cancelar'
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    document.getElementById('formEliminarTarea').submit();
-                                                }
-                                            })
-                                        }
-                                    </script>
 
                                     <!-- Modal Ver Info Tarea -->
                                     <div class="modal fade modalEditar" id="modalVerInfo<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -481,10 +473,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingTextarea">Descripción</label>
                                                     </div>
 
-                                                    <?php 
-                                                    if($listTarea[4] == '' || $listTarea[4] == null){
+                                                    <?php
+                                                    if ($listTarea[4] == '' || $listTarea[4] == null) {
                                                         $ip = 'No proporcionado';
-                                                    }else{
+                                                    } else {
                                                         $ip = $listTarea[4];
                                                     }
                                                     ?>
@@ -494,10 +486,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingInput">IP</label>
                                                     </div>
 
-                                                    <?php 
-                                                    if($listTarea[5] == '' || $listTarea[5] == null){
+                                                    <?php
+                                                    if ($listTarea[5] == '' || $listTarea[5] == null) {
                                                         $nombreApellidoAfectado = 'No proporcionado';
-                                                    }else{
+                                                    } else {
                                                         $nombreApellidoAfectado = $listTarea[5];
                                                     }
                                                     ?>
@@ -507,10 +499,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingInput">Nombre y apellido del afectado/a</label>
                                                     </div>
 
-                                                    <?php 
-                                                    if($listTarea[6] == '' || $listTarea[6] == null){
+                                                    <?php
+                                                    if ($listTarea[6] == '' || $listTarea[6] == null) {
                                                         $cel = 'No proporcionado';
-                                                    }else{
+                                                    } else {
                                                         $cel = $listTarea[5];
                                                     }
                                                     ?>
@@ -817,8 +809,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="button" onclick="accionEliminar();" class="btn btn-danger">Eliminar tarea</button>
+                                                        <button type="submit" class="btn btn-danger">Eliminar tarea</button>
                                                     </div>
+
 
                                                 </form>
                                             </div>
