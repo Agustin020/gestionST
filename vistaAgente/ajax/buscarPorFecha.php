@@ -82,8 +82,9 @@ switch ($opcionBusqueda) {
                     </ul>
                 </div>
             </td>
-        </tr></tbody></table>';
+        </tr>';
         }
+        $html .= '</tbody></table>';
         break;
     case 2:
         $fechaSolucionInicio = $_POST['fechaSolucionInicio'];
@@ -144,8 +145,9 @@ switch ($opcionBusqueda) {
                     </ul>
                 </div>
             </td>
-        </tr></tbody></table>';
+        </tr>';
         }
+        $html .= '</tbody></table>';
         break;
 }
 

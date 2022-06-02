@@ -67,8 +67,8 @@ if (isset($_SESSION['rol'])) {
                                     }
                                 });
                             }
-                        }).done(function(){
-                            
+                        }).done(function() {
+
                         });
                     })
                 })
@@ -218,7 +218,7 @@ if (isset($_SESSION['rol'])) {
                                             </div>
                                         </td>
                                     </tr>
-                                            
+
                                     <!--Modal Ver más info-->
                                     <div class="modal fade modalEditar" id="modalInfoTarea<?php echo $tarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
@@ -350,7 +350,7 @@ if (isset($_SESSION['rol'])) {
                                                     <hr>
 
                                                     <?php
-                                                    if($tarea[8] != ''){
+                                                    if ($tarea[8] != '') {
                                                         $motivoCancelacion = $tarea[8];
                                                     }
                                                     ?>
@@ -362,7 +362,7 @@ if (isset($_SESSION['rol'])) {
                                                     </div>
 
                                                     <?php
-                                                    if($tarea[13] != ''){
+                                                    if ($tarea[13] != '') {
                                                         $motivoEliminacion = $tarea[13];
                                                     }
                                                     ?>
@@ -388,7 +388,13 @@ if (isset($_SESSION['rol'])) {
                     </div>
 
                     <div id="tResultado">
+                        <?php
+                        foreach ($listTareaAgente as $tarea) {
+                        ?>
 
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
 
