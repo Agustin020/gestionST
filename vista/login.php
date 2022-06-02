@@ -72,8 +72,8 @@
         }
 
         button:active {
-            background-color: #3F11CB;
-            border: 2px solid #3F11CB;
+            background-color: #6610f2;
+            border: 2px solid #6610f2;
             box-shadow: 0 0 0 1px #3F11CB;
         }
     </style>

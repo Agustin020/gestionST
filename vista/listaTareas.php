@@ -43,164 +43,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
         <script>
             $(document).ready(function() {
-                $('input[name=radioFiltro]').prop('checked', false);
-                $('input[name=fechaProblemaFiltro]').val(0);
-                $('select[name=selectAgentes]').val(0);
-                $('.selectAgentes').prop('value', '');
-
-                function addZero(i) {
-                    if (i < 10) {
-                        i = "0" + i
-                    }
-                    return i;
-                }
-
-                const dNow = new Date();
-                let h = addZero(dNow.getHours());
-                let m = addZero(dNow.getMinutes());
-
-                let time = h + ":" + m;
-                var localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + time;
                 $('#tablaDinamicaLoad').DataTable({
                     language: {
                         "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                     }
                 })
             })
-
-            //FILTROS BUSQUEDA DE TAREAS
-            function validarRadios(radio) {
-                var radioValor = radio.value;
-                $('input[name=fechaProblemaFiltro]').val(0);
-                $('input[name=fechaSolucionFiltro]').val(0);
-                $('select[name=selectAgentes]').val(0);
-                if (radioValor != null) {
-                    $('#tPrincipal').hide();
-                    $('#tResultado').show();
-                    enviarDatosRadioPost(radioValor);
-                } else {
-                    $('#tPrincipal').show();
-                    $('#tResultado').hide();
-                }
-            }
-
-            function buscarPorFechaProblema(fecha) {
-                var fechaProblema = fecha.value;
-                $('input[name=radioFiltro]').prop('checked', false);
-                $('input[name=fechaSolucionFiltro]').val(0);
-                $('select[name=selectAgentes]').val(0);
-                if (fechaProblema != null) {
-                    $('#tPrincipal').hide();
-                    $('#tResultado').show();
-                    buscarPorFechaProblemaAjax(fechaProblema);
-                } else {
-                    $('#tPrincipal').show();
-                    $('#tResultado').hide();
-                }
-            }
-
-            function buscarPorFechaSolucion(fecha) {
-                var fechaSolucion = fecha.value;
-                $('input[name=radioFiltro]').prop('checked', false);
-                $('input[name=fechaProblemaFiltro]').val(0);
-                $('select[name=selectAgentes]').val(0);
-                if (fechaSolucion != null) {
-                    $('#tPrincipal').hide();
-                    $('#tResultado').show();
-                    buscarPorFechaSolucionAjax(fechaSolucion);
-                } else {
-                    $('#tPrincipal').show();
-                    $('#tResultado').hide();
-                }
-            }
-
-            function mostrarTareaAgente(valSelect) {
-                var dni = valSelect.value;
-                $('input[name=radioFiltro]').prop('checked', false);
-                $('input[name=fechaProblemaFiltro]').val(0);
-                $('input[name=fechaSolucionFiltro]').val(0);
-                if (dni != null) {
-                    $('#tPrincipal').hide();
-                    $('#tResultado').show();
-                    enviarDatosSelectAgente(dni);
-                } else {
-                    $('#tPrincipal').show();
-                    $('#tResultado').hide();
-                }
-            }
-
-            function validarSelectEstado_Agente(valSelect) {
-                var estado = valSelect.value;
-                if (estado > 1) {
-                    $('.selectAgentes').prop('required', 'required');
-                    $('.selectAgentes').prop('value', '');
-                } else {
-                    $('.selectAgentes').prop('required', false);
-                }
-            }
-
-            function mostrarCampoCancelar() {
-                $('#inputMotivoCancelacion').show();
-            }
-
-
-            //AJAX
-
-
-            /*$(function() {
-                $('#selectAgente').change(function() {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'filtrosTareas/filtroSelectAgente.php',
-                        data: 'dni=' + $('#selectAgente').val(),
-                        success: function(r) {
-                            $('#tResultado').html(r);
-                            $('#tPrincipal').hide();
-                            $('#tablaAjax').DataTable({
-                                "destroy": true, //use for reinitialize datatable
-                            });
-                        }
-                    });
-                })
-            })*/
-
-
-
-            function enviarDatosRadioPost(radioValor) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'filtrosTareas/filtroRadios.php',
-                    data: 'valor=' + radioValor,
-                    success: function(r) {
-                        $('#tResultado').html(r);
-                    }
-                });
-            }
-
-            //FILTROS DATE
-            function buscarPorFechaProblemaAjax(fecha) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'filtrosTareas/filtroFechaProblema.php',
-                    data: 'fechaProblema=' + fecha,
-                    success: function(r) {
-                        $('#tResultado').html(r);
-
-                    }
-                });
-            }
-
-            function buscarPorFechaSolucionAjax(fecha) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'filtrosTareas/filtroFechaSolucion.php',
-                    data: 'fechaSolucion=' + fecha,
-                    success: function(r) {
-                        $('#tResultado').html(r);
-                    }
-                });
-            }
-
 
             function validarInputNumerico(valor) {
                 const ip = /^[0-9.]+$/;
@@ -254,6 +102,20 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     </script>
                 <?php
                     unset($_SESSION['tareaEditada']);
+                }
+                if ($_SESSION['tareaCancelada']) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            position: 'bottom-end',
+                            icon: 'success',
+                            title: 'La tarea ha sido modificada',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    </script>
+                <?php
+                    unset($_SESSION['tareaCancelada']);
                 }
                 ?>
 

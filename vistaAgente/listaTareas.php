@@ -65,7 +65,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
                                 messageTop: 'Reporte: ' + localdate,
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                 }
                             },
                             {
@@ -76,7 +76,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 messageTop: 'Reporte: ' + localdate,
                                 title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                 },
                             },
                         ],
@@ -85,43 +85,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         }
                     })
                 })
-
-                function mostrarFiltrosRadios(valor) {
-                    var radio = valor.value;
-                    var user = $('#usuario').val();
-                    if (radio != null) {
-                        $('#tPrincipal').hide();
-                        $('#tResultado').show();
-                        filtrosRadiosAjax(radio, user);
-                    } else {
-                        $('#tPrincipal').show();
-                        $('#tResultado').hide();
-                    }
-                }
-
-                //AJAX
-                function filtrosRadiosAjax(radio, user) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'filtrosTareas/filtroRadios.php',
-                        data: 'radioValor=' + radio + '&user=' + user,
-                        success: function(r) {
-                            $('#tResultado').html(r);
-                        }
-                    })
-                }
-
-                //Nro arreglo
-                function comprobarNroArreglo(nroArreglo) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'validacionDatosRepetidos/validarNroArreglo.php',
-                        data: 'nroArreglo=' + nroArreglo.value,
-                        success: function(r) {
-                            $('.nroArregloIgual').html(r);
-                        }
-                    });
-                }
 
                 function validarInputNumerico(valor) {
                     const ip = /^[0-9.]+$/;

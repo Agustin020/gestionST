@@ -28,11 +28,11 @@ if (isset($_SESSION['rol'])) {
                     text-align: center;
                 }
 
-                .fechaProblemaFiltro {
+                .fechaFiltro {
                     display: flex;
                 }
 
-                .fechaProblemaFiltro .inputs {
+                .fechaFiltro .inputs {
                     width: 300px;
                     margin-right: 10px;
                 }
@@ -52,11 +52,15 @@ if (isset($_SESSION['rol'])) {
                         var fechaProblemaFin = $('#fechaProblemaFin').val()
                         var fechaSolucionInicio = $('#fechaSolucionInicio').val()
                         var fechaSolucionFin = $('#fechaSolucionFin').val()
+                        //
+                        var fechaProblemaEspecifico = $('#fechaProblemaEspecifico').val();
+                        var fechaSolucionEspecifico = $('#fechaSolucionEspecifico').val();
                         $.ajax({
                             type: 'POST',
                             url: 'ajax/buscarPorFecha.php',
                             data: 'opcionBusqueda=' + opcion + '&fechaProblemaInicio=' + fechaProblemaInicio + '&fechaProblemaFin=' + fechaProblemaFin +
-                                '&fechaSolucionInicio=' + fechaSolucionInicio + '&fechaSolucionFin=' + fechaSolucionFin + '&dni=' + <?php echo $_GET['agente']; ?>,
+                                '&fechaSolucionInicio=' + fechaSolucionInicio + '&fechaSolucionFin=' + fechaSolucionFin + '&fechaProblemaEspecifico=' + fechaProblemaEspecifico + 
+                                '&fechaSolucionEspecifico=' + fechaSolucionEspecifico + '&dni=' + <?php echo $_GET['agente']; ?>,
                             success: function(r) {
                                 $('#tPrincipal').hide();
                                 $('#tResultado').show();
@@ -79,16 +83,32 @@ if (isset($_SESSION['rol'])) {
                     if (opcion == '') {
                         $('#fechaProblemaSection').hide();
                         $('#fechaSolucionSection').hide();
+                        $('#fechaProblemaEspecificoSection').hide();
+                        $('#fechaSolucionEspecificoSection').hide();
                         $('#tPrincipal').show();
                         $('#tResultado').hide();
                     } else if (opcion == 1) {
                         $('#fechaProblemaSection').show();
                         $('#fechaSolucionSection').hide();
+                        $('#fechaProblemaEspecificoSection').hide();
+                        $('#fechaSolucionEspecificoSection').hide();
                     } else if (opcion == 2) {
                         $('#fechaSolucionSection').show();
                         $('#fechaProblemaSection').hide();
+                        $('#fechaProblemaEspecificoSection').hide();
+                        $('#fechaSolucionEspecificoSection').hide();
                         /*$('#tPrincipal').hide();
                         $('#tResultado').show();*/
+                    } else if (opcion == 3) {
+                        $('#fechaProblemaEspecificoSection').show();
+                        $('#fechaProblemaSection').hide();
+                        $('#fechaSolucionSection').hide();
+                        $('#fechaSolucionEspecificoSection').hide();
+                    }else if(opcion == 4){
+                        $('#fechaSolucionEspecificoSection').show();
+                        $('#fechaProblemaSection').hide();
+                        $('#fechaSolucionSection').hide();
+                        $('#fechaProblemaEspecificoSection').hide();
                     }
                 }
 
@@ -112,12 +132,13 @@ if (isset($_SESSION['rol'])) {
                             <option value="" selected>Seleccione...</option>
                             <option value="1">Por rango de fechas de problemas</option>
                             <option value="2">Por rango de fechas de soluciones</option>
-                            <option value="3">Por rango de fechas de sol</option>
+                            <option value="3">Por un día en específico (Fecha del problema)</option>
+                            <option value="4">Por un día en específico (Fecha de la solución)</option>
                         </select>
                         <label for="floatingSelect">Seleccione la forma de buscar</label>
                     </div>
 
-                    <div id="fechaProblemaSection" class="fechaProblemaFiltro" style="display: none;">
+                    <div id="fechaProblemaSection" class="fechaFiltro" style="display: none;">
                         <div class="form-floating mb-3 inputs">
                             <input type="date" name="fechaProblemaInicio" class="form-control" id="fechaProblemaInicio" placeholder="...">
                             <label for="floatingInput">Fecha del Problema. Desde</label>
@@ -131,7 +152,7 @@ if (isset($_SESSION['rol'])) {
                         <hr style="grid-column: 1/3;">
                     </div>
 
-                    <div id="fechaSolucionSection" class="fechaProblemaFiltro" style="display: none;">
+                    <div id="fechaSolucionSection" class="fechaFiltro" style="display: none;">
                         <div class="form-floating mb-3 inputs">
                             <input type="date" name="fechaSolucionInicio" class="form-control" id="fechaSolucionInicio" placeholder="...">
                             <label for="floatingInput">Fecha de solución. Desde</label>
@@ -140,6 +161,20 @@ if (isset($_SESSION['rol'])) {
                         <div class="form-floating mb-3 inputs">
                             <input type="date" name="fechaFin" class="form-control" id="fechaSolucionFin" placeholder="...">
                             <label for="floatingInput">Fecha del solución. Hasta</label>
+                        </div>
+                    </div>
+
+                    <div id="fechaProblemaEspecificoSection" class="fechaFiltro" style="display: none;">
+                        <div class="form-floating mb-3 inputs">
+                            <input type="date" name="fechaFin" class="form-control" id="fechaProblemaEspecifico" placeholder="...">
+                            <label for="floatingInput">Fecha del problema</label>
+                        </div>
+                    </div>
+
+                    <div id="fechaSolucionEspecificoSection" class="fechaFiltro" style="display: none;">
+                    <div class="form-floating mb-3 inputs">
+                            <input type="date" name="fechaFin" class="form-control" id="fechaSolucionEspecifico" placeholder="...">
+                            <label for="floatingInput">Fecha de la solución</label>
                         </div>
                     </div>
 
@@ -352,25 +387,31 @@ if (isset($_SESSION['rol'])) {
                                                     <?php
                                                     if ($tarea[8] != '') {
                                                         $motivoCancelacion = $tarea[8];
-                                                    }
                                                     ?>
 
-                                                    <div class="form-floating mb-3">
-                                                        <textarea class="form-control" name="motivoEliminacion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px" disabled><?php echo $motivoCancelacion; ?>    
+                                                        <div class="form-floating mb-3">
+                                                            <textarea class="form-control" name="motivoEliminacion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 150px" disabled><?php echo $motivoCancelacion; ?>    
                                                             </textarea>
-                                                        <label for="floatingTextarea">Motivo de la cancelación</label>
-                                                    </div>
+                                                            <label for="floatingTextarea">Motivo de la cancelación</label>
+                                                        </div>
+
+                                                    <?php
+                                                    }
+                                                    ?>
 
                                                     <?php
                                                     if ($tarea[13] != '') {
                                                         $motivoEliminacion = $tarea[13];
-                                                    }
                                                     ?>
 
-                                                    <div class="form-floating mb-3">
-                                                        <input type="text" name="motivoEliminado" value="<?php echo $motivoEliminacion; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                        <label for="floatingInput">Motivo de la eliminación</label>
-                                                    </div>
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="motivoEliminado" value="<?php echo $motivoEliminacion; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Motivo de la eliminación</label>
+                                                        </div>
+
+                                                    <?php
+                                                    }
+                                                    ?>
 
 
                                                 </div>

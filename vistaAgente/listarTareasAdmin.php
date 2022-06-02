@@ -12,6 +12,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <title>Document</title>
 
             <style>
+                
+                
+
                 section {
                     margin-left: 180px;
                     padding: 15px;
@@ -65,7 +68,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
                                 messageTop: 'Reporte: ' + localdate,
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                                 }
                             },
                             {
@@ -76,7 +79,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 messageTop: 'Reporte: ' + localdate,
                                 title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                                 },
                             },
                         ],
