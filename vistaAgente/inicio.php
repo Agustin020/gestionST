@@ -16,12 +16,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <style>
                 body {
                     /* fallback for old browsers */
-                    background: whitesmoke;
-                    /* Chrome 10-25, Safari 5.1-6 */
-                    background: -webkit-linear-gradient(to right, #a096c6, #8cbc84 ,#06ad95);
-                    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                    background: linear-gradient(to right, #a096c6, #8cbc84 ,#06ad95);
-                    /*background-image: url('https://wallpaperaccess.com/full/2651841.jpg');*/
+                    background-color: #e6ece8;
+                    
                 }
 
                 section {

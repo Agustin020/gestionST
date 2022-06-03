@@ -71,6 +71,7 @@ class ControladorAdmin
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listTareaAgente = $co->listarTareaAgente($dni);
+        $listEstados = $co->listarEstadoTarea();
         $agente = $co->listarUserActual($dni);
         require('libreriaEstilos.php');
         require('headerNav.php');

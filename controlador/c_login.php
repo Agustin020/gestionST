@@ -28,6 +28,7 @@ if ($co->autenticarUsuario($user, $password)) {
             session_start();
             $_SESSION['username'] = $user;
             $_SESSION['rol'] = $co->verificarTipoUsuario($user);
+            $_SESSION['dni'] = $co->listarDniUserActual($user);
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
             header('Location: ../vistaAgente/inicio.php');
             break;

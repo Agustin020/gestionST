@@ -13,7 +13,7 @@ $rol = $_POST['rol'];
 
 if ($co->editarDatosUsuario($dni, $nombre, $apellido, $correo, $user, $pass, $userAnterior)) {
     session_start();
-    if ($rol == 2 || $rol == 3) {
+    if ($rol == 2 || $rol == 3 || $rol == 4) {
         $_SESSION['datosAct'] = true;
         header('Location: ../vistaAgente/inicio.php');
     } else if ($rol == 1) {
@@ -22,7 +22,7 @@ if ($co->editarDatosUsuario($dni, $nombre, $apellido, $correo, $user, $pass, $us
     }
 } else {
     session_start();
-    if ($rol == 2 || $rol == 3) {
+    if ($rol == 2 || $rol == 3 || $rol == 4) {
         $_SESSION['datosActError'] = true;
         header('Location: ../vistaAgente/inicio.php');
     } else if ($rol == 1) {

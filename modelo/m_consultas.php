@@ -404,7 +404,7 @@ class Consultas extends Conexion
         return $listTareasEliminadas;
     }
 
-    
+
 
     //TOMAR TAREA
     public function tomarTareaAgente($dni, $nroArreglo)
@@ -741,13 +741,13 @@ class Consultas extends Conexion
         }
     }
 
-    public function quitarTareaAdmin($idRol, $dni)
+    public function quitarTareaAdmin($dni)
     {
         try {
             $link = parent::Conexion();
-            if ($idRol == 3) {
-                $sql = "UPDATE tareas SET usuario_dni = '0' WHERE usuario_dni = '$dni' AND estadoTarea_id = 1 OR estadoTarea_id = 2";
-            }
+
+            $sql = "UPDATE tareas SET usuario_dni = '0' WHERE usuario_dni = '$dni' AND estadoTarea_id = 1 OR estadoTarea_id = 2";
+
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

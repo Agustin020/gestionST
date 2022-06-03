@@ -283,7 +283,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Áreas</a>
 
             <?php
-            if ($_SESSION['3']) {
+            if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
             ?>
                 <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuarios"><i class="bi bi-people"></i></i>Usuarios</a>
             <?php

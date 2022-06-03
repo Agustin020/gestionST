@@ -59,7 +59,7 @@ if (isset($_SESSION['rol'])) {
                             type: 'POST',
                             url: 'ajax/buscarPorFecha.php',
                             data: 'opcionBusqueda=' + opcion + '&fechaProblemaInicio=' + fechaProblemaInicio + '&fechaProblemaFin=' + fechaProblemaFin +
-                                '&fechaSolucionInicio=' + fechaSolucionInicio + '&fechaSolucionFin=' + fechaSolucionFin + '&fechaProblemaEspecifico=' + fechaProblemaEspecifico + 
+                                '&fechaSolucionInicio=' + fechaSolucionInicio + '&fechaSolucionFin=' + fechaSolucionFin + '&fechaProblemaEspecifico=' + fechaProblemaEspecifico +
                                 '&fechaSolucionEspecifico=' + fechaSolucionEspecifico + '&dni=' + <?php echo $_GET['agente']; ?>,
                             success: function(r) {
                                 $('#tPrincipal').hide();
@@ -71,10 +71,28 @@ if (isset($_SESSION['rol'])) {
                                     }
                                 });
                             }
-                        }).done(function() {
-
-                        });
+                        })
                     })
+
+                    $('select[name=selectEstados]').change(function() {
+                        var opcionEstadoTarea = $('#selectEstados').val();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'ajax/filtroEstado.php',
+                            data: 'opcionEstado=' + opcionEstadoTarea,
+                            success: function(r) {
+                                $('#tPrincipal').hide();
+                                $('#tResultado').show();
+                                $('#tResultado').html(r);
+                                $('#tablaAjax').DataTable({
+                                    language: {
+                                        "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                                    }
+                                });
+                            }
+                        })
+                    });
                 })
 
                 function filtrosBusqueda(valorOpcion) {
@@ -85,6 +103,7 @@ if (isset($_SESSION['rol'])) {
                         $('#fechaSolucionSection').hide();
                         $('#fechaProblemaEspecificoSection').hide();
                         $('#fechaSolucionEspecificoSection').hide();
+                        $('#estadoTareaSection').hide();
                         $('#tPrincipal').show();
                         $('#tResultado').hide();
                     } else if (opcion == 1) {
@@ -92,11 +111,13 @@ if (isset($_SESSION['rol'])) {
                         $('#fechaSolucionSection').hide();
                         $('#fechaProblemaEspecificoSection').hide();
                         $('#fechaSolucionEspecificoSection').hide();
+                        $('#estadoTareaSection').hide();
                     } else if (opcion == 2) {
                         $('#fechaSolucionSection').show();
                         $('#fechaProblemaSection').hide();
                         $('#fechaProblemaEspecificoSection').hide();
                         $('#fechaSolucionEspecificoSection').hide();
+                        $('#estadoTareaSection').hide();
                         /*$('#tPrincipal').hide();
                         $('#tResultado').show();*/
                     } else if (opcion == 3) {
@@ -104,11 +125,19 @@ if (isset($_SESSION['rol'])) {
                         $('#fechaProblemaSection').hide();
                         $('#fechaSolucionSection').hide();
                         $('#fechaSolucionEspecificoSection').hide();
-                    }else if(opcion == 4){
+                        $('#estadoTareaSection').hide();
+                    } else if (opcion == 4) {
                         $('#fechaSolucionEspecificoSection').show();
                         $('#fechaProblemaSection').hide();
                         $('#fechaSolucionSection').hide();
                         $('#fechaProblemaEspecificoSection').hide();
+                        $('#estadoTareaSection').hide();
+                    } else if (opcion == 5) {
+                        $('#fechaSolucionEspecificoSection').hide();
+                        $('#fechaProblemaSection').hide();
+                        $('#fechaSolucionSection').hide();
+                        $('#fechaProblemaEspecificoSection').hide();
+                        $('#estadoTareaSection').show();
                     }
                 }
 
@@ -134,6 +163,7 @@ if (isset($_SESSION['rol'])) {
                             <option value="2">Por rango de fechas de soluciones</option>
                             <option value="3">Por un día en específico (Fecha del problema)</option>
                             <option value="4">Por un día en específico (Fecha de la solución)</option>
+                            <option value="5">Por estado de la tarea</option>
                         </select>
                         <label for="floatingSelect">Seleccione la forma de buscar</label>
                     </div>
@@ -172,11 +202,34 @@ if (isset($_SESSION['rol'])) {
                     </div>
 
                     <div id="fechaSolucionEspecificoSection" class="fechaFiltro" style="display: none;">
-                    <div class="form-floating mb-3 inputs">
+                        <div class="form-floating mb-3 inputs">
                             <input type="date" name="fechaFin" class="form-control" id="fechaSolucionEspecifico" placeholder="...">
                             <label for="floatingInput">Fecha de la solución</label>
                         </div>
                     </div>
+
+                    <div id="estadoTareaSection" class="fechaFiltro" style="display: none;">
+                        <div class="form-floating mb-3 inputs">
+                            <select class="form-select" name="selectEstados" id="selectEstados" aria-label="Floating label select example" required>
+                                <option value="" selected>Seleccione...</option>
+                                <?php
+                                foreach ($listEstados as $estado) {
+                                    if ($estado[0] != 1 && $estado[0] != 5) {
+                                ?>
+                                        <option value="<?php echo $estado[0]; ?>">
+                                            <?php
+                                            echo $estado[1];
+                                            ?>
+                                        </option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                        </div>
+                    </div>
+                </div>
 
                 </div>
 

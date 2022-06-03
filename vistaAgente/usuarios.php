@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
-    if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3) {
+    if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -128,7 +128,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 <div id="textButton">
                     <div id="text">
-                        <p class="fs-6 bg-white">Nota: Si se quiere elevar el Rol de un Encargado o Agente a Admin. Se le eliminarán las tareas asignadas <b>Pendientes y En Progreso</b></p>
+                        <p class="fs-6 bg-white">Nota: Si se quiere elevar el Rol de un Agente a Admin. Se le eliminarán las tareas asignadas <b>Pendientes y En Progreso</b></p>
                         <p class="fs-6">Las <b>Completas</b> no se eliminarán ya que quedara como registro de que el Agente completó las tareas asignadas</p>
                     </div>
 
@@ -224,11 +224,20 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                 <?php
                                 foreach ($listUsuarios as $usuarios) {
+                                    if ($usuarios[5] != 'Admin' && $_SESSION['rol'] == 4 && $usuarios[0] != $_SESSION['dni']) {
                                 ?>
-                                    <option value="<?php echo $usuarios[0]; ?>">
-                                        <?php echo $usuarios[1] . ' ' . $usuarios[2] . ' - ' . $usuarios[3] . ' - ' . $usuarios[4] . ' - ' . $usuarios[5]; ?>
-                                    </option>
+                                        <option value="<?php echo $usuarios[0]; ?>">
+                                            <?php echo $usuarios[1] . ' ' . $usuarios[2] . ' - ' . $usuarios[3] . ' - ' . $usuarios[4] . ' - ' . $usuarios[5]; ?>
+                                        </option>
+                                    <?php
+                                    }
+                                    if ($_SESSION['rol'] == 3 && $usuarios[0] != $_SESSION['dni']) {
+                                    ?>
+                                        <option value="<?php echo $usuarios[0]; ?>">
+                                            <?php echo $usuarios[1] . ' ' . $usuarios[2] . ' - ' . $usuarios[3] . ' - ' . $usuarios[4] . ' - ' . $usuarios[5]; ?>
+                                        </option>
                                 <?php
+                                    }
                                 }
                                 ?>
                             </select>
@@ -243,9 +252,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 <option value="" selected>Seleccione...</option>
                                 <?php
                                 foreach ($listRoles as $roles) {
+                                    if ($_SESSION['rol'] == 4 && $roles[0] != 3) {
                                 ?>
-                                    <option value="<?php echo $roles[0] ?>"><?php echo $roles[1] ?></option>
+                                        <option value="<?php echo $roles[0] ?>"><?php echo $roles[1] ?></option>
+                                    <?php
+                                    }
+                                    if ($_SESSION['rol'] == 3) {
+                                    ?>
+                                        <option value="<?php echo $roles[0] ?>"><?php echo $roles[1] ?></option>
                                 <?php
+                                    }
                                 }
                                 ?>
                             </select>

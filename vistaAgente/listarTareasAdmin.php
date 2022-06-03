@@ -12,8 +12,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <title>Document</title>
 
             <style>
-                
-                
 
                 section {
                     margin-left: 180px;
