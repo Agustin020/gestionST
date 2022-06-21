@@ -32,10 +32,10 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->listarTareaAgenteContr($dni);
         break;
-    case 'listarAreas':
+    case 'listarDirecciones':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
-        $controller->listarAreasContr();
+        $controller->listarDireccionesContr();
         break;
     case 'listarUsuarios':
         require('../controlador/c_admin.php');

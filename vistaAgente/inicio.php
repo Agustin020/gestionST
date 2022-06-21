@@ -114,7 +114,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             $totalAgentes = $co->contarAgentes();
             $totalEncargados = $co->contarEncargados();
             //Areas
-            $totalAreas = $co->contarAreas();
+            $totalAreas = $co->contarDirecciones();
             ?>
 
             <section>

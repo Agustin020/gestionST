@@ -38,7 +38,7 @@
     <form action="ej.php" method="post">
         <label for="">Generar contraseña</label>
         <input type="text" name="pass" id="">
-        <button name="btnEnviar" onclick="mostrarConfirm();" type="button">Enviar</button>
+        <button name="btnEnviar" type="submit">Enviar</button>
     </form>
 </body>
 

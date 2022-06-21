@@ -13,7 +13,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <style>
                 section {
                     margin-left: 180px;
-                    padding: 10px;
+                    padding: 15px;
                 }
 
                 table {
@@ -58,49 +58,49 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <?php
             error_reporting(0);
 
-            if ($_SESSION['areaOk'] == true) {
+            if ($_SESSION['direccionOk'] == true) {
             ?>
                 <script>
                     Swal.fire({
                         position: 'bottom-end',
                         icon: 'success',
-                        title: 'El área ha sido añadida exitosamente',
+                        title: 'La dirección ha sido añadida exitosamente',
                         showConfirmButton: false,
                         timer: 1500
                     })
                 </script>
             <?php
-                unset($_SESSION['areaOk']);
+                unset($_SESSION['direccionOk']);
             }
 
-            if ($_SESSION['areaEditada'] == true) {
+            if ($_SESSION['direccionEditada'] == true) {
             ?>
                 <script>
                     Swal.fire({
                         position: 'bottom-end',
                         icon: 'success',
-                        title: 'El área ha sido modificada',
+                        title: 'La dirección ha sido modificada',
                         showConfirmButton: false,
                         timer: 1500
                     })
                 </script>
             <?php
-                unset($_SESSION['editadoOk']);
+                unset($_SESSION['direccionEditada']);
             }
 
-            if ($_SESSION['areaEditadaError']) {
+            if ($_SESSION['direccionEditadaError']) {
             ?>
                 <script>
                     Swal.fire({
                         position: 'bottom-end',
                         icon: 'success',
-                        title: 'El área no se ha podido modificar. Verificar el código',
+                        title: 'La Dirección no se ha podido modificar. Verificar el código',
                         showConfirmButton: false,
                         timer: 1500
                     })
                 </script>
             <?php
-                unset($_SESSION['areaEditadaError']);
+                unset($_SESSION['direccionEditadaError']);
             }
 
             if ($_SESSION['eliminadoOk'] == true) {
@@ -109,7 +109,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     Swal.fire({
                         position: 'bottom-end',
                         icon: 'success',
-                        title: 'El área ha sido eliminada',
+                        title: 'La Dirección ha sido eliminada',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -121,15 +121,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             ?>
 
             <section>
-                <p class="fs-5">Lista de Áreas</p>
+                <p class="fs-5">Lista de Direcciones de la Municipalidad</p>
                 <hr>
 
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Agregar Área o Sector
+                    Agregar Dirección
                 </button>
 
                 <!--Modal Nueva Area-->
-                <form action="../controlador/c_agregarArea.php" method="post">
+                <form action="../controlador/c_agregarDireccion.php" method="post">
 
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -149,8 +149,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" name="area" class="form-control" id="floatingInput" placeholder="ejemplo" required>
-                                        <label for="floatingInput">Nombre del Área o Sector</label>
+                                        <input type="text" name="direccion" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                        <label for="floatingInput">Nombre de la dirección</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
@@ -179,12 +179,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($listAreas as $departamentos) {
+                        foreach ($listDirecciones as $direccion) {
                         ?>
                             <tr>
-                                <td><?php echo $departamentos[0]; ?></td>
-                                <td><?php echo $departamentos[1]; ?></td>
-                                <td><?php echo $departamentos[2]; ?></td>
+                                <td><?php echo $direccion[0]; ?></td>
+                                <td><?php echo $direccion[1]; ?></td>
+                                <td><?php echo $direccion[2]; ?></td>
                                 <td id="accion">
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -192,45 +192,43 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                             <li>
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditar<?php echo $departamentos[0]; ?>">
+                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditar<?php echo $direccion[0]; ?>">
                                                     Editar
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="dropdown-item" id="btnBaja" href="../controlador/c_eliminarArea.php?codigo=<?php echo $departamentos[0]; ?>">
-                                                    Eliminar
-                                                </a>
-                                            </li>
+                                            
                                         </ul>
                                     </div>
                                 </td>
                             </tr>
 
                             <!-- Modal Editar Area-->
-                            <div class="modal fade" id="modalEditar<?php echo $departamentos[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="modalEditar<?php echo $direccion[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Editar Área</h5>
+                                            <h5 class="modal-title" id="staticBackdropLabel">Editar Dirección</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="../controlador/c_editarArea.php" method="post" style="display: none;">
+                                        <form action="../controlador/c_editarDireccion.php" method="post" style="display: none;">
                                             <div class="modal-body">
 
                                                 <p class="fs-6">Editar en caso de un error o algún cambio</p>
 
+                                                <input type="hidden" name="codigoAnterior" value="<?php echo $direccion[0]; ?>">
+
                                                 <div class="form-floating mb-3">
-                                                    <input type="number" name="codigo" value="<?php echo $departamentos[0]; ?>" class="form-control codigo" id="floatingInput" placeholder="ejemplo" onkeyup="comprobarCodigo(this)" required>
+                                                    <input type="number" name="codigo" value="<?php echo $direccion[0]; ?>" class="form-control codigo" id="floatingInput" placeholder="ejemplo" onkeyup="comprobarCodigo(this)" required>
                                                     <label for="floatingInput">Código (Debe ser númerico)</label>
                                                 </div>
 
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" name="area" value="<?php echo $departamentos[1]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                                    <input type="text" name="direccion" value="<?php echo $direccion[1]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo" required>
                                                     <label for="floatingInput">Nombre del Área o Sector</label>
                                                 </div>
 
                                                 <div class="form-floating mb-3">
-                                                    <textarea class="form-control" name="descripcion" value="<?php echo $departamentos[2]; ?>" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px"></textarea>
+                                                    <textarea class="form-control" name="descripcion" value="<?php echo $direccion[2]; ?>" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px"></textarea>
                                                     <label for="floatingTextarea">Descripción</label>
                                                 </div>
 

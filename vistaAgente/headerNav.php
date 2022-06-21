@@ -280,7 +280,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             }
             ?>
 
-            <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Áreas</a>
+            <a class="nav-link" aria-current="page" href="index.php?accion=listarDirecciones"><i class="bi bi-list-ul"></i>Áreas</a>
 
             <?php
             if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {

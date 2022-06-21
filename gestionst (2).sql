@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2022 a las 19:28:16
+-- Tiempo de generación: 21-06-2022 a las 13:40:29
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -145,12 +145,7 @@ CREATE TABLE `tareas` (
 --
 
 INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `area_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`) VALUES
-(23, 1, '12345', '192.168.0.0', 'Alguien', '2612634082', 'Solucionado', '2022-05-26 13:22:10', '2022-05-27 11:56:01', 3, 4005, 2000000, NULL, NULL, NULL),
-(24, 8, '1234', '192.168.10.120', 'Ejemplo', '2612634070', NULL, '2022-05-27 10:55:21', NULL, 2, 3006, 2000000, NULL, NULL, NULL),
-(30, 5, 'Ejemplo', '192.168.10.120', 'Alguien', '2612634090', NULL, '2022-05-30 09:16:13', NULL, 5, 2000, 0, NULL, '1234', '2022-05-30 12:49:14'),
-(31, 2, 'Ejemplo', '192.168.10.120', '', '', NULL, '2022-05-30 09:18:07', NULL, 1, 1001, 0, NULL, NULL, NULL),
-(32, 3, '122121e', '192.168.29.50', 'Fernando Airodi', '2612634098', NULL, '2022-05-30 09:33:21', NULL, 1, 4005, 0, NULL, NULL, NULL),
-(33, 2, 'ffwawfa', '', '', '', NULL, '2022-05-30 09:49:53', NULL, 1, 3004, 0, NULL, NULL, NULL);
+(36, 1, 'wdawddwwa', '192.168.29.50', 'AD', '2612634070', NULL, '2022-06-03 11:21:40', NULL, 2, 3005, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -197,8 +192,9 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`) VALUES
 (0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$Q1a0l/Dy8o24/mFgj8TuyeqJkjb/NW5aTZFdk805ADrC8aovd74ni', 1, NULL),
-(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$IyctN/Vx3zkPUY4y0rZWquA4EFJY5eEZ2DNcbXDGSvURLhKryuxki', 2, NULL),
-(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$eNk63ius1xXgilJnWREtQud96EbZ.uJKqPo6lomA1cQibipAkjFJG', 4, NULL),
+(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$fTydZAorPh.XWBjLmQWQUOdC2XeHJw/xhsYM.cX6FynDxxKP4qNtK', 3, NULL),
+(3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL),
+(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$3P.PayOLIRXMHHn97ynHru58P/Tsnakc65YyiaMSeWtkJ52WJqkIO', 4, NULL),
 (42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL);
 
 --
@@ -260,7 +256,7 @@ ALTER TABLE `motivos`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Restricciones para tablas volcadas

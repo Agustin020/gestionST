@@ -12,7 +12,7 @@ switch ($accion) {
     case 'listarAreas':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
-        $controller->listarAreasContr();
+        $controller->listarDireccionesContr();
         break;
 
 }

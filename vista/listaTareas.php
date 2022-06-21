@@ -187,10 +187,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                 <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
-                                                    foreach ($listAreas as $listadoAreas) {
+                                                    foreach ($listDirecciones as $direccion) {
                                                     ?>
-                                                        <option value="<?php echo $listadoAreas[0]; ?>">
-                                                            <?php echo $listadoAreas[1]; ?>
+                                                        <option value="<?php echo $direccion[0]; ?>">
+                                                            <?php echo $direccion[1]; ?>
                                                         </option>
                                                     <?php
                                                     }
@@ -225,7 +225,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <th scope="col">IP</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
-                                    <th scope="col">Área</th>
+                                    <th scope="col">Dirección</th>
                                     <th scope="col">Acción</th>
                                 </tr>
                             </thead>
@@ -481,10 +481,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                             <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
                                                                 <option value="<?php echo $listTarea[13]; ?>" selected><?php echo $listTarea[14]; ?> (Actual)</option>
                                                                 <?php
-                                                                foreach ($listAreas as $listadoAreas) {
+                                                                foreach ($listDirecciones as $direccion) {
                                                                 ?>
-                                                                    <option value="<?php echo $listadoAreas[0]; ?>">
-                                                                        <?php echo $listadoAreas[1]; ?>
+                                                                    <option value="<?php echo $direccion[0]; ?>">
+                                                                        <?php echo $direccion[1]; ?>
                                                                     </option>
                                                                 <?php
                                                                 }

@@ -9,7 +9,7 @@ class ControladorAdmin
         $co = new Consultas();
         $listMotivos = $co->listarMotivosProblemas();
         $listTareasEncargados = $co->listarTareasEncargados();
-        $listAreas = $co->listarAreas();
+        $listDirecciones = $co->listarDirecciones();
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('listaTareas.php');
@@ -23,7 +23,7 @@ class ControladorAdmin
         $listDatosAgentes = $co->listarAgentes();
         $listTareasAgentes = $co->listarTareasAgentes();
         $listMotivos = $co->listarMotivosProblemas();
-        $listAreas = $co->listarAreas();
+        $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
         require('libreriaEstilos.php');
         require('headerNav.php');
@@ -38,7 +38,7 @@ class ControladorAdmin
         $listDatosAgentes = $co->listarAgentes();
         $listTareasAgentes = $co->listarTareasAgentes();
         $listMotivos = $co->listarMotivosProblemas();
-        $listAreas = $co->listarAreas();
+        $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
         require('libreriaEstilos.php');
         require('headerNav.php');
@@ -78,15 +78,15 @@ class ControladorAdmin
         require('listarTareaAgente.php');
     }
 
-    public function listarAreasContr()
+    public function listarDireccionesContr()
     {
         echo ('<title>Listado de Áreas - Gestión ST</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
-        $listAreas = $co->listarAreas();
+        $listDirecciones = $co->listarDirecciones();
         require('libreriaEstilos.php');
         require('headerNav.php');
-        require('listaAreas.php');
+        require('listaDirecciones.php');
     }
     
 
