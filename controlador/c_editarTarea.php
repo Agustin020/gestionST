@@ -6,33 +6,54 @@ $co = new Consultas();
 $selectMotivos = $_POST['selectMotivos'];
 $descripcion = $_POST['descripcion'];
 $ip = $_POST['ip'];
-$selectArea = $_POST['selectArea'];
+$selectDireccion = $_POST['selectDireccion'];
 
-if(isset($_POST['motivoCancelacion'])){
+if (isset($_POST['nombreApellidoAfectado'])) {
+    $nombre_apellido = $_POST['nombreApellidoAfectado'];
+} else {
+    $nombre_apellido = '';
+}
+
+if (isset($_POST['cel'])) {
+    $cel = $_POST['cel'];
+} else {
+    $cel = '';
+}
+
+if (isset($_POST['motivoCancelacion'])) {
     $motivoCancelacion = $_POST['motivoCancelacion'];
-}else{
+} else {
     $motivoCancelacion = '';
 }
 
-if(isset($_POST['solucion'])){
+if (isset($_POST['solucion'])) {
     $solucion = $_POST['solucion'];
-}else{
+} else {
     $solucion = '';
 }
 
 $nroArreglo = $_POST['nroArreglo'];
 
-if($_SESSION['rol'] == 2){
-    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $selectArea, $motivoCancelacion, $solucion, $nroArreglo)) {
+/*echo 'nroArreglo: ' . $nroArreglo . '<br>' . 
+'selectMotivos: ' . $selectMotivos . '<br>' .
+'descripcion: ' . $descripcion . '<br>' .
+'ip: ' . $ip . '<br>' .
+'selectDireccion: ' . $selectDireccion . '<br>' .
+'nombreApellido: ' . $nombre_apellido . '<br>' .
+'celular: ' . $cel . '<br>' .
+'Motivo Cancelación: ' . $motivoCancelacion . '<br>' .
+'solucion: ' . $solucion . '<br>';*/
+
+if ($_SESSION['rol'] == 2) {
+    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $nroArreglo)) {
         session_start();
         $_SESSION['tareaEditada'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareas');
-    } 
-}else{
-    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $selectArea, $motivoCancelacion, $solucion, $nroArreglo)) {
+    }
+} else {
+    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $nroArreglo)) {
         session_start();
         $_SESSION['tareaEditada'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareasAdmin');
-    } 
+    }
 }
-

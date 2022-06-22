@@ -220,19 +220,19 @@ class Consultas extends Conexion
         return $listEstado;
     }
 
-    public function editarTareaAgente($selectMotivo, $descripcion, $ip, $codArea, $motivoCancelacion, $solucion, $nroArreglo)
+    public function editarTareaAgente($selectMotivo, $descripcion, $ip, $nombreApellido, $celular, $codDireccion, $motivoCancelacion, $solucion, $nroArreglo)
     {
         try {
 
             if ($motivoCancelacion != '' && $solucion == '') {
-                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', estadoTarea_id = '4', 
-                        area_codigo = '$codArea', motivoCancelacion = '$motivoCancelacion' where nroArreglo = '$nroArreglo'";
+                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', nombreApellidoAfectado = '$nombreApellido', celular = '$celular', descripcion = '$descripcion', ip = '$ip', 
+                        estadoTarea_id = '4', direccion_codigo = '$codDireccion', motivoCancelacion = '$motivoCancelacion' where nroArreglo = '$nroArreglo'";
             } else if ($solucion != '' && $motivoCancelacion == '') {
-                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', estadoTarea_id = '3', solucion = '$solucion',
-                        area_codigo = '$codArea' where nroArreglo = '$nroArreglo'";
+                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', nombreApellidoAfectado = '$nombreApellido', celular = '$celular', descripcion = '$descripcion', ip = '$ip', 
+                        estadoTarea_id = '3', solucion = '$solucion', direccion_codigo = '$codDireccion' where nroArreglo = '$nroArreglo'";
             } else {
-                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', 
-                        area_codigo = '$codArea' where nroArreglo = '$nroArreglo'";
+                $sql = "UPDATE tareas set id_motivos = '$selectMotivo', nombreApellidoAfectado = '$nombreApellido', celular = '$celular', descripcion = '$descripcion', ip = '$ip', 
+                        direccion_codigo = '$codDireccion' where nroArreglo = '$nroArreglo'";
             }
 
             $link = parent::Conexion();
@@ -308,7 +308,7 @@ class Consultas extends Conexion
         try {
             $link = parent::Conexion();
             $sql = "SELECT t.nroArreglo, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.nombre, t.motivoCancelacion, 
-                    t.fechaProblema, t.fechaSolucion, a.nombre, concat(u.nombre, ' ', u.apellido) as nombreApellido, t.motivoEliminacion
+                    t.fechaProblema, t.fechaSolucion, d.nombre, concat(u.nombre, ' ', u.apellido) as nombreApellido, t.motivoEliminacion
                     from tareas t, motivos m, estadotarea e, direcciones d, usuario u 
                     where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni and u.dni = '$dni' and t.estadoTarea_id < 5";
             $result = mysqli_query($link, $sql);
@@ -327,7 +327,6 @@ class Consultas extends Conexion
 
 
     //INICIO 
-
     public function contarDirecciones()
     {
         try {
@@ -477,12 +476,12 @@ class Consultas extends Conexion
     }
 
     //AGREGAR NUEVA TAREA
-    public function agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $area)
+    public function agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion)
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, area_codigo, usuario_dni) 
-                    values ('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$celular', '1', NOW(), '$area', '0')";
+            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, direccion_codigo, usuario_dni) 
+                    values ('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$celular', '1', NOW(), '$direccion', '0')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

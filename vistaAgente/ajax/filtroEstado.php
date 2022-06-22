@@ -3,6 +3,7 @@ require('../../modelo/m_conexionPage.php');
 $link = conexion();
 
 $opcionEstado = $_POST['opcionEstado'];
+$dni = $_POST['dniAgente'];
 
 $html = '<table class="table table-responsive table-bordered table-hover" id="tablaAjax">
 <thead>
@@ -22,9 +23,9 @@ $html = '<table class="table table-responsive table-bordered table-hover" id="ta
 
 
 $sql = "SELECT t.nroArreglo, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.nombre, t.motivoCancelacion, 
-        t.fechaProblema, t.fechaSolucion, a.nombre, concat(u.nombre, ' ', u.apellido) as nombreApellido, t.motivoEliminacion
-        from tareas t, motivos m, estadotarea e, areas a, usuario u 
-        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.area_codigo = a.codigo and t.usuario_dni = u.dni and u.dni = '2000000'
+        t.fechaProblema, t.fechaSolucion, d.nombre, concat(u.nombre, ' ', u.apellido) as nombreApellido, t.motivoEliminacion
+        from tareas t, motivos m, estadotarea e, direcciones d, usuario u 
+        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni and u.dni = '$dni'
         and t.estadoTarea_id = '$opcionEstado'";
 
 $result = mysqli_query($link, $sql);

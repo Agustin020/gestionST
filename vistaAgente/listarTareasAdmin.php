@@ -260,7 +260,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <select class="form-select" name="selectDireccion" id="floatingSelect" aria-label="Floating label select example" required>
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
                                                     foreach ($listDirecciones as $direccion) {
@@ -700,8 +700,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
-                                                                <option value="<?php echo $listTarea[11]; ?>" selected><?php echo $listTarea[12]; ?> (Actual)</option>
+                                                            <select class="form-select" name="selectDireccion" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                <option value="<?php echo $listTarea[13]; ?>" selected><?php echo $listTarea[14]; ?> (Actual)</option>
                                                                 <?php
                                                                 foreach ($listDirecciones as $direccion) {
                                                                 ?>
@@ -717,11 +717,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
                                                         <?php
-                                                        if ($listTarea[5] != '' || $listTarea[5] != null) {
+                                                        if ($listTarea[7] != '' || $listTarea[7] != null) {
                                                         ?>
                                                             <hr>
                                                             <div class="form-floating mb-3">
-                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[5]; ?></textarea>
+                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[7]; ?></textarea>
                                                                 <label for="floatingTextarea">Solución</label>
                                                             </div>
                                                         <?php
@@ -729,11 +729,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         ?>
 
                                                         <?php
-                                                        if ($listTarea[8] != '' || $listTarea[8] != null) {
+                                                        if ($listTarea[10] != '' || $listTarea[10] != null) {
                                                         ?>
                                                             <hr>
                                                             <div class="form-floating mb-3">
-                                                                <textarea class="form-control" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[8]; ?></textarea>
+                                                                <textarea class="form-control" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[10]; ?></textarea>
                                                                 <label for="floatingTextarea">Motivo de la cancelación</label>
                                                             </div>
                                                         <?php

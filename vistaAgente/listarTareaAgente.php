@@ -49,9 +49,10 @@ if (isset($_SESSION['rol'])) {
                     $('input[name=fechaFin]').change(function() {
                         var opcion = $('#opcionBusqueda').val();
                         var fechaProblemaInicio = $('#fechaProblemaInicio').val();
-                        var fechaProblemaFin = $('#fechaProblemaFin').val()
-                        var fechaSolucionInicio = $('#fechaSolucionInicio').val()
-                        var fechaSolucionFin = $('#fechaSolucionFin').val()
+                        var fechaProblemaFin = $('#fechaProblemaFin').val();
+                        var fechaSolucionInicio = $('#fechaSolucionInicio').val();
+                        var fechaSolucionFin = $('#fechaSolucionFin').val();
+                        var dni = $('#dni').val();
                         //
                         var fechaProblemaEspecifico = $('#fechaProblemaEspecifico').val();
                         var fechaSolucionEspecifico = $('#fechaSolucionEspecifico').val();
@@ -60,7 +61,7 @@ if (isset($_SESSION['rol'])) {
                             url: 'ajax/buscarPorFecha.php',
                             data: 'opcionBusqueda=' + opcion + '&fechaProblemaInicio=' + fechaProblemaInicio + '&fechaProblemaFin=' + fechaProblemaFin +
                                 '&fechaSolucionInicio=' + fechaSolucionInicio + '&fechaSolucionFin=' + fechaSolucionFin + '&fechaProblemaEspecifico=' + fechaProblemaEspecifico +
-                                '&fechaSolucionEspecifico=' + fechaSolucionEspecifico + '&dni=' + <?php echo $_GET['agente']; ?>,
+                                '&fechaSolucionEspecifico=' + fechaSolucionEspecifico + '&dni=' + dni,
                             success: function(r) {
                                 $('#tPrincipal').hide();
                                 $('#tResultado').show();
@@ -76,11 +77,11 @@ if (isset($_SESSION['rol'])) {
 
                     $('select[name=selectEstados]').change(function() {
                         var opcionEstadoTarea = $('#selectEstados').val();
-
+                        var dni = $('#dni').val();
                         $.ajax({
                             type: 'POST',
                             url: 'ajax/filtroEstado.php',
-                            data: 'opcionEstado=' + opcionEstadoTarea,
+                            data: 'opcionEstado=' + opcionEstadoTarea + '&dniAgente=' + dni,
                             success: function(r) {
                                 $('#tPrincipal').hide();
                                 $('#tResultado').show();
@@ -141,12 +142,12 @@ if (isset($_SESSION['rol'])) {
                     }
                 }
 
-                //AJAX
             </script>
 
         </head>
 
         <body>
+
             <section>
 
                 <p class="fs-5">Lista de tareas de <?php echo $agente ?></p>
@@ -157,6 +158,9 @@ if (isset($_SESSION['rol'])) {
                     <p class="fs-5">Filtros de búsqueda</p>
 
                     <div class="form-floating mb-3" style="width: 400px;">
+
+                        <input type="hidden" id="dni" value="<?php echo $_GET['agente']; ?>">
+
                         <select class="form-select" onchange="filtrosBusqueda(this);" id="opcionBusqueda" aria-label="Floating label select example">
                             <option value="" selected>Seleccione...</option>
                             <option value="1">Por rango de fechas de problemas</option>

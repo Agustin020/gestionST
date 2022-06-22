@@ -184,7 +184,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
                                             <div class="form-floating mb-3">
-                                                <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <select class="form-select" name="selectDireccion" id="floatingSelect" aria-label="Floating label select example" required>
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
                                                     foreach ($listDirecciones as $direccion) {
@@ -196,7 +196,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     }
                                                     ?>
                                                 </select>
-                                                <label for="floatingSelect">Seleccione el área donde se desempeña</label>
+                                                <label for="floatingSelect">Seleccione la Dirección donde se desempeña</label>
                                             </div>
 
                                         </div>
@@ -410,7 +410,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                        <label for="floatingInput">Área donde se desempeña</label>
+                                                        <label for="floatingInput">Dirección donde se desempeña</label>
                                                     </div>
 
 
@@ -478,7 +478,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
+                                                            <select class="form-select" name="selectDireccion" id="floatingSelect" aria-label="Floating label select example" required>
                                                                 <option value="<?php echo $listTarea[13]; ?>" selected><?php echo $listTarea[14]; ?> (Actual)</option>
                                                                 <?php
                                                                 foreach ($listDirecciones as $direccion) {
@@ -490,7 +490,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                                 }
                                                                 ?>
                                                             </select>
-                                                            <label for="floatingSelect">Área donde se desempeña</label>
+                                                            <label for="floatingSelect">Dirección donde se desempeña</label>
                                                         </div>
 
                                                         <hr>

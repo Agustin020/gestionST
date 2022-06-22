@@ -114,7 +114,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             $totalAgentes = $co->contarAgentes();
             $totalEncargados = $co->contarEncargados();
             //Areas
-            $totalAreas = $co->contarDirecciones();
+            $totalDirecciones = $co->contarDirecciones();
             ?>
 
             <section>
@@ -242,13 +242,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     }
                     ?>
 
-                    <p class="fs-5 text-center">Áreas</p>
+                    <p class="fs-5 text-center">Direcciones</p>
 
                     <div class="card border-dark mb-3 principal" style="max-width: auto;">
                         <div class="card-body text-dark caja1">
                             <div id="txtInfo">
-                                <h1 class="card-title"><?php echo $totalAreas; ?></h1>
-                                <p class="card-text">Total de Áreas</p>
+                                <h1 class="card-title"><?php echo $totalDirecciones; ?></h1>
+                                <p class="card-text">Total de Direcciones</p>
                             </div>
                             <i class="bi bi-list"></i>
                         </div>
