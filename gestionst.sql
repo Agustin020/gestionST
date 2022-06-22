@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-06-2022 a las 13:40:29
+-- Tiempo de generación: 22-06-2022 a las 19:29:56
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -29,16 +29,40 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `areas` (
   `codigo` int(11) NOT NULL,
-  `nombre` varchar(150) DEFAULT NULL,
-  `descripcion` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `areas`
 --
 
-INSERT INTO `areas` (`codigo`, `nombre`, `descripcion`) VALUES
-(1000, 'Secretaría Privada y Protocolo', NULL),
+INSERT INTO `areas` (`codigo`, `nombre`) VALUES
+(1, 'Administración de Redes y Seguridad'),
+(2, 'Infraestructura'),
+(3, 'Servicio Técnico'),
+(4, 'CCTV\r\n'),
+(5, 'Desarrollo de Software'),
+(6, 'Firma Digital'),
+(7, 'Punto Digital');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `direcciones`
+--
+
+CREATE TABLE `direcciones` (
+  `codigo` int(11) NOT NULL,
+  `nombre` varchar(150) DEFAULT NULL,
+  `descripcion` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `direcciones`
+--
+
+INSERT INTO `direcciones` (`codigo`, `nombre`, `descripcion`) VALUES
+(1000, 'Secretaría Privada y Protocolo', ''),
 (1001, 'Dirección de Asuntos Legales', NULL),
 (1002, 'Dirección de Control de Gestión', NULL),
 (1003, 'Dirección de Comunicación y Prensa', NULL),
@@ -99,22 +123,23 @@ INSERT INTO `estadotarea` (`id`, `nombre`) VALUES
 
 CREATE TABLE `motivos` (
   `id` int(11) NOT NULL,
-  `motivos` varchar(250) DEFAULT NULL
+  `motivos` varchar(250) DEFAULT NULL,
+  `codigoArea` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `motivos`
 --
 
-INSERT INTO `motivos` (`id`, `motivos`) VALUES
-(1, 'Configuración de impresora'),
-(2, 'Problema de impresora'),
-(3, 'Configuración de PC'),
-(4, 'Reparación de PC'),
-(5, 'Instalación de programas en PC'),
-(6, 'Problema con un programa de PC'),
-(7, 'Configuración general del Proxy'),
-(8, 'Configuración de Home Office');
+INSERT INTO `motivos` (`id`, `motivos`, `codigoArea`) VALUES
+(1, 'Configuración de impresora', 3),
+(2, 'Problema de impresora', 3),
+(3, 'Configuración de PC', 3),
+(4, 'Reparación de PC', 3),
+(5, 'Instalación de programas en PC', 3),
+(6, 'Problema con un programa de PC', 3),
+(7, 'Configuración general del Proxy', 3),
+(8, 'Configuración de Home Office', 3);
 
 -- --------------------------------------------------------
 
@@ -133,7 +158,7 @@ CREATE TABLE `tareas` (
   `fechaProblema` datetime DEFAULT NULL,
   `fechaSolucion` datetime DEFAULT NULL,
   `estadoTarea_id` int(11) DEFAULT NULL,
-  `area_codigo` int(11) DEFAULT NULL,
+  `direccion_codigo` int(11) DEFAULT NULL,
   `usuario_dni` int(11) DEFAULT NULL,
   `motivoCancelacion` varchar(500) DEFAULT NULL,
   `motivoEliminacion` varchar(500) DEFAULT NULL,
@@ -144,8 +169,11 @@ CREATE TABLE `tareas` (
 -- Volcado de datos para la tabla `tareas`
 --
 
-INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `area_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`) VALUES
-(36, 1, 'wdawddwwa', '192.168.29.50', 'AD', '2612634070', NULL, '2022-06-03 11:21:40', NULL, 2, 3005, 0, NULL, NULL, NULL);
+INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `direccion_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`) VALUES
+(37, 4, 'wdagvaefad', '192.168.10.80', '', '', NULL, '2022-06-22 08:15:50', NULL, 4, 3000, 0, 'Cancelado', NULL, NULL),
+(38, 8, 'zxcvbn', '192.168.0.15', 'Fernando Airodi', '2612634096', NULL, '2022-06-22 08:39:14', NULL, 2, 2004, 2000000, NULL, NULL, NULL),
+(39, 3, 'dawdwadwawad', '192.168.10.120', 'Ejemplo Persona', '2612634091', NULL, '2022-06-22 08:55:23', NULL, 1, 2000, 0, NULL, NULL, NULL),
+(41, 8, 'adwwdawafwa', '192.168.70.55', 'dwafadfas', '2612634090', 'adwadadas', '2022-06-22 10:05:36', '2022-06-22 10:06:33', 3, 3004, 2000000, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -191,10 +219,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`) VALUES
 (0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$Q1a0l/Dy8o24/mFgj8TuyeqJkjb/NW5aTZFdk805ADrC8aovd74ni', 1, NULL),
-(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$fTydZAorPh.XWBjLmQWQUOdC2XeHJw/xhsYM.cX6FynDxxKP4qNtK', 3, NULL),
+(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$aBwwtzVpyabi1kDBhBZUhOIOgiLhOAZGfyqVvCuzkW2dDGwBQe1BG', 1, NULL),
+(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$fTydZAorPh.XWBjLmQWQUOdC2XeHJw/xhsYM.cX6FynDxxKP4qNtK', 2, NULL),
 (3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL),
-(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$3P.PayOLIRXMHHn97ynHru58P/Tsnakc65YyiaMSeWtkJ52WJqkIO', 4, NULL),
+(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$T7wcE1CIiWG/FzB935dV3.fTmE4czGoyJiayAHe.SzvAHGNbw/3Ri', 4, NULL),
 (42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL);
 
 --
@@ -208,6 +236,12 @@ ALTER TABLE `areas`
   ADD PRIMARY KEY (`codigo`);
 
 --
+-- Indices de la tabla `direcciones`
+--
+ALTER TABLE `direcciones`
+  ADD PRIMARY KEY (`codigo`);
+
+--
 -- Indices de la tabla `estadotarea`
 --
 ALTER TABLE `estadotarea`
@@ -217,7 +251,8 @@ ALTER TABLE `estadotarea`
 -- Indices de la tabla `motivos`
 --
 ALTER TABLE `motivos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `codigoArea` (`codigoArea`);
 
 --
 -- Indices de la tabla `tareas`
@@ -226,8 +261,8 @@ ALTER TABLE `tareas`
   ADD PRIMARY KEY (`nroArreglo`),
   ADD KEY `fk_usuario_dni` (`usuario_dni`),
   ADD KEY `fk_tareas_estadoTarea1_idx` (`estadoTarea_id`),
-  ADD KEY `fk_tareas_area1_idx` (`area_codigo`),
-  ADD KEY `fk_id_motivos` (`id_motivos`);
+  ADD KEY `fk_id_motivos` (`id_motivos`),
+  ADD KEY `fk_tareas_area1_idx` (`direccion_codigo`);
 
 --
 -- Indices de la tabla `tipousuario`
@@ -247,27 +282,39 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `areas`
+--
+ALTER TABLE `areas`
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `motivos`
 --
 ALTER TABLE `motivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3003;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
+-- Filtros para la tabla `motivos`
+--
+ALTER TABLE `motivos`
+  ADD CONSTRAINT `codigoArea` FOREIGN KEY (`codigoArea`) REFERENCES `areas` (`codigo`);
+
+--
 -- Filtros para la tabla `tareas`
 --
 ALTER TABLE `tareas`
   ADD CONSTRAINT `fk_id_motivos` FOREIGN KEY (`id_motivos`) REFERENCES `motivos` (`id`),
-  ADD CONSTRAINT `fk_tareas_area1` FOREIGN KEY (`area_codigo`) REFERENCES `areas` (`codigo`),
+  ADD CONSTRAINT `fk_tareas_direccion` FOREIGN KEY (`direccion_codigo`) REFERENCES `direcciones` (`codigo`),
   ADD CONSTRAINT `fk_tareas_estadoTarea1` FOREIGN KEY (`estadoTarea_id`) REFERENCES `estadotarea` (`id`),
   ADD CONSTRAINT `fk_usuario_dni` FOREIGN KEY (`usuario_dni`) REFERENCES `usuario` (`dni`);
 
