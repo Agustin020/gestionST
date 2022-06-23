@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-06-2022 a las 19:29:56
+-- Tiempo de generación: 23-06-2022 a las 19:30:38
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -40,10 +40,10 @@ INSERT INTO `areas` (`codigo`, `nombre`) VALUES
 (1, 'Administración de Redes y Seguridad'),
 (2, 'Infraestructura'),
 (3, 'Servicio Técnico'),
-(4, 'CCTV\r\n'),
-(5, 'Desarrollo de Software'),
-(6, 'Firma Digital'),
-(7, 'Punto Digital');
+(4, 'Requerimientos'),
+(5, 'Firma Digital'),
+(6, 'Punto Digital'),
+(7, 'CCTV');
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `direcciones` (
 --
 
 INSERT INTO `direcciones` (`codigo`, `nombre`, `descripcion`) VALUES
-(1000, 'Secretaría Privada y Protocolo', ''),
+(1000, 'Secretaría Privada y Protocolo', NULL),
 (1001, 'Dirección de Asuntos Legales', NULL),
 (1002, 'Dirección de Control de Gestión', NULL),
 (1003, 'Dirección de Comunicación y Prensa', NULL),
@@ -132,14 +132,15 @@ CREATE TABLE `motivos` (
 --
 
 INSERT INTO `motivos` (`id`, `motivos`, `codigoArea`) VALUES
-(1, 'Configuración de impresora', 3),
-(2, 'Problema de impresora', 3),
-(3, 'Configuración de PC', 3),
-(4, 'Reparación de PC', 3),
-(5, 'Instalación de programas en PC', 3),
-(6, 'Problema con un programa de PC', 3),
-(7, 'Configuración general del Proxy', 3),
-(8, 'Configuración de Home Office', 3);
+(3000, 'Configuración de impresora', 3),
+(3001, 'Problema de impresora', 3),
+(3002, 'Configuración de PC', 3),
+(3003, 'Reparación de PC', 3),
+(3004, 'Instalación de programas en PC', 3),
+(3005, 'Problema con un programa de PC', 3),
+(3006, 'Configuración general del Proxy', 3),
+(3007, 'Configuración de Home Office', 3),
+(6000, 'Turnos', 6);
 
 -- --------------------------------------------------------
 
@@ -164,16 +165,6 @@ CREATE TABLE `tareas` (
   `motivoEliminacion` varchar(500) DEFAULT NULL,
   `fechaEliminado` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tareas`
---
-
-INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `direccion_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`) VALUES
-(37, 4, 'wdagvaefad', '192.168.10.80', '', '', NULL, '2022-06-22 08:15:50', NULL, 4, 3000, 0, 'Cancelado', NULL, NULL),
-(38, 8, 'zxcvbn', '192.168.0.15', 'Fernando Airodi', '2612634096', NULL, '2022-06-22 08:39:14', NULL, 2, 2004, 2000000, NULL, NULL, NULL),
-(39, 3, 'dawdwadwawad', '192.168.10.120', 'Ejemplo Persona', '2612634091', NULL, '2022-06-22 08:55:23', NULL, 1, 2000, 0, NULL, NULL, NULL),
-(41, 8, 'adwwdawafwa', '192.168.70.55', 'dwafadfas', '2612634090', 'adwadadas', '2022-06-22 10:05:36', '2022-06-22 10:06:33', 3, 3004, 2000000, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -210,20 +201,21 @@ CREATE TABLE `usuario` (
   `usuario` varchar(45) DEFAULT NULL,
   `contraseña` varchar(200) DEFAULT NULL,
   `idRol2` int(11) DEFAULT NULL,
-  `motivoBaja` varchar(500) DEFAULT NULL
+  `motivoBaja` varchar(500) DEFAULT NULL,
+  `codigoArea2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`) VALUES
-(0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$aBwwtzVpyabi1kDBhBZUhOIOgiLhOAZGfyqVvCuzkW2dDGwBQe1BG', 1, NULL),
-(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$fTydZAorPh.XWBjLmQWQUOdC2XeHJw/xhsYM.cX6FynDxxKP4qNtK', 2, NULL),
-(3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL),
-(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$T7wcE1CIiWG/FzB935dV3.fTmE4czGoyJiayAHe.SzvAHGNbw/3Ri', 4, NULL),
-(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL);
+INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`, `codigoArea2`) VALUES
+(0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$aBwwtzVpyabi1kDBhBZUhOIOgiLhOAZGfyqVvCuzkW2dDGwBQe1BG', 1, NULL, 3),
+(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$fTydZAorPh.XWBjLmQWQUOdC2XeHJw/xhsYM.cX6FynDxxKP4qNtK', 2, NULL, 3),
+(3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL, NULL),
+(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$T7wcE1CIiWG/FzB935dV3.fTmE4czGoyJiayAHe.SzvAHGNbw/3Ri', 4, NULL, 3),
+(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -275,7 +267,8 @@ ALTER TABLE `tipousuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`dni`),
-  ADD KEY `fk_usuario_rol_idx` (`idRol2`);
+  ADD KEY `fk_usuario_rol_idx` (`idRol2`),
+  ADD KEY `fk_codigoArea2` (`codigoArea2`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -285,13 +278,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `motivos`
 --
 ALTER TABLE `motivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3003;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6001;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
@@ -322,6 +315,7 @@ ALTER TABLE `tareas`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
+  ADD CONSTRAINT `fk_codigoArea2` FOREIGN KEY (`codigoArea2`) REFERENCES `areas` (`codigo`),
   ADD CONSTRAINT `fk_idRol2` FOREIGN KEY (`idRol2`) REFERENCES `tipousuario` (`idrol`);
 COMMIT;
 
