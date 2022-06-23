@@ -232,7 +232,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         <div id="itemsNav">
             <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
             <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas"><i class="bi bi-list-check"></i>Tareas</a>
-            <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Áreas</a>
+            <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Direcciones</a>
         </div>
     </nav>
 <?php

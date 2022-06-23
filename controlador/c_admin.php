@@ -7,6 +7,7 @@ class ControladorAdmin
         echo ('<title>Listado de Tareas - Gestión ST</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        $listAreas = $co->listarAreas();
         $listMotivos = $co->listarMotivosProblemas();
         $listTareasEncargados = $co->listarTareasEncargados();
         $listDirecciones = $co->listarDirecciones();

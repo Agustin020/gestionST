@@ -56,6 +56,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     valor.value = valor.value.substring(0, valor.value.length - 1);
                 }
             }
+
+            function mostrarMotivosProblemas(valor) {
+                var codigoArea = valor.value;
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'ajax/selectMotivos.php',
+                    data: 'codigoArea=' + codigoArea,
+                    success: function(r) {
+                        $('select[name=selectMotivos]').html(r);
+                    }
+                })
+            }
         </script>
 
         <script>
@@ -145,19 +158,26 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
                                             <div class="form-floating mb-3">
-                                                <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
-                                                    foreach ($listMotivos as $motivo) {
+                                                    foreach ($listAreas as $area) {
                                                     ?>
-                                                        <option value="<?php echo $motivo[0]; ?>">
+                                                        <option value="<?php echo $area[0]; ?>">
                                                             <?php
-                                                            echo $motivo[1];
+                                                            echo $area[1];
                                                             ?>
                                                         </option>
                                                     <?php
                                                     }
                                                     ?>
+                                                </select>
+                                                <label for="floatingSelect">Seleccione el Área involucrada</label>
+                                            </div>
+
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                    <option value="" selected>Seleccione primero el Área</option>
                                                 </select>
                                                 <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
                                             </div>

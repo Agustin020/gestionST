@@ -134,6 +134,24 @@ class Consultas extends Conexion
         return $listTareasEncargados;
     }
 
+    public function listarAreas()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT * from areas a";
+            $result = mysqli_query($link, $sql);
+            $listAreas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listAreas[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $listAreas;
+    }
+
     public function listarMotivosProblemas()
     {
         try {
