@@ -71,6 +71,21 @@ class Consultas extends Conexion
         return $id;
     }
 
+    public function verificarAreaUsuario($usuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT a.codigo from areas a where a.codigo in (select u.codigoArea2 from usuario u where u.usuario = '$usuario')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $areaUsuario = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $areaUsuario;
+    }
+
 
     //Boton Usuario
     public function mostrarDatosUsuario($usuario)
