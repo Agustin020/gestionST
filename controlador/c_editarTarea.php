@@ -3,6 +3,7 @@ session_start();
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
+$areaUsuario = $_POST['areaUsuario'];
 $selectMotivos = $_POST['selectMotivos'];
 $descripcion = $_POST['descripcion'];
 $ip = $_POST['ip'];
@@ -45,13 +46,13 @@ $nroArreglo = $_POST['nroArreglo'];
 'solucion: ' . $solucion . '<br>';*/
 
 if ($_SESSION['rol'] == 2) {
-    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $nroArreglo)) {
+    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $areaUsuario, $nroArreglo)) {
         session_start();
         $_SESSION['tareaEditada'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareas');
     }
 } else {
-    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $nroArreglo)) {
+    if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $areaUsuario, $nroArreglo)) {
         session_start();
         $_SESSION['tareaEditada'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareasAdmin');

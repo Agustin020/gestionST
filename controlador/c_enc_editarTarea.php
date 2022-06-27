@@ -7,6 +7,7 @@ $descripcion = $_POST['descripcion'];
 $ip = $_POST['ip'];
 $nombreApellido = $_POST['nombreApellidoAfectado'];
 $cel = $_POST['cel'];
+$codDireccion = $_POST['selectDireccion'];
 $codArea = $_POST['selectArea'];
 
 if (isset($_POST['motivoCancelacion'])) {
@@ -38,7 +39,7 @@ if (isset($motivoCancelacion)) {
     'solucion: ' . $solucion . '<br>' .
     'nroArreglo: ' . $nroArreglo . '<br>';
 */
-if($co->editarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $codArea, $motivoCancelacion, $solucion, $nroArreglo)){
+if($co->editarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $codDireccion, $motivoCancelacion, $solucion, $codArea, $nroArreglo)){
     session_start();
     $_SESSION['tareaEditada'] = true;
     header('location: ../vista/index.php?accion=listarTareas');

@@ -8,8 +8,9 @@ $ip = $_POST['ip'];
 $nombreApellido = $_POST['nombreApellidoAfectado'];
 $cel = $_POST['cel'];
 $direccion = $_POST['selectDireccion'];
+$selectArea = $_POST['selectArea'];
 
-if ($co->agregarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $direccion)) {
+if ($co->agregarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $direccion, $selectArea)) {
     session_start();
     $_SESSION['tareaOK'] = true;
     header('location: ../vista/index.php?accion=listarTareas');

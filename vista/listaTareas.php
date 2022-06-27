@@ -158,7 +158,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
                                             <div class="form-floating mb-3">
-                                                <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
                                                     foreach ($listAreas as $area) {
@@ -433,7 +433,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingInput">Dirección donde se desempeña</label>
                                                     </div>
 
-
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[16]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Área que lleva a cabo la tarea/reclamo</label>
+                                                    </div>
 
                                                 </div>
                                                 <div class="modal-footer">
@@ -448,7 +451,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Editar Tarea</h5>
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Editar Tarea N°<?php echo $listTarea[0]; ?></h5>
                                                     <button type="button" class="btn-close btnCerrarModalEditar" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
@@ -458,6 +461,24 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <p class="fs-6">Editar en caso de que haya habido un cambio o un error.</p>
 
                                                         <input type="hidden" name="nroArreglo" value="<?php echo $listTarea[0]; ?>">
+
+                                                        <div class="form-floating mb-3">
+                                                            <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                <option value="<?php echo $listTarea[15]; ?>" selected><?php echo $listTarea[16]; ?></option>
+                                                                <?php
+                                                                foreach ($listAreas as $area) {
+                                                                ?>
+                                                                    <option value="<?php echo $area[0]; ?>">
+                                                                        <?php
+                                                                        echo $area[1];
+                                                                        ?>
+                                                                    </option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                            <label for="floatingSelect">Seleccione el Área involucrada</label>
+                                                        </div>
 
                                                         <div class="form-floating mb-3">
                                                             <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
@@ -510,13 +531,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                                 }
                                                                 ?>
                                                             </select>
-                                                            <label for="floatingSelect">Dirección donde se desempeña</label>
+                                                            <label for="floatingSelect">Dirección donde se desempeña el/la afectado/a</label>
                                                         </div>
 
                                                         <hr>
 
                                                         <?php
-                                                        if ($listTarea[15] != '' || $listTarea[15] != null) {
+                                                        if ($listTarea[10] != '' || $listTarea[10] != null) {
                                                         ?>
                                                             <div class="form-floating mb-3">
                                                                 <textarea class="form-control" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[12]; ?></textarea>

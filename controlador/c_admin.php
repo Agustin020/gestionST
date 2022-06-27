@@ -22,7 +22,7 @@ class ControladorAdmin
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listDatosAgentes = $co->listarAgentes();
-        $listTareasAgentes = $co->listarTareasAgentes();
+        $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario']);
         $listMotivos = $co->listarMotivosProblemas();
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
@@ -37,10 +37,11 @@ class ControladorAdmin
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listDatosAgentes = $co->listarAgentes();
-        $listTareasAgentes = $co->listarTareasAgentes();
+        $listTareasAgentes = $co->listarTareasAdmin();
         $listMotivos = $co->listarMotivosProblemas();
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
+        $listAreas = $co->listarAreas();
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('listarTareasAdmin.php');

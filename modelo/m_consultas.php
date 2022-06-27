@@ -133,9 +133,11 @@ class Consultas extends Conexion
         try {
             $link = parent::Conexion();
             $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
-                    t.fechaProblema, t.fechaSolucion, t.direccion_codigo, d.nombre
-                    from tareas t, motivos m, estadotarea e, direcciones d
-                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.estadoTarea_id != 5";
+                    t.fechaProblema, t.fechaSolucion, t.direccion_codigo, d.nombre, a.codigo, a.nombre 
+                    from tareas t, motivos m, estadotarea e, direcciones d, areas a 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo
+                    and t.codigoArea3 = a.codigo
+                    and t.estadoTarea_id != 5";
             $result = mysqli_query($link, $sql);
             $listTareasEncargados = [];
             $i = 0;
@@ -186,12 +188,12 @@ class Consultas extends Conexion
     }
 
 
-    public function agregarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $direccion)
+    public function agregarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $direccion, $selectArea)
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, direccion_codigo, usuario_dni)
-                    values('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$cel', '1', NOW(), '$direccion', '0')";
+            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, direccion_codigo, usuario_dni, codigoArea3)
+                    values('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$cel', '1', NOW(), '$direccion', '0', '$selectArea')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;
@@ -203,22 +205,22 @@ class Consultas extends Conexion
         }
     }
 
-    public function editarTareaEncargado($selectMotivo, $descripcion, $ip, $nombreApellido, $cel, $codDireccion, $motivoCancelacion, $solucion, $nroArreglo)
+    public function editarTareaEncargado($selectMotivo, $descripcion, $ip, $nombreApellido, $cel, $codDireccion, $motivoCancelacion, $solucion, $selectArea, $nroArreglo)
     {
         try {
 
             if ($motivoCancelacion != '' && $solucion == '') {
                 $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', 
                         nombreApellidoAfectado = '$nombreApellido', celular = '$cel', estadoTarea_id = '4', 
-                        direccion_codigo = '$codDireccion', motivoCancelacion = '$motivoCancelacion' where nroArreglo = '$nroArreglo'";
+                        direccion_codigo = '$codDireccion', motivoCancelacion = '$motivoCancelacion', codigoArea3 = '$selectArea' where nroArreglo = '$nroArreglo'";
             } else if ($solucion != '' && $motivoCancelacion == '') {
                 $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip', 
                         nombreApellidoAfectado = '$nombreApellido', celular = '$cel', estadoTarea_id = '3', solucion = '$solucion',
-                        direccion_codigo = '$codDireccion' where nroArreglo = '$nroArreglo'";
+                        direccion_codigo = '$codDireccion', codigoArea3 = '$selectArea' where nroArreglo = '$nroArreglo'";
             } else {
                 $sql = "UPDATE tareas set id_motivos = '$selectMotivo', descripcion = '$descripcion', ip = '$ip',
                         nombreApellidoAfectado = '$nombreApellido', celular = '$cel',
-                        direccion_codigo = '$codDireccion' where nroArreglo = '$nroArreglo'";
+                        direccion_codigo = '$codDireccion', codigoArea3 = '$selectArea' where nroArreglo = '$nroArreglo'";
             }
 
             $link = parent::Conexion();
@@ -253,19 +255,19 @@ class Consultas extends Conexion
         return $listEstado;
     }
 
-    public function editarTareaAgente($selectMotivo, $descripcion, $ip, $nombreApellido, $celular, $codDireccion, $motivoCancelacion, $solucion, $nroArreglo)
+    public function editarTareaAgente($selectMotivo, $descripcion, $ip, $nombreApellido, $celular, $codDireccion, $motivoCancelacion, $solucion, $selectArea, $nroArreglo)
     {
         try {
 
             if ($motivoCancelacion != '' && $solucion == '') {
                 $sql = "UPDATE tareas set id_motivos = '$selectMotivo', nombreApellidoAfectado = '$nombreApellido', celular = '$celular', descripcion = '$descripcion', ip = '$ip', 
-                        estadoTarea_id = '4', direccion_codigo = '$codDireccion', motivoCancelacion = '$motivoCancelacion' where nroArreglo = '$nroArreglo'";
+                        estadoTarea_id = '4', direccion_codigo = '$codDireccion', motivoCancelacion = '$motivoCancelacion', codigoArea3 = '$selectArea' where nroArreglo = '$nroArreglo'";
             } else if ($solucion != '' && $motivoCancelacion == '') {
                 $sql = "UPDATE tareas set id_motivos = '$selectMotivo', nombreApellidoAfectado = '$nombreApellido', celular = '$celular', descripcion = '$descripcion', ip = '$ip', 
-                        estadoTarea_id = '3', solucion = '$solucion', direccion_codigo = '$codDireccion' where nroArreglo = '$nroArreglo'";
+                        estadoTarea_id = '3', solucion = '$solucion', direccion_codigo = '$codDireccion', codigoArea3 = '$selectArea' where nroArreglo = '$nroArreglo'";
             } else {
                 $sql = "UPDATE tareas set id_motivos = '$selectMotivo', nombreApellidoAfectado = '$nombreApellido', celular = '$celular', descripcion = '$descripcion', ip = '$ip', 
-                        direccion_codigo = '$codDireccion' where nroArreglo = '$nroArreglo'";
+                        direccion_codigo = '$codDireccion', codigoArea3 = '$selectArea' where nroArreglo = '$nroArreglo'";
             }
 
             $link = parent::Conexion();
@@ -393,14 +395,15 @@ class Consultas extends Conexion
 
 
     //PAGE ListarTareasAgente
-    public function listarTareasAgentes()
+    public function listarTareasAgentes($areaUsuario)
     {
         try {
             $link = parent::Conexion();
             $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
-                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido
-                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u 
-                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni and t.estadoTarea_id != 5";
+                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
+                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                    and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and codigoArea3 = '$areaUsuario'";
             $result = mysqli_query($link, $sql);
             $listTareas = [];
             $i = 0;
@@ -415,6 +418,29 @@ class Consultas extends Conexion
     }
 
     //PAGE ADMIN: LISTAR TAREAS ELIMINADAS
+
+    public function listarTareasAdmin()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
+                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                    and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5";
+            $result = mysqli_query($link, $sql);
+            $listTareas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listTareas[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listTareas;
+    }
+
     public function listarTareasEliminadas()
     {
         try {
@@ -509,12 +535,12 @@ class Consultas extends Conexion
     }
 
     //AGREGAR NUEVA TAREA
-    public function agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion)
+    public function agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario)
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, direccion_codigo, usuario_dni) 
-                    values ('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$celular', '1', NOW(), '$direccion', '0')";
+            $sql = "INSERT into tareas(id_motivos, descripcion, ip, nombreApellidoAfectado, celular, estadoTarea_id, fechaProblema, direccion_codigo, usuario_dni, codigoArea3)
+                    values('$selectMotivos', '$descripcion', '$ip', '$nombreApellido', '$celular', '1', NOW(), '$direccion', '0', '$areaUsuario')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

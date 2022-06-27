@@ -62,7 +62,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         dom: 'lBfrtip',
                         buttons: [{
                                 extend: 'excelHtml5',
-                                title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
+                                title: 'Listado de Tareas - Gestión Sistemas',
                                 messageTop: 'Reporte: ' + localdate,
                                 exportOptions: {
                                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -220,6 +220,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <p class="fs-6">Ingrese la tarea con sus respectivos datos y asignación a agentes</p>
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
+
+                                            <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
 
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
@@ -560,6 +562,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingInput">Asignado</label>
                                                     </div>
 
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[18]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Área donde se lleva a cabo la tarea/reclamo</label>
+                                                    </div>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
@@ -635,38 +642,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </div>
                                     </div>
 
-                                    <!-- Modal Tarea Terminada -->
-                                    <div class="modal fade" id="modalEditar<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Terminar tarea</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-
-                                                <form action="../controlador/c_terminarTarea.php" method="post" style="display: none;">
-
-                                                    <div class="modal-body">
-
-                                                        <p class="fs-6">Para terminar la tarea debe completar lo siguiente</p>
-
-                                                        <input type="hidden" name="id" value="<?php echo $listTarea[0]; ?>">
-
-                                                        <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="solucion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
-                                                            <label for="floatingTextarea">Solución</label>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-success">Terminar tarea</button>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <!-- Modal Editar Tarea -->
                                     <div class="modal fade" id="modalEditarTarea<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
