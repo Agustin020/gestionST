@@ -241,7 +241,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <?php
             if ($_SESSION['rol'] == 4) {
             ?>
-                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin"><i class="bi bi-list-check"></i>Tareas</a>
+                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
             <?php
             } else if ($_SESSION['rol'] == 2) {
             ?>

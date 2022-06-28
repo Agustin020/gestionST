@@ -31,7 +31,6 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['rol'] = $co->verificarTipoUsuario($user);
             $_SESSION['dni'] = $co->listarDniUserActual($user);
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
-            $_SESSION['areaUsuario'] = $co->verificarAreaUsuario($user);
             header('Location: ../vistaAgente/inicio.php');
             break;
         case 4:
@@ -40,6 +39,7 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['dni'] = $co->listarDniUserActual($user);
             $_SESSION['rol'] = $co->verificarTipoUsuario($user);
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
+            $_SESSION['areaUsuario'] = $co->verificarAreaUsuario($user);
             header('Location: ../vistaAgente/inicio.php');
             break;
         default:

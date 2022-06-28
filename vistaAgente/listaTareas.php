@@ -648,7 +648,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Editar tarea</h5>
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Editar tarea N°<?php echo $listTarea[0]; ?></h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 
@@ -657,6 +657,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     <div class="modal-body">
 
                                                         <input type="hidden" name="nroArreglo" value="<?php echo $listTarea[0]; ?>">
+
+                                                        <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
 
                                                         <div class="form-floating mb-3">
                                                             <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
@@ -740,7 +742,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-success">Terminar tarea</button>
+                                                        <button type="submit" class="btn btn-success">Editar</button>
                                                     </div>
 
                                                 </form>

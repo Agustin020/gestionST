@@ -37,7 +37,15 @@ class ControladorAdmin
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listDatosAgentes = $co->listarAgentes();
-        $listTareasAgentes = $co->listarTareasAdmin();
+        //Comprobar si esta en un Área el usuario, sino es Admin
+        if (isset($_SESSION['areaUsuario'])) {
+            if ($_SESSION['areaUsuario'] != null || $_SESSION['areaUsuario'] != '') {
+                $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario']);
+            }
+        } else {
+            $listTareasAgentes = $co->listarTareasAdmin();
+        }
+
         $listMotivos = $co->listarMotivosProblemas();
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
@@ -47,7 +55,8 @@ class ControladorAdmin
         require('listarTareasAdmin.php');
     }
 
-    public function listarTareasEliminadasContr(){
+    public function listarTareasEliminadasContr()
+    {
         echo ('<title>Listado de Tareas Eliminadas - Gestión ST</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
@@ -68,7 +77,8 @@ class ControladorAdmin
         require('listaAgentes.php');
     }
 
-    public function listarTareaAgenteContr($dni){
+    public function listarTareaAgenteContr($dni)
+    {
         echo ('<title>Tareas de Agente - Gestión ST</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
@@ -90,7 +100,7 @@ class ControladorAdmin
         require('headerNav.php');
         require('listaDirecciones.php');
     }
-    
+
 
     public function listarUsuariosContr()
     {
@@ -99,6 +109,7 @@ class ControladorAdmin
         $co = new Consultas();
         $listUsuarios = $co->listarUsuarios();
         $listRoles = $co->listarRoles();
+        $listAreas = $co->listarAreas();
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('usuarios.php');

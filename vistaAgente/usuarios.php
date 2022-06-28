@@ -54,6 +54,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         }
                     });
                 }
+
+                function mostrarSelectArea(valor){
+                    var selectRol = valor.value;
+                    if(selectRol == 2 || selectRol == 4){
+                        $('.selectArea').show(200).find('select').prop('disabled', false);
+                    }else{
+                        $('.selectArea').hide(200).find('select').prop('disabled', true);
+                    }
+                }
+
+                
             </script>
         </head>
 
@@ -145,7 +156,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <div class="modal-body">
 
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" name="selectRol" id="floatingSelect" aria-label="Floating label select example" required>
+                                            <select class="form-select" onchange="mostrarSelectArea(this);" name="selectRol" id="floatingSelect" aria-label="Floating label select example" required>
                                                 <option value="" selected>Seleccione...</option>
                                                 <?php
                                                 foreach ($listRoles as $rol) {
@@ -156,6 +167,20 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                 ?>
                                             </select>
                                             <label for="floatingSelect">Elegir tipo de Usuario</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3 selectArea" style="display: none;">
+                                            <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <option value="" selected>Seleccione...</option>
+                                                <?php
+                                                foreach ($listAreas as $area) {
+                                                ?>
+                                                    <option value="<?php echo $area[0]; ?>"><?php echo $area[1]; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <label for="floatingSelect">Elegir el Área donde se desempeña</label>
                                         </div>
 
                                         <div class="form-floating mb-3">

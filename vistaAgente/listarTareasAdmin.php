@@ -215,7 +215,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 <p class="fs-5">Tareas</p>
                 <hr>
-                <p class="fs-6">Para manipular las tareas, presione <b>Acción</b></p>
+                <p class="fs-6">
+                    Para ver las opciones de las tareas, presione <b>Acción</b>
+                    <br>
+                    Para obtener más información acerca de la tarea presione <b>Acción > Ver más Info</b>
+                </p>
                 <div class="table-responsive-xxl">
 
                     <div id="btnTarea">
@@ -691,7 +695,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                                         <div class="form-floating mb-3">
                                                             <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
-                                                                <option value="" selected>Seleccione...</option>
+                                                                <option value="<?php echo $listTarea[17]; ?>" selected><?php echo $listTarea[18]; ?> (Actual)</option>
                                                                 <?php
                                                                 foreach ($listAreas as $area) {
                                                                 ?>
