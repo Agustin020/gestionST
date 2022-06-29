@@ -359,6 +359,22 @@ class Consultas extends Conexion
         return $listTareaAgente;
     }
 
+    //Verificar nombre del área donde se desempeña el agente
+    public function listarNombreAreaUsuario($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT a.nombre from areas a where a.codigo in (select u.codigoArea2 from usuario u where u.dni = '$dni')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $areaActual = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $areaActual;
+    }
+
 
 
     //INICIO 
@@ -765,13 +781,20 @@ class Consultas extends Conexion
         }
     }
 
-    public function agregarUsuario($tipoUsuario, $dni, $nombre, $apellido, $correo, $user, $pass)
+    public function agregarUsuario($tipoUsuario, $codArea, $dni, $nombre, $apellido, $correo, $user, $pass)
     {
         try {
             $passFuerte = password_hash($pass, PASSWORD_DEFAULT);
             $link = parent::Conexion();
-            $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2) 
+
+            if($codArea == '' || $codArea == null){
+                $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2) 
                     values ('$dni', '$nombre', '$apellido', '$correo', '$user', '$passFuerte', '$tipoUsuario')";
+            }else{
+                $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2, codigoArea2) 
+                    values ('$dni', '$nombre', '$apellido', '$correo', '$user', '$passFuerte', '$tipoUsuario', $codArea)";
+            }
+
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

@@ -50,6 +50,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 })
             })
 
+            function mostrarIP(valor) {
+                if (valor.checked) {
+                    $('#ipSeccion').show(200);
+                    $('input[name=ip]').prop('required', true);
+                } else {
+                    $('#ipSeccion').hide(200);
+                    $('input[name=ip]').prop('required', false);
+                    $('input[name=ip]').val('');
+                }
+            }
+
             function validarInputNumerico(valor) {
                 const ip = /^[0-9.]+$/;
                 if (!ip.test(valor.value)) {
@@ -158,7 +169,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
                                             <div class="form-floating mb-3">
-                                                <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
                                                     foreach ($listAreas as $area) {
@@ -187,8 +198,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                 <label for="floatingTextarea">Descripción</label>
                                             </div>
 
-                                            <div class="form-floating mb-3">
-                                                <input type="text" name="ip" class="form-control" oninput="validarInputNumerico(this);" id="floatingInput" placeholder="ejemplo" required>
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onclick="mostrarIP(this);">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    Con IP
+                                                </label>
+                                            </div>
+
+                                            <div class="form-floating mb-3" id="ipSeccion" style="display: none;">
+                                                <input type="text" name="ip" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="Nombre del Afectado">
                                                 <label for="floatingInput">IP</label>
                                             </div>
 
@@ -336,6 +354,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                             ?>
                                                         </select>
                                                         <label for="floatingSelect">Motivo del incoveniente</label>
+                                                    </div>
+
+                                                    <div class="form-floating mb-3">
+                                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
+                                                        <label for="floatingTextarea2">Descripción</label>
                                                     </div>
 
                                                     <?php

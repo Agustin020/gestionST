@@ -99,6 +99,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     })
                 }
 
+                function mostrarIP(valor){
+                    if(valor.checked){
+                        $('#ipSeccion').show(200);
+                        $('input[name=ip]').prop('required', true);
+                    }else{
+                        $('#ipSeccion').hide(200);
+                        $('input[name=ip]').prop('required', false);
+                        $('input[name=ip]').val('');
+                    }
+                }
+
                 function validarInputNumerico(valor) {
                     const ip = /^[0-9.]+$/;
                     if (!ip.test(valor.value)) {
@@ -267,7 +278,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                 <label for="floatingTextarea">Descripción</label>
                                             </div>
 
-                                            <div class="form-floating mb-3">
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onclick="mostrarIP(this);">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    Con IP
+                                                </label>
+                                            </div>
+
+                                            <div class="form-floating mb-3" id="ipSeccion" style="display: none;">
                                                 <input type="text" name="ip" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="Nombre del Afectado">
                                                 <label for="floatingInput">IP</label>
                                             </div>

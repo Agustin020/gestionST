@@ -26,6 +26,7 @@ class ControladorAdmin
         $listMotivos = $co->listarMotivosProblemas();
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
+        $areaUsuario = $co->listarNombreAreaUsuario($_SESSION['dni']);
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('listaTareas.php');
@@ -85,6 +86,7 @@ class ControladorAdmin
         $listTareaAgente = $co->listarTareaAgente($dni);
         $listEstados = $co->listarEstadoTarea();
         $agente = $co->listarUserActual($dni);
+        $areaUsuario = $co->listarNombreAreaUsuario($dni);
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('listarTareaAgente.php');

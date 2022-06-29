@@ -153,6 +153,10 @@ if (isset($_SESSION['rol'])) {
                 <p class="fs-5">Lista de tareas de <?php echo $agente ?></p>
                 <hr>
 
+                <p class="fs-6">
+                    Área donde se desempeña: <b><?php echo $areaUsuario; ?></b>
+                </p>
+
                 <div id="filtroBusqueda">
 
                     <p class="fs-5">Filtros de búsqueda</p>
@@ -245,7 +249,6 @@ if (isset($_SESSION['rol'])) {
                                     <th scope="col">#</th>
                                     <th scope="col">Motivo</th>
                                     <th scope="col">Descripción</th>
-                                    <th scope="col">IP</th>
                                     <th scope="col">Afectado/a</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
@@ -262,7 +265,6 @@ if (isset($_SESSION['rol'])) {
                                         <td id="nroArreglo"><?php echo $tarea[0]; ?></td>
                                         <td><?php echo $tarea[1]; ?></td>
                                         <td><?php echo $tarea[2]; ?></td>
-                                        <td><?php echo $tarea[3]; ?></td>
                                         <td><?php echo $tarea[4]; ?></td>
                                         <td>
                                             <?php

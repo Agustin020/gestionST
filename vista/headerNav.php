@@ -110,7 +110,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
         <div id="title">
-            <a class="navbar-brand">Gestión ST</a>
+            <a class="navbar-brand">Gestión Sistemas</a>
         </div>
 
         <!--Collapse-->

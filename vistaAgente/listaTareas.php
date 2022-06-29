@@ -73,8 +73,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 orientation: 'landscape',
                                 pageSize: 'A4',
                                 download: 'open',
-                                messageTop: 'Reporte: ' + localdate,
-                                title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
+                                messageTop: 'Reporte: ' + localdate + '\n' + 'Área: <?php echo $areaUsuario; ?>',
+                                title: 'Listado de Tareas - Gestión Sistemas',
                                 exportOptions: {
                                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                                 },
@@ -85,6 +85,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         }
                     })
                 })
+
+                function mostrarIP(valor) {
+                    if (valor.checked) {
+                        $('#ipSeccion').show(200);
+                        $('input[name=ip]').prop('required', true);
+                    } else {
+                        $('#ipSeccion').hide(200);
+                        $('input[name=ip]').prop('required', false);
+                        $('input[name=ip]').val('');
+                    }
+                }
 
                 function validarInputNumerico(valor) {
                     const ip = /^[0-9.]+$/;
@@ -200,7 +211,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 }
                 ?>
 
-                <p class="fs-5">Tareas</p>
+                <p class="fs-5">Tareas - <?php echo $areaUsuario ?></p>
                 <hr>
                 <p class="fs-6">Para manipular las tareas, presione <b>Acción</b></p>
                 <div class="table-responsive-xxl">
@@ -246,8 +257,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                 <label for="floatingTextarea">Descripción</label>
                                             </div>
 
-                                            <div class="form-floating mb-3">
-                                                <input type="text" name="ip" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ip">
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" onclick="mostrarIP(this);">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    Con IP
+                                                </label>
+                                            </div>
+
+                                            <div class="form-floating mb-3" id="ipSeccion" style="display: none;">
+                                                <input type="text" name="ip" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="Nombre del Afectado">
                                                 <label for="floatingInput">IP</label>
                                             </div>
 
@@ -301,7 +319,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <th scope="col">#</th>
                                     <th scope="col">Motivo</th>
                                     <th scope="col">Descripción</th>
-                                    <th scope="col">IP</th>
+
+                                    <?php
+                                    //IP
+                                    if ($_SESSION['areaUsuario'] == 1 || $_SESSION['areaUsuario'] == 2 || $_SESSION['areaUsuario'] == 3 || $_SESSION['areaUsuario'] == 7) {
+                                    ?>
+                                        <th scope="col">IP</th>
+                                    <?php
+                                    }
+                                    ?>
+
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
                                     <th scope="col">Fecha Solución</th>
@@ -318,7 +345,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <td style="text-align: center;"><?php echo $listTarea[0]; ?></td>
                                         <td><?php echo $listTarea[2]; ?></td>
                                         <td><?php echo $listTarea[3]; ?></td>
-                                        <td><?php echo $listTarea[4]; ?></td>
+
+                                        <?php
+                                        //IP
+                                        if ($_SESSION['areaUsuario'] == 1 || $_SESSION['areaUsuario'] == 2 || $_SESSION['areaUsuario'] == 3 || $_SESSION['areaUsuario'] == 7) {
+                                        ?>
+                                            <td><?php echo $listTarea[4]; ?></td>
+                                        <?php
+                                        }
+                                        ?>
+
                                         <td>
                                             <?php
                                             if ($listTarea[9] == 'Pendiente') {
