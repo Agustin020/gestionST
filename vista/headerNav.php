@@ -5,67 +5,113 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 ?>
 
     <style>
-        header {
-            height: 50px;
-            background-color: #5a3377;
-            width: 100%;
+        .header {
+            margin-left: 250px;
+            transition: 0.2s all;
         }
 
-        header #title {
-            margin-left: 30px;
-        }
-
-        @media only screen and (max-width: 900px) {
-            .usuarioConfig {
-                background-color: #333;
-            }
-        }
-
-
-        nav {
-            position: fixed;
-            top: 50px;
-            width: 180px;
-            bottom: 0;
-            color: white;
+        #buttonText {
             display: flex;
-            flex-direction: column;
+            align-items: center;
         }
 
-        nav .titlePage {
-            margin: 10px;
+        #buttonText span {
+            padding: 15px;
         }
 
-        nav #itemsNav a {
+        #buttonText button {
+            color: white;
+            border-radius: 5px;
+            transition: 0.1s all;
+            background-color: transparent;
+            border: none;
+        }
+
+        #buttonText button:active {
+            box-shadow: 0 0 0 2px gray;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            color: white;
+            transition: 0.2s all;
+        }
+
+        .sidebar #txtRol {
+            padding: 15px;
+        }
+
+        .sidebar a {
+            padding-left: 20px;
+            padding-right: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar i {
+            padding-right: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #47c5b5;
+        }
+
+        .sidebar a:active {
+            box-shadow: 0 0 5px 0 #47c5b5;
+        }
+
+
+        .sidebar #menu a {
+            border-left: 5px solid darkviolet;
+        }
+
+        .sidebar i {
             color: white;
         }
 
-        nav #itemsNav i {
-            margin-right: 5px;
+        .sidebar #desplegarMenuTarea a {
+            border-left: 5px solid #47c5b5;
         }
 
-        nav #itemsNav a:hover {
-            background-color: #6a11cb;
+        section {
+            margin-left: 250px;
+            margin-top: 56px;
+            transition: 0.2s all;
         }
 
-        nav #listEmpl a {
-            background-color: #333;
+        .hideSidebar {
+            transition: 0.2s all;
+            left: -250px;
         }
 
-        nav #mostrarOpcEmpl {
-            display: flex;
-            justify-content: space-between;
+        .expandHeader {
+            transition: 0.2s all;
+            margin-left: 0;
+        }
+
+        .expandContainer {
+            margin-left: 0;
         }
     </style>
 
     <script>
         $(document).ready(function() {
-            $('#listEmpl').hide();
-            $('#mostrarOpcEmpl').click(function() {
-                $(this).next('#listEmpl').toggle(200);
-                var i = $('#iconcollapse');
-                i.attr('class', i.hasClass('bi bi-caret-right') ? 'bi bi-caret-down' : i.attr('data-original'));
+
+            $('#iconToggle').click(function() {
+                $('#navHeader').toggleClass('expandHeader');
+                $('#navSidebar').toggleClass('hideSidebar');
+                $('#container').toggleClass('expandContainer');
+                //$('.sidebar').hide(200);
             });
+
+            $('#menu').hide();
+            $('#showMenu').click(function() {
+                $('#menu').toggle(100);
+                $('#showMenu i').toggleClass('bi bi-caret-up');
+            })
+
 
             $('.mostrarPass').click(function() {
                 if ($('.mostrarPass').is(':checked')) {
@@ -106,36 +152,29 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         }
     </script>
 
-    <header class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <nav id="navHeader" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top header">
+        <div class="container-fluid">
+            <div id="buttonText">
+                <button id="iconToggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión Sistemas</a>
+            </div>
 
-
-        <div id="title">
-            <a class="navbar-brand">Gestión Sistemas</a>
-        </div>
-
-        <!--Collapse-->
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-
-        <!--Usuario Configuracion-->
-        <div class="usuarioConfig" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav settingsUser">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php echo $_SESSION['nombreApellido']; ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Gestionar Cuenta</a></li>
-                        <li><a class="dropdown-item" href="logout.php">Cerrar Sesión</a></li>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Gestionar usuario actual</a></li>
+                        <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
                     </ul>
+
                 </li>
             </ul>
         </div>
-
-    </header>
+    </nav>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form action="../controlador/c_editarUsuario.php" method="post">
@@ -216,24 +255,21 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
     <!--SIDEBAR-->
-    <nav class="nav navbar-dark bg-dark">
+    <nav id="navSidebar" class="navbar-dark bg-dark fixed-top sidebar" style="display: flex; flex-direction: column; justify-content: space-between;">
 
-        <?php
-        if ($_SESSION['rol'] == 1) {
-        ?>
-            <span class="fs-4 titlePage">Reclamos</span>
-        <?php
-        } else {
-        ?>
-            <span class="fs-4 titlePage">Evaluador</span>
-        <?php
-        }
-        ?>
-        <div id="itemsNav">
-            <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
-            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas"><i class="bi bi-list-check"></i>Tareas</a>
-            <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Direcciones</a>
+        <div id="sidebarSuperior">
+
+            <div id="txtRol">
+                <span class="fs-4 titlePage">Reclamos</span>
+            </div>
+
+            <div class="navbar-nav bg-dark">
+                <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
+                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas"><i class="bi bi-list-check"></i>Tareas</a>
+                <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Direcciones</a>
+            </div>
         </div>
+
     </nav>
 <?php
 }

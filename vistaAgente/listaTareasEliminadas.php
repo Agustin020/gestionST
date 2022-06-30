@@ -14,7 +14,6 @@ if (isset($_SESSION['rol'])) {
 
             <style>
                 section {
-                    margin-left: 180px;
                     padding: 15px;
                 }
 
@@ -45,7 +44,7 @@ if (isset($_SESSION['rol'])) {
         </head>
 
         <body>
-            <section>
+            <section id="container">
                 <p class="fs-5">Lista de tareas eliminadas</p>
                 <hr>
 

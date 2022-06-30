@@ -15,7 +15,6 @@ if (isset($_SESSION['rol'])) {
             <style>
                 section {
                     padding: 15px;
-                    margin-left: 180px;
                 }
 
                 td,
@@ -148,7 +147,7 @@ if (isset($_SESSION['rol'])) {
 
         <body>
 
-            <section>
+            <section id="container">
 
                 <p class="fs-5">Lista de tareas de <?php echo $agente ?></p>
                 <hr>

@@ -16,7 +16,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
         <style>
             section {
-                margin-left: 180px;
                 padding: 15px;
             }
 
@@ -91,7 +90,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         </script>
 
         <body>
-            <section>
+            <section id="container">
 
                 <?php
                 error_reporting(0);

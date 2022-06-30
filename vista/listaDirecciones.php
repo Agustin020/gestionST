@@ -12,7 +12,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <title>Document</title>
             <style>
                 section {
-                    margin-left: 180px;
                     padding: 10px;
                 }
 
@@ -97,7 +96,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
             ?>
 
-            <section>
+            <section id="container">
                 <p class="fs-5">Lista de Direcciones de la Municipalidad</p>
                 <hr>
 

@@ -21,9 +21,8 @@ class ControladorAdmin
         echo ('<title>Listado de Tareas - Gestión ST</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
-        $listDatosAgentes = $co->listarAgentes();
         $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario']);
-        $listMotivos = $co->listarMotivosProblemas();
+        $listMotivos = $co->listarMotivosProblemasUsuario($_SESSION['dni']);
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
         $areaUsuario = $co->listarNombreAreaUsuario($_SESSION['dni']);

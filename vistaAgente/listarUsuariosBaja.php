@@ -12,7 +12,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <title>Document</title>
             <style>
                 section {
-                    margin-left: 180px;
                     padding: 15px;
                 }
 
@@ -58,7 +57,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         </head>
 
         <body>
-            <section>
+            <section id="container">
                 <?php
                 error_reporting(0);
                 if ($_SESSION['agenteEditado'] == true) {

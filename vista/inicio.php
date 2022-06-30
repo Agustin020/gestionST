@@ -23,7 +23,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             }
 
             section {
-                margin-left: 180px;
                 padding: 10px;
             }
 
@@ -62,7 +61,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
         <body>
             <?php require('headerNav.php'); ?>
-            <section>
+            <section id="container">
                 <p class="fs-5">Bienvenido <?php echo $_SESSION['nombreApellido']; ?></p>
 
                 <?php

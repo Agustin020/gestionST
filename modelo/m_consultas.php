@@ -173,7 +173,27 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT * FROM motivos";
+            $sql = "SELECT * from motivos";
+            $result = mysqli_query($link, $sql);
+            $listMotivos = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listMotivos[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $listMotivos;
+    }
+
+    public function listarMotivosProblemasUsuario($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT m.id, m.motivos from motivos m where m.codigoArea in 
+                    (select a.codigo from areas a where a.codigo in 
+                    (select u.codigoArea2 from usuario u where u.dni = '$dni')) ";
             $result = mysqli_query($link, $sql);
             $listMotivos = [];
             $i = 0;
@@ -433,7 +453,7 @@ class Consultas extends Conexion
         return $listTareas;
     }
 
-    //PAGE ADMIN: LISTAR TAREAS ELIMINADAS
+    
 
     public function listarTareasAdmin()
     {
@@ -456,6 +476,8 @@ class Consultas extends Conexion
         }
         return $listTareas;
     }
+
+    //PAGE ADMIN: LISTAR TAREAS ELIMINADAS
 
     public function listarTareasEliminadas()
     {
@@ -861,10 +883,88 @@ class Consultas extends Conexion
         return $nroCompletas;
     }
 
+    public function contarTotalTareasAreas($areaUsuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from tareas t where t.codigoArea3 
+                    in (select a.codigo from areas a where a.codigo = '$areaUsuario')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $nroTotal = $row[0];
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $nroTotal;
+    }
+
+    public function contarTareasPendientesArea($areaUsuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from tareas t where estadoTarea_id in (select id from estadotarea e where nombre = 'Pendiente')
+                    and t.codigoArea3 in (select a.codigo from areas a where a.codigo = '$areaUsuario')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $nroCompletas = $row[0];
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $nroCompletas;
+    }
+
+    public function contarTareasCompletasArea($areaUsuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from tareas t where estadoTarea_id in (select e.id from estadotarea e where nombre = 'Completo') 
+                    and t.codigoArea3 in (select a.codigo from areas a where a.codigo = '$areaUsuario')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $nroCompletas = $row[0];
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $nroCompletas;
+    }
+
+    public function contarTareasEnProgresoArea($areaUsuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from tareas t where estadoTarea_id in (select id from estadotarea e where nombre = 'En Progreso')
+                    and t.codigoArea3 in (select a.codigo from areas a where a.codigo = '$areaUsuario')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $nroCompletas = $row[0];
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $nroCompletas;
+    }
+
+    public function contarTareasCanceladasArea($areaUsuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from tareas t where estadoTarea_id in (select id from estadotarea e where nombre = 'Cancelado')
+                    and t.codigoArea3 in (select a.codigo from areas a where a.codigo = '$areaUsuario')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $nroCanceladas = $row[0];
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $nroCanceladas;
+    }
 
     //Tareas en General
-
-    public function contarTotalTareas()
+    /*public function contarTotalTareas()
     {
         try {
             $link = parent::Conexion();
@@ -877,7 +977,7 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $nroTotal;
-    }
+    }*/
 
     public function contarTareasPendientes()
     {
@@ -968,6 +1068,21 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $totalAdmin;
+    }
+
+    public function contarSupervisores()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from usuario u where u.idRol2 in (select t.idrol from tipousuario t where t.nombre = 'Supervisor')";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $totalSuperv = $row[0];
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $totalSuperv;
     }
 
     public function contarAgentes()

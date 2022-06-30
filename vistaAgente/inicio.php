@@ -17,7 +17,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 body {
                     /* fallback for old browsers */
                     background-color: #e6ece8;
-                    
+
                 }
 
                 section {
@@ -102,84 +102,119 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <?php
             require('../modelo/m_consultas.php');
             $co = new Consultas();
+            $tareasTotal = $co->contarTareas();
+            $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario']);
+            //
+            $tareasPendientesArea = $co->contarTareasPendientesArea($_SESSION['areaUsuario']);
+            $tareasCompletasArea = $co->contarTareasCompletasArea($_SESSION['areaUsuario']);
+            $tareasEnProgresoArea = $co->contarTareasEnProgresoArea($_SESSION['areaUsuario']);
+            $tareasCanceladasArea = $co->contarTareasCanceladasArea($_SESSION['areaUsuario']);
+            //
             $nroCompletasUser = $co->contarTareasCompletasUser($_SESSION['username']);
-            $tareasTotal = $co->contarTotalTareas();
-            $tareasCompletas = $co->contarTareasCompletas();
+            //
             $tareasPendientes = $co->contarTareasPendientes();
             $tareasEnProgreso = $co->contarTareasEnProgreso();
+            $tareasCompletas = $co->contarTareasCompletas();
             $tareasCanceladas = $co->contarTareasCanceladas();
-            $totalUsuarios = $co->contarTotalUsuarios();
             //Usuarios
+            $totalUsuarios = $co->contarTotalUsuarios();
             $totalAdmin = $co->contarAdmin();
+            $totalSuperv = $co->contarSupervisores();
             $totalAgentes = $co->contarAgentes();
             $totalEncargados = $co->contarEncargados();
             //Areas
             $totalDirecciones = $co->contarDirecciones();
             ?>
 
-            <section>
+            <section id="container">
 
                 <div class="cajas animate__bounceInDown">
                     <p class="fs-5">Bienvenido <?php echo $_SESSION['nombreApellido']; ?></p>
                     <p class="fs-5 text-center">Tareas</p>
 
                     <div class="principal">
-                        <div class="card border-dark mb-3 principal" style="max-width: auto;">
-                            <div class="card-body caja1 text-dark">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasTotal; ?></h1>
-                                    <p class="card-text">Total de tareas</p>
+
+                        <?php
+                        if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
+                        ?>
+
+                            <div class="card border-dark mb-3" style="max-width: auto;">
+                                <div class="card-body caja1 text-dark">
+                                    <div id="txtInfo">
+                                        <h1 class="card-title"><?php echo $tareasTotalArea; ?></h1>
+                                        <p class="card-text">Total de tareas de <?php echo $_SESSION['areaUsuarioNombre']; ?></p>
+                                    </div>
+                                    <i class="bi bi-clipboard-data"></i>
                                 </div>
-                                <i class="bi bi-clipboard-data"></i>
                             </div>
-                        </div>
-                    </div>
 
 
-                    <div class="card border-secondary mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-secondary">
-                            <div id="txtInfo">
-                                <h1 class="card-title"><?php echo $tareasPendientes; ?></h1>
-                                <p class="card-text">Total de tareas 'Pendientes'</p>
+                        <?php
+                        } else {
+                        ?>
+
+                            <div class="card border-dark mb-3" style="max-width: auto;">
+                                <div class="card-body caja1 text-dark">
+                                    <div id="txtInfo">
+                                        <h1 class="card-title"><?php echo $tareasTotal; ?></h1>
+                                        <p class="card-text">Total de tareas</p>
+                                    </div>
+                                    <i class="bi bi-clipboard-data"></i>
+                                </div>
                             </div>
-                            <i class="bi bi-list-task"></i>
-                        </div>
-                    </div>
 
-                    <div class="card border-primary mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-primary">
-                            <div id="txtInfo">
-                                <h1 class="card-title"><?php echo $tareasEnProgreso; ?></h1>
-                                <p class="card-text">Total de tareas 'En progreso'</p>
-                            </div>
-                            <i class="bi bi-list-ul"></i>
-                        </div>
-                    </div>
 
-                    <div class="card border-success mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-success">
-                            <div id="txtInfo">
-                                <h1 class="card-title"><?php echo $tareasCompletas; ?></h1>
-                                <p class="card-text">Total de tareas 'Completas'</p>
-                            </div>
-                            <i class="bi bi-list-check"></i>
-                        </div>
-                    </div>
+                        <?php
+                        }
+                        ?>
 
-                    <div class="card border-danger mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-danger">
-                            <div id="txtInfo">
-                                <h1 class="card-title"><?php echo $tareasCanceladas; ?></h1>
-                                <p class="card-text">Total de tareas 'Canceladas'</p>
-                            </div>
-                            <i class="bi bi-clipboard-x"></i>
-                        </div>
                     </div>
-
 
                     <?php
-                    if ($_SESSION['rol'] == 2) {
+                    if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
                     ?>
+
+                        <div class="card border-secondary mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-secondary">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasPendientesArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'Pendientes'</p>
+                                </div>
+                                <i class="bi bi-list-task"></i>
+                            </div>
+                        </div>
+
+                        <div class="card border-primary mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-primary">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasEnProgresoArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'En progreso'</p>
+                                </div>
+                                <i class="bi bi-list-ul"></i>
+                            </div>
+                        </div>
+
+                        <div class="card border-success mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-success">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasCompletasArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'Completas'</p>
+                                </div>
+                                <i class="bi bi-list-check"></i>
+                            </div>
+                        </div>
+
+                        <div class="card border-danger mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-danger">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasCanceladasArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'Canceladas'</p>
+                                </div>
+                                <i class="bi bi-clipboard-x"></i>
+                            </div>
+                        </div>
+
+
                         <div class="card border-success mb-3 principal" style="max-width: auto;">
                             <div class="card-body caja1 text-success">
                                 <div id="txtInfo">
@@ -189,6 +224,51 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 <i class="bi bi-list-check"></i>
                             </div>
                         </div>
+
+                    <?php
+                    } else {
+                    ?>
+
+                        <div class="card border-secondary mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-secondary">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasPendientes; ?></h1>
+                                    <p class="card-text">Total de tareas 'Pendientes'</p>
+                                </div>
+                                <i class="bi bi-list-task"></i>
+                            </div>
+                        </div>
+
+                        <div class="card border-primary mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-primary">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasEnProgreso; ?></h1>
+                                    <p class="card-text">Total de tareas 'En progreso'</p>
+                                </div>
+                                <i class="bi bi-list-ul"></i>
+                            </div>
+                        </div>
+
+                        <div class="card border-success mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-success">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasCompletas; ?></h1>
+                                    <p class="card-text">Total de tareas 'Completas'</p>
+                                </div>
+                                <i class="bi bi-list-check"></i>
+                            </div>
+                        </div>
+
+                        <div class="card border-danger mb-3" style="max-width: auto;">
+                            <div class="card-body caja1 text-danger">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $tareasCanceladas; ?></h1>
+                                    <p class="card-text">Total de tareas 'Canceladas'</p>
+                                </div>
+                                <i class="bi bi-clipboard-x"></i>
+                            </div>
+                        </div>
+
                     <?php
                     }
                     ?>
@@ -209,7 +289,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <div class="card-body caja1 text-info">
                                         <div id="txtInfo">
                                             <h1 class="card-title"><?php echo $totalAdmin; ?></h1>
-                                            <p class="card-text">Total de usuarios Administradores</p>
+                                            <p class="card-text">Usuarios Administradores</p>
                                         </div>
                                         <i class="bi bi-person-lines-fill"></i>
                                     </div>
@@ -218,8 +298,18 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 <div class="card border-info mb-3" style="max-width: auto;">
                                     <div class="card-body caja1 text-info">
                                         <div id="txtInfo">
+                                            <h1 class="card-title"><?php echo $totalSuperv; ?></h1>
+                                            <p class="card-text">Usuarios Supervisores</p>
+                                        </div>
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                </div>
+
+                                <div class="card border-info mb-3" style="max-width: auto;">
+                                    <div class="card-body caja1 text-info">
+                                        <div id="txtInfo">
                                             <h1 class="card-title"><?php echo $totalAgentes; ?></h1>
-                                            <p class="card-text">Total de usuarios Agentes</p>
+                                            <p class="card-text">Usuarios Agentes</p>
                                         </div>
                                         <i class="bi bi-people-fill"></i>
                                     </div>
@@ -229,7 +319,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <div class="card-body caja1 text-info">
                                         <div id="txtInfo">
                                             <h1 class="card-title"><?php echo $totalEncargados; ?></h1>
-                                            <p class="card-text">Total de usuarios encargados de los reclamos</p>
+                                            <p class="card-text">Usuarios encargados de los reclamos</p>
                                         </div>
                                         <i class="bi bi-person-video3"></i>
                                     </div>
