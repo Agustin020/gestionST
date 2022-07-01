@@ -163,7 +163,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 <button id="iconToggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión Sistemas</a>
+                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión de tareas - Sistemas</a>
             </div>
 
             <ul class="navbar-nav settingsUser">

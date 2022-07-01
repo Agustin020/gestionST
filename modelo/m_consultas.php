@@ -612,9 +612,9 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.usuario, t.nombre 
-                    from usuario u, tipousuario t
-                    where u.idRol2 = t.idrol and t.idrol != 1 and t.idrol != 3 order by t.nombre desc";
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.usuario, t.nombre, a.nombre 
+                    from usuario u, tipousuario t, areas a
+                    where u.idRol2 = t.idrol and t.idrol != 1 and t.idrol != 3 and u.codigoArea2 = a.codigo";
             $result = mysqli_query($link, $sql);
             $listEncAgentes = [];
             $i = 0;

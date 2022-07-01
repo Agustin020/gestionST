@@ -158,7 +158,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 <button id="iconToggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión Sistemas</a>
+                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión de tareas - Sistemas</a>
             </div>
 
             <ul class="navbar-nav settingsUser">
@@ -189,11 +189,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     <div class="modal-body">
 
                         <?php
-                        require('../modelo/m_conexionPage.php');
-                        $link = conexion();
-                        $sql = "SELECT * FROM usuario WHERE usuario = '$username' OR correo = '$username'";
-                        $result = mysqli_query($link, $sql);
-                        while ($row = mysqli_fetch_row($result)) {
+                        require_once('../modelo/m_consultas.php');
+                        $co = new Consultas();
+                        $datosPersonales = $co->listarDatosPersonales($_SESSION['username']);
+                        foreach ($datosPersonales as $row) {
                         ?>
 
                             <div class="form-floating mb-3 input">
@@ -268,6 +267,17 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas"><i class="bi bi-list-check"></i>Tareas</a>
                 <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Direcciones</a>
             </div>
+        </div>
+
+        <div id="sidebarInferior">
+            <?php
+            $fechaActual = $co->fechaActual();
+            $date = date_create($fechaActual);
+            $fecha = date_format($date, 'd/m/Y');
+            ?>
+            <p class="fs-6 fw-bold text-center">
+                <?php echo $fecha; ?>
+            </p>
         </div>
 
     </nav>

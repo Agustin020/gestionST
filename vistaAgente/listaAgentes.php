@@ -48,6 +48,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 $(document).ready(function() {
                     $('#tablaDinamicaLoad').DataTable({
+                        order: [[6, 'desc']],
                         language: {
                             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                         }
@@ -97,6 +98,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                             <th scope="col">Correo</th>
                             <th scope="col">Usuario</th>
                             <th scope="col">Rol</th>
+                            <th scope="col">Área</th>
                             <th scope="col">Acción</th>
                         </tr>
                     </thead>
@@ -111,6 +113,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 <td><?php echo $list[3]; ?></td>
                                 <td><?php echo $list[4]; ?></td>
                                 <td><?php echo $list[5]; ?></td>
+                                <td><?php echo $list[6]; ?></td>
                                 <td id="accion">
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

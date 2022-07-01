@@ -84,7 +84,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 ?>
 
                 <?php
-                require('../modelo/m_consultas.php');
+                require_once('../modelo/m_consultas.php');
                 $co = new Consultas();
 
                 $totalTareas = $co->contarTareas();
