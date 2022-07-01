@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 $username = $_SESSION['username'];
 if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 ?>
@@ -71,7 +70,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             color: white;
         }
 
-        .sidebar #desplegarMenuTarea a{
+        .sidebar #desplegarMenuTarea a {
             border-left: 5px solid #47c5b5;
         }
 
@@ -195,11 +194,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     <div class="modal-body">
 
                         <?php
-                        require('../modelo/m_conexionPage.php');
-                        $link = conexion();
-                        $sql = "SELECT * FROM usuario WHERE usuario = '$username' OR correo = '$username'";
-                        $result = mysqli_query($link, $sql);
-                        while ($row = mysqli_fetch_row($result)) {
+                        require_once('../modelo/m_consultas.php');
+                        $co = new Consultas();
+                        $datosPersonales = $co->listarDatosPersonales($_SESSION['username']);
+                        $fechaActual = $co->fechaActual();
+                        foreach ($datosPersonales as $row) {
                         ?>
 
                             <div class="form-floating mb-3 input">
@@ -284,7 +283,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
             <div class="navbar-nav bg-dark">
-                    <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
+                <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
 
                 <?php
                 if ($_SESSION['rol'] == 4) {
@@ -340,6 +339,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
             </div>
 
+        </div>
+
+        <div id="sidebarInferior">
+            <p class="fs-6 fw-bold text-center">
+                <?php 
+                $format = date_create($fechaActual);
+                $fechaActual = date_format($format, 'd/m/Y');
+                echo $fechaActual; 
+                ?>
+            </p>
         </div>
 
 

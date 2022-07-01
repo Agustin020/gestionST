@@ -1,5 +1,5 @@
 <?php
-require('m_conexion.php');
+require_once('m_conexion.php');
 
 class Consultas extends Conexion
 {
@@ -87,7 +87,6 @@ class Consultas extends Conexion
     }
 
 
-    //Boton Usuario
     public function mostrarDatosUsuario($usuario)
     {
         try {
@@ -103,6 +102,24 @@ class Consultas extends Conexion
             $e->getMessage();
         }
         return $nombreApellido;
+    }
+
+    //Gestionar Usuario
+    public function listarDatosPersonales($usuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT * FROM usuario WHERE usuario = '$usuario' OR correo = '$usuario'";
+            $result = mysqli_query($link, $sql);
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $datosPersonales[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $datosPersonales;
     }
 
     public function editarDatosUsuario($dni, $nombre, $apellido, $correo, $user, $pass, $userAnterior)
@@ -1113,5 +1130,19 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $totalEncargados;
+    }
+
+    public function fechaActual(){
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT CURDATE()";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $fechaActual = $row[0];
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $fechaActual;
     }
 }

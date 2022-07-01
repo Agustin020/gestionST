@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
     if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
@@ -67,7 +68,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <?php
             require('headerNav.php');
 
-            error_reporting(0);
+
             $datosAct = $_SESSION['datosAct'];
             if ($datosAct == true) {
             ?>
@@ -100,18 +101,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             ?>
 
             <?php
-            require('../modelo/m_consultas.php');
+            require_once('../modelo/m_consultas.php');
             $co = new Consultas();
             $tareasTotal = $co->contarTareas();
-            $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario']);
-            //
-            $tareasPendientesArea = $co->contarTareasPendientesArea($_SESSION['areaUsuario']);
-            $tareasCompletasArea = $co->contarTareasCompletasArea($_SESSION['areaUsuario']);
-            $tareasEnProgresoArea = $co->contarTareasEnProgresoArea($_SESSION['areaUsuario']);
-            $tareasCanceladasArea = $co->contarTareasCanceladasArea($_SESSION['areaUsuario']);
-            //
-            $nroCompletasUser = $co->contarTareasCompletasUser($_SESSION['username']);
-            //
+            if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
+                $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario']);
+                //
+                $tareasPendientesArea = $co->contarTareasPendientesArea($_SESSION['areaUsuario']);
+                $tareasCompletasArea = $co->contarTareasCompletasArea($_SESSION['areaUsuario']);
+                $tareasEnProgresoArea = $co->contarTareasEnProgresoArea($_SESSION['areaUsuario']);
+                $tareasCanceladasArea = $co->contarTareasCanceladasArea($_SESSION['areaUsuario']);
+                //
+                $nroCompletasUser = $co->contarTareasCompletasUser($_SESSION['username']);
+            }
             $tareasPendientes = $co->contarTareasPendientes();
             $tareasEnProgreso = $co->contarTareasEnProgreso();
             $tareasCompletas = $co->contarTareasCompletas();
