@@ -285,6 +285,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <div class="navbar-nav bg-dark">
                 <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
 
+
                 <?php
                 if ($_SESSION['rol'] == 4) {
                 ?>
@@ -296,6 +297,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 <?php
                 } else if ($_SESSION['rol'] == 3) {
                 ?>
+
+                    <a class="nav-link" aria-current="page" href="estadisticas.php">
+                        <i class="bi bi-pie-chart"></i>Estadisticas
+                    </a>
+
                     <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
                         <div id="textItem">
                             <i class="bi bi-list-check"></i>
@@ -343,10 +349,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
         <div id="sidebarInferior">
             <p class="fs-6 fw-bold text-center">
-                <?php 
+                <?php
                 $format = date_create($fechaActual);
                 $fechaActual = date_format($format, 'd/m/Y');
-                echo $fechaActual; 
+                echo $fechaActual;
                 ?>
             </p>
         </div>
