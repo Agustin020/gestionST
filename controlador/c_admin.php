@@ -46,7 +46,7 @@ class ControladorAdmin
             $listTareasAgentes = $co->listarTareasAdmin();
         }
 
-        $listMotivos = $co->listarMotivosProblemas();
+        $listMotivos = $co->listarMotivosProblemasUsuario($_SESSION['dni']);
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
         $listAreas = $co->listarAreas();

@@ -210,7 +210,7 @@ class Consultas extends Conexion
             $link = parent::Conexion();
             $sql = "SELECT m.id, m.motivos from motivos m where m.codigoArea in 
                     (select a.codigo from areas a where a.codigo in 
-                    (select u.codigoArea2 from usuario u where u.dni = '$dni')) ";
+                    (select u.codigoArea2 from usuario u where u.dni = '$dni'))";
             $result = mysqli_query($link, $sql);
             $listMotivos = [];
             $i = 0;

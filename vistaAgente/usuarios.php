@@ -12,7 +12,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <title>Document</title>
             <style>
                 section {
-                    padding: 10px;
+                    padding: 15px;
                 }
 
                 section .fs-6 {
@@ -43,13 +43,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             </style>
 
             <script>
-                function validarAgenteExistente(dni) {
+                function validarUsernameExistente(username) {
                     $.ajax({
                         type: 'POST',
-                        url: 'validacionRepetidos/validarAgenteExistente.php',
-                        data: 'dni=' + dni.value,
+                        url: 'validacionDatosRepetidos/validarUsernameExistente.php',
+                        data: 'usuario=' + username.value,
                         success: function(r) {
-                            $('#dniExistente').html(r);
+                            $('#userExistente').html(r);
                         }
                     });
                 }
@@ -183,9 +183,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="number" name="dni" onblur="validarAgenteExistente(this);" min="1000000" max="99999999" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                            <input type="number" name="dni" min="1000000" max="99999999" class="form-control" id="floatingInput" placeholder="ejemplo" required>
                                             <label for="floatingInput">Dni</label>
-                                            <span id="dniExistente" style="color: #dc3545;">
+                                            
                                         </div>
 
                                         <div class="form-floating mb-3">
@@ -199,13 +199,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="ejemplo" required>
-                                            <label for="floatingInput">Correo</label>
+                                            <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                            <label for="floatingInput">Correo (Opcional)</label>
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="text" name="user" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                            <input type="text" name="user" oninput="validarUsernameExistente(this);" class="form-control" id="floatingInput" placeholder="ejemplo" required>
                                             <label for="floatingInput">Nombre de Usuario</label>
+                                            <span id="userExistente" style="color: #dc3545;"></span>
                                         </div>
 
                                         <div class="form-floating mb-3">

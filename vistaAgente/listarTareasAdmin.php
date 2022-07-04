@@ -61,10 +61,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         dom: 'lBfrtip',
                         buttons: [{
                                 extend: 'excelHtml5',
-                                title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
+                                title: 'Listado de Tareas - Gestión de tareas Sistemas',
                                 messageTop: 'Reporte: ' + localdate,
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                                 }
                             },
                             {
@@ -73,9 +73,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 pageSize: 'A4',
                                 download: 'open',
                                 messageTop: 'Reporte: ' + localdate,
-                                title: 'Listado de Tareas - Gestión Servicio Técnico Guaymallén',
+                                title: 'Listado de Tareas - Gestión de tareas Sistemas',
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                                 },
                             },
                         ],
@@ -98,11 +98,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     })
                 }
 
-                function mostrarIP(valor){
-                    if(valor.checked){
+                function mostrarIP(valor) {
+                    if (valor.checked) {
                         $('#ipSeccion').show(200);
                         $('input[name=ip]').prop('required', true);
-                    }else{
+                    } else {
                         $('#ipSeccion').hide(200);
                         $('input[name=ip]').prop('required', false);
                         $('input[name=ip]').val('');
@@ -247,30 +247,56 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
-                                            <div class="form-floating mb-3">
-                                                <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
-                                                    <option value="" selected>Seleccione...</option>
-                                                    <?php
-                                                    foreach ($listAreas as $area) {
-                                                    ?>
-                                                        <option value="<?php echo $area[0]; ?>">
-                                                            <?php
-                                                            echo $area[1];
-                                                            ?>
-                                                        </option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                                <label for="floatingSelect">Seleccione el Área involucrada</label>
-                                            </div>
+                                            <?php
+                                            if ($_SESSION['rol'] == 3) {
+                                            ?>
+                                                <div class="form-floating mb-3">
+                                                    <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                        <option value="" selected>Seleccione...</option>
+                                                        <?php
+                                                        foreach ($listAreas as $area) {
+                                                        ?>
+                                                            <option value="<?php echo $area[0]; ?>">
+                                                                <?php
+                                                                echo $area[1];
+                                                                ?>
+                                                            </option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    <label for="floatingSelect">Seleccione el Área involucrada</label>
+                                                </div>
 
-                                            <div class="form-floating mb-3">
-                                                <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
-                                                    <option value="" selected>Seleccione primero el Área</option>
-                                                </select>
-                                                <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
-                                            </div>
+                                                <div class="form-floating mb-3">
+                                                    <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                        <option value="" selected>Seleccione primero el Área</option>
+                                                    </select>
+                                                    <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                                                </div>
+                                            <?php
+                                            } else if ($_SESSION['rol'] == 4) {
+                                            ?>
+
+                                                <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+
+                                                <div class="form-floating mb-3">
+                                                    <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                        <option value="" selected>Seleccione...</option>
+                                                        <?php
+                                                        foreach ($listMotivos as $motivo) {
+                                                        ?>
+                                                            <option value="<?php echo $motivo[0]; ?>"><?php echo $motivo[1]; ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
+
 
                                             <div class="form-floating mb-3">
                                                 <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
