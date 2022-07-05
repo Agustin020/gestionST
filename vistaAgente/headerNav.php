@@ -298,7 +298,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 } else if ($_SESSION['rol'] == 3) {
                 ?>
 
-                    <a class="nav-link" aria-current="page" href="estadisticas.php">
+                    <a class="nav-link" aria-current="page" href="index.php?accion=verEstadisticas">
                         <i class="bi bi-pie-chart"></i>Estadisticas
                     </a>
 

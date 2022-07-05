@@ -2,6 +2,16 @@
 class ControladorAdmin
 {
 
+    public function verEstadisticasContr(){
+        echo ('<title>Estadísticas</title>');
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listMotivos = $co->listarMotivosProblemasUsuario(4000000);
+        require('libreriaEstilos.php');
+        require('headerNav.php');
+        require('estadisticas.php');
+    }
+
     public function listarTareasEncargadoContr()
     {
         echo ('<title>Listado de Tareas - Gestión ST</title>');

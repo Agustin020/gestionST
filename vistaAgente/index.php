@@ -3,6 +3,12 @@ session_start();
 $accion = $_GET['accion'];
 
 switch ($accion) {
+    case 'verEstadisticas':
+        require('../controlador/c_admin.php');
+        $controller = new ControladorAdmin();
+        $controller->verEstadisticasContr();
+        break;
+        
     case 'listarTareas':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
