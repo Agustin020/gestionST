@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2022 a las 19:30:14
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 7.4.28
+-- Host: 127.0.0.1
+-- Generation Time: Jul 06, 2022 at 05:16 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `gestionst`
+-- Database: `gestionst`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `areas`
+-- Table structure for table `areas`
 --
 
 CREATE TABLE `areas` (
@@ -33,7 +33,7 @@ CREATE TABLE `areas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Volcado de datos para la tabla `areas`
+-- Dumping data for table `areas`
 --
 
 INSERT INTO `areas` (`codigo`, `nombre`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `areas` (`codigo`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `direcciones`
+-- Table structure for table `direcciones`
 --
 
 CREATE TABLE `direcciones` (
@@ -58,7 +58,7 @@ CREATE TABLE `direcciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `direcciones`
+-- Dumping data for table `direcciones`
 --
 
 INSERT INTO `direcciones` (`codigo`, `nombre`, `descripcion`) VALUES
@@ -96,7 +96,7 @@ INSERT INTO `direcciones` (`codigo`, `nombre`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estadotarea`
+-- Table structure for table `estadotarea`
 --
 
 CREATE TABLE `estadotarea` (
@@ -105,7 +105,7 @@ CREATE TABLE `estadotarea` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `estadotarea`
+-- Dumping data for table `estadotarea`
 --
 
 INSERT INTO `estadotarea` (`id`, `nombre`) VALUES
@@ -118,7 +118,7 @@ INSERT INTO `estadotarea` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `motivos`
+-- Table structure for table `motivos`
 --
 
 CREATE TABLE `motivos` (
@@ -128,7 +128,7 @@ CREATE TABLE `motivos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `motivos`
+-- Dumping data for table `motivos`
 --
 
 INSERT INTO `motivos` (`id`, `motivos`, `codigoArea`) VALUES
@@ -179,7 +179,7 @@ INSERT INTO `motivos` (`id`, `motivos`, `codigoArea`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tareas`
+-- Table structure for table `tareas`
 --
 
 CREATE TABLE `tareas` (
@@ -202,20 +202,22 @@ CREATE TABLE `tareas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tareas`
+-- Dumping data for table `tareas`
 --
 
 INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `direccion_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`, `codigoArea3`) VALUES
 (54, 6000, 'addwazsd', '192.168.0.20', 'awdsfawf', '2612634028', 'adwwdawadwd', '2022-06-27 08:28:52', '2022-06-27 11:57:49', 3, 4005, 2000000, NULL, NULL, NULL, 6),
-(55, 3000, 'klakldaklwdklm', '192.168.70.55', 'Ejemplo Persona', '2612634082', NULL, '2022-06-27 08:32:38', NULL, 1, 4007, 0, NULL, NULL, NULL, 3),
+(55, 3000, 'klakldaklwdklm', '192.168.70.55', 'Ejemplo Persona', '2612634082', NULL, '2022-06-27 08:32:38', NULL, 2, 4007, 2000000, NULL, NULL, NULL, 3),
 (56, 3004, 'dvaegwefaafwefaweawf', '192.168.10.80', 'Ejemplo Persona', '2612634096', NULL, '2022-06-27 10:35:03', NULL, 1, 3005, 0, NULL, NULL, NULL, 3),
 (59, 3003, 'adwfasdadwa', '192.168.20.10', '', '', NULL, '2022-06-27 13:28:37', NULL, 1, 3004, 0, NULL, NULL, NULL, 3),
-(64, 2001, 'awdawdweaf', '', 'Ejemplo', '2612634090', NULL, '2022-06-29 13:13:06', NULL, 1, 3004, 0, NULL, NULL, NULL, 2);
+(64, 2001, 'awdawdweaf', '', 'Ejemplo', '2612634090', NULL, '2022-06-29 13:13:06', NULL, 1, 3004, 0, NULL, NULL, NULL, 2),
+(65, 3002, 'awdwafaawdwad', '', '', '', NULL, '2022-07-05 20:42:46', NULL, 4, 3001, 0, 'awdwdawadwaawd', NULL, NULL, 3),
+(66, 2003, 'dawdawdwdaawd', '', '', '', NULL, '2022-07-05 21:18:42', NULL, 5, 3003, 0, NULL, 'wdawdafwa', '2022-07-05 21:18:52', 2);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipousuario`
+-- Table structure for table `tipousuario`
 --
 
 CREATE TABLE `tipousuario` (
@@ -224,7 +226,7 @@ CREATE TABLE `tipousuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tipousuario`
+-- Dumping data for table `tipousuario`
 --
 
 INSERT INTO `tipousuario` (`idrol`, `nombre`) VALUES
@@ -236,7 +238,7 @@ INSERT INTO `tipousuario` (`idrol`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -252,7 +254,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`, `codigoArea2`) VALUES
@@ -265,36 +267,36 @@ INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contra
 (42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL, NULL);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `areas`
+-- Indexes for table `areas`
 --
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`codigo`);
 
 --
--- Indices de la tabla `direcciones`
+-- Indexes for table `direcciones`
 --
 ALTER TABLE `direcciones`
   ADD PRIMARY KEY (`codigo`);
 
 --
--- Indices de la tabla `estadotarea`
+-- Indexes for table `estadotarea`
 --
 ALTER TABLE `estadotarea`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `motivos`
+-- Indexes for table `motivos`
 --
 ALTER TABLE `motivos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `codigoArea` (`codigoArea`);
 
 --
--- Indices de la tabla `tareas`
+-- Indexes for table `tareas`
 --
 ALTER TABLE `tareas`
   ADD PRIMARY KEY (`nroArreglo`),
@@ -305,13 +307,13 @@ ALTER TABLE `tareas`
   ADD KEY `fk_codigoArea3` (`codigoArea3`);
 
 --
--- Indices de la tabla `tipousuario`
+-- Indexes for table `tipousuario`
 --
 ALTER TABLE `tipousuario`
   ADD PRIMARY KEY (`idrol`);
 
 --
--- Indices de la tabla `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`dni`),
@@ -319,39 +321,39 @@ ALTER TABLE `usuario`
   ADD KEY `fk_codigoArea2` (`codigoArea2`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `areas`
+-- AUTO_INCREMENT for table `areas`
 --
 ALTER TABLE `areas`
   MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de la tabla `motivos`
+-- AUTO_INCREMENT for table `motivos`
 --
 ALTER TABLE `motivos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7007;
 
 --
--- AUTO_INCREMENT de la tabla `tareas`
+-- AUTO_INCREMENT for table `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `motivos`
+-- Constraints for table `motivos`
 --
 ALTER TABLE `motivos`
   ADD CONSTRAINT `codigoArea` FOREIGN KEY (`codigoArea`) REFERENCES `areas` (`codigo`);
 
 --
--- Filtros para la tabla `tareas`
+-- Constraints for table `tareas`
 --
 ALTER TABLE `tareas`
   ADD CONSTRAINT `fk_codigoArea3` FOREIGN KEY (`codigoArea3`) REFERENCES `areas` (`codigo`),
@@ -361,7 +363,7 @@ ALTER TABLE `tareas`
   ADD CONSTRAINT `fk_usuario_dni` FOREIGN KEY (`usuario_dni`) REFERENCES `usuario` (`dni`);
 
 --
--- Filtros para la tabla `usuario`
+-- Constraints for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_codigoArea2` FOREIGN KEY (`codigoArea2`) REFERENCES `areas` (`codigo`),

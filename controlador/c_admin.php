@@ -2,10 +2,17 @@
 class ControladorAdmin
 {
 
-    public function verEstadisticasContr(){
+    public function verEstadisticasContr()
+    {
         echo ('<title>Estadísticas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        $totalTareas = $co->contarTareas();
+        $totalPendientes = $co->contarTotalPendientes();
+        $totalEnProgreso = $co->contarTotalEnProgreso();
+        $totalCompletas = $co->contarTotalCompletas();
+        $totalCanceladas = $co->contarTotalCanceladas();
+        $totalEliminadas = $co->contarTotalEliminadas();
         $listMotivos = $co->listarMotivosProblemasUsuario(4000000);
         require('libreriaEstilos.php');
         require('headerNav.php');

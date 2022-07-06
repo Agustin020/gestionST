@@ -430,6 +430,7 @@ class Consultas extends Conexion
         return $cantDirecciones;
     }
 
+    //ESTADISTICAS---------------
     public function contarTareas()
     {
         try {
@@ -445,6 +446,90 @@ class Consultas extends Conexion
         return $cantTareas;
     }
 
+    public function contarTotalPendientes()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Pendiente'";
+            $result = mysqli_query($link, $sql);
+            $totalTareasPendientes = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalTareasPendientes[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalTareasPendientes;
+    }
+
+    public function contarTotalEnProgreso()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'En progreso'";
+            $result = mysqli_query($link, $sql);
+            $totalTareasEnProgreso = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalTareasEnProgreso[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalTareasEnProgreso;
+    }
+
+    public function contarTotalCompletas()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Completo'";
+            $result = mysqli_query($link, $sql);
+            $totalTareasCompletas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalTareasCompletas[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalTareasCompletas;
+    }
+
+    public function contarTotalCanceladas()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Cancelado'";
+            $result = mysqli_query($link, $sql);
+            $totalTareasCanceladas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalTareasCanceladas[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalTareasCanceladas;
+    }
+
+    public function contarTotalEliminadas()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Eliminado'";
+            $result = mysqli_query($link, $sql);
+            $totalTareasEliminadas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalTareasEliminadas[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalTareasEliminadas;
+    }
 
 
     //PAGE ListarTareasAgente
@@ -470,7 +555,7 @@ class Consultas extends Conexion
         return $listTareas;
     }
 
-    
+
 
     public function listarTareasAdmin()
     {
@@ -826,10 +911,10 @@ class Consultas extends Conexion
             $passFuerte = password_hash($pass, PASSWORD_DEFAULT);
             $link = parent::Conexion();
 
-            if($codArea == '' || $codArea == null){
+            if ($codArea == '' || $codArea == null) {
                 $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2) 
                     values ('$dni', '$nombre', '$apellido', '$correo', '$user', '$passFuerte', '$tipoUsuario')";
-            }else{
+            } else {
                 $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2, codigoArea2) 
                     values ('$dni', '$nombre', '$apellido', '$correo', '$user', '$passFuerte', '$tipoUsuario', $codArea)";
             }
@@ -1132,7 +1217,8 @@ class Consultas extends Conexion
         return $totalEncargados;
     }
 
-    public function fechaActual(){
+    public function fechaActual()
+    {
         try {
             $link = parent::Conexion();
             $sql = "SELECT CURDATE()";

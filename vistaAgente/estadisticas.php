@@ -28,15 +28,27 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
                 var data = google.visualization.arrayToDataTable([
                     ['Codigo', 'Direcciones'],
                     <?php
-                    foreach ($listMotivos as $motivo) {
-                        echo "['" . $motivo[1] . "', " . $motivo[0] . "],";
+                    foreach ($totalPendientes as $pendiente) {
+                        echo "['" . $pendiente[1] . "', " . $pendiente[0] . "],";
+                    }
+                    foreach($totalEnProgreso as $progreso){
+                        echo "['" . $progreso[1] . "', " . $progreso[0] . "],";
+                    }
+                    foreach($totalCompletas as $completas){
+                        echo "['" . $completas[1] . "', " . $completas[0] . "],";
+                    }
+                    foreach($totalCanceladas as $canceladas){
+                        echo "['" . $canceladas[1] . "', " . $canceladas[0] . "],";
+                    }
+                    foreach($totalEliminadas as $eliminadas){
+                        echo "['" . $eliminadas[1] . "', " . $eliminadas[0] . "],";
                     }
                     ?>
                 ]);
 
                 var options = {
-                    title: 'Most Popular Programming Languages',
-                    width: 900,
+                    title: 'Total de requerimientos de Sistemas: <?php echo $totalTareas;?>',
+                    width: 800,
                     height: 500,
                 };
 
@@ -51,6 +63,8 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         <section id="container">
             <p class="fs-5">Estadísticas</p>
             <hr>
+
+            <p class="fs-6">Total de requerimientos de Sistemas</p>
 
             <div id="piechart"></div>
         </section>
