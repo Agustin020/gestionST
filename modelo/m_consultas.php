@@ -430,6 +430,11 @@ class Consultas extends Conexion
         return $cantDirecciones;
     }
 
+
+
+
+
+
     //ESTADISTICAS---------------
     public function contarTareas()
     {
@@ -529,6 +534,262 @@ class Consultas extends Conexion
             $e->getMessage();
         }
         return $totalTareasEliminadas;
+    }
+
+    //TOTAL POR AREAS------------------------------------------
+    public function contarTotalRedes()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '1'";
+            $result = mysqli_query($link, $sql);
+            $totalRedes = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalRedes[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalRedes;
+    }
+
+    public function contarTotalInfraestructura()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '2'";
+            $result = mysqli_query($link, $sql);
+            $totalInfraestructura = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalInfraestructura[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalInfraestructura;
+    }
+
+    public function contarTotalSTecnico()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '3'";
+            $result = mysqli_query($link, $sql);
+            $totalSTecnico = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalSTecnico[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalSTecnico;
+    }
+
+    public function contarTotalRequerimientos()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '4'";
+            $result = mysqli_query($link, $sql);
+            $totalRequerimientos = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalRequerimientos[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalRequerimientos;
+    }
+
+    public function contarTotalFDigital()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '5'";
+            $result = mysqli_query($link, $sql);
+            $totalFDigital = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalFDigital[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalFDigital;
+    }
+
+    public function contarTotalPDigital()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '6'";
+            $result = mysqli_query($link, $sql);
+            $totalPDigital = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalPDigital[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalPDigital;
+    }
+
+    public function contarTotalCCTV()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '7'";
+            $result = mysqli_query($link, $sql);
+            $totalCCTV = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $totalCCTV[$i] = $row;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalCCTV;
+    }
+
+
+    //Motivos---------------------------------------------------------------------------------------
+
+    public function totalMotivosRedes()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
+                    where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 1 group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosRedes = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosRedes[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosRedes;
+    }
+
+    public function totalMotivosInfraestructura()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
+                    where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 2 group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosInfr = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosInfr[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosInfr;
+    }
+
+    public function totalMotivosSTecnico()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
+                    where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 3 group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosSTecnico = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosSTecnico[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosSTecnico;
+    }
+
+    public function totalMotivosRequerimientos()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
+                    where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 4 group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosRequerimientos = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosRequerimientos[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosRequerimientos;
+    }
+
+    public function totalMotivosFDigital()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
+                    where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 5 group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosFDigital = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosFDigital[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosFDigital;
+    }
+
+    public function totalMotivosPDigital()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
+                    where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 6 group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosPDigital = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosPDigital[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosPDigital;
+    }
+
+    public function totalMotivosCCTV()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
+                    where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 7 group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosCCTV = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosCCTV[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosCCTV;
     }
 
 

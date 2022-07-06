@@ -13,50 +13,22 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
             section {
                 padding: 15px;
             }
+
+            #graficos {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+
+            #total {
+                grid-column: 1/5;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
         </style>
 
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-            google.charts.load('current', {
-                'packages': ['corechart']
-            });
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-            google.charts.setOnLoadCallback(drawChart);
-
-            function drawChart() {
-
-                var data = google.visualization.arrayToDataTable([
-                    ['Codigo', 'Direcciones'],
-                    <?php
-                    foreach ($totalPendientes as $pendiente) {
-                        echo "['" . $pendiente[1] . "', " . $pendiente[0] . "],";
-                    }
-                    foreach($totalEnProgreso as $progreso){
-                        echo "['" . $progreso[1] . "', " . $progreso[0] . "],";
-                    }
-                    foreach($totalCompletas as $completas){
-                        echo "['" . $completas[1] . "', " . $completas[0] . "],";
-                    }
-                    foreach($totalCanceladas as $canceladas){
-                        echo "['" . $canceladas[1] . "', " . $canceladas[0] . "],";
-                    }
-                    foreach($totalEliminadas as $eliminadas){
-                        echo "['" . $eliminadas[1] . "', " . $eliminadas[0] . "],";
-                    }
-                    ?>
-                ]);
-
-                var options = {
-                    title: 'Total de requerimientos de Sistemas: <?php echo $totalTareas;?>',
-                    width: 800,
-                    height: 500,
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-                chart.draw(data, options);
-            }
-        </script>
     </head>
 
     <body>
@@ -64,11 +36,455 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
             <p class="fs-5">Estadísticas</p>
             <hr>
 
-            <p class="fs-6">Total de requerimientos de Sistemas</p>
+            <div id="graficos">
 
-            <div id="piechart"></div>
+                <div id="total">
+                    <div id="totalTareas">
+                        <canvas id="myChart"></canvas>
+                    </div>
+
+                    <div id="totalxAreas">
+                        <canvas id="diagramaTotalAreas"></canvas>
+                    </div>
+                </div>
+
+                <div id="totalMotivosRedes">
+                    <canvas id="diagramaMotivosRedes"></canvas>
+                </div>
+
+                <div id="totalMotivosInfr">
+                    <canvas id="diagramaMotivosInfr"></canvas>
+                </div>
+
+                <div id="totalMotivosSTecnico">
+                    <canvas id="diagramaMotivosST"></canvas>
+                </div>
+
+                <div id="totalMotivosReq">
+                    <canvas id="diagramaMotivosReq"></canvas>
+                </div>
+            </div>
+
         </section>
     </body>
+
+    <script>
+        //Total Áreas Sistemas
+        const labels = [
+            <?php
+            foreach ($totalPendientes as $pendiente) {
+                echo "'" . $pendiente[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalEnProgreso as $progreso) {
+                echo "'" . $progreso[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalCompletas as $completas) {
+                echo "'" . $completas[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalCanceladas as $canceladas) {
+                echo "'" . $canceladas[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalEliminadas as $eliminadas) {
+                echo "'" . $eliminadas[1] . "', ";
+            }
+            ?>
+        ];
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Total de requerimientos de Sistemas',
+                backgroundColor: [
+                    'lightgray',
+                    'LightSkyBlue',
+                    'MediumSeaGreen',
+                    'LightCoral',
+                    'LightGoldenRodYellow',
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalPendientes as $pendiente) {
+                        echo $pendiente[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalEnProgreso as $progreso) {
+                        echo $progreso[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalCompletas as $completas) {
+                        echo $completas[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalCanceladas as $canceladas) {
+                        echo $canceladas[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalEliminadas as $eliminadas) {
+                        echo $eliminadas[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Sistemas: <?php echo $totalTareas; ?>'
+                    },
+                }
+            }
+        };
+
+        //-----------------------------------------
+        const labelsTotalxAreas = [
+            <?php
+            foreach ($totalRedes as $redes) {
+                echo "'" . $redes[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalInfraestrucutra as $infr) {
+                echo "'" . $infr[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalSTecnico as $stecnico) {
+                echo "'" . $stecnico[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalRequerimientos as $requerimientos) {
+                echo "'" . $requerimientos[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalFDigital as $fdigital) {
+                echo "'" . $fdigital[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalPDigital as $pdigital) {
+                echo "'" . $pdigital[1] . "', ";
+            }
+            ?>
+            <?php
+            foreach ($totalCctv as $cctv) {
+                echo "'" . $cctv[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataTotalxAreas = {
+            labels: labelsTotalxAreas,
+            datasets: [{
+                label: 'Total de requerimientos de Sistemas',
+                backgroundColor: [
+                    'lightgray',
+                    'aquamarine',
+                    'LimeGreen',
+                    'LightSalmon',
+                    'LightYellow',
+                    'Tomato',
+                    'MediumPurple'
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalRedes as $redes) {
+                        echo $redes[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalInfraestrucutra as $infr) {
+                        echo $infr[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalSTecnico as $stecnico) {
+                        echo $stecnico[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalRequerimientos as $requerimientos) {
+                        echo $requerimientos[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalFDigital as $fdigital) {
+                        echo $fdigital[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalPDigital as $pdigital) {
+                        echo $pdigital[0] . ", ";
+                    }
+                    ?>
+                    <?php
+                    foreach ($totalCctv as $cctv) {
+                        echo $cctv[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configTotalAreas = {
+            type: 'pie',
+            data: dataTotalxAreas,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Sistemas por Áreas'
+                    },
+                }
+            }
+        };
+
+        //-----------------------------------------
+        const labelsMotivosRedes = [
+            <?php
+            foreach ($totalMotivosRedes as $redes) {
+                echo "'" . $redes[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataMotivosRedes = {
+            labels: labelsMotivosRedes,
+            datasets: [{
+                label: 'Total de requerimientos de Sistemas',
+                backgroundColor: [
+                    'Aquamarine',
+                    'LightBlue',
+                    'LightCyan',
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalMotivosRedes as $redes) {
+                        echo $redes[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configTotalMotivosRedes = {
+            type: 'pie',
+            data: dataMotivosRedes,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Administración de Redes y Seguridad'
+                    },
+                }
+            }
+        };
+
+        //-----------------------------------------
+        const labelsMotivosInfraestructura = [
+            <?php
+            foreach ($totalMotivosInfr as $infr) {
+                echo "'" . $infr[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataMotivosInfraestructura = {
+            labels: labelsMotivosInfraestructura,
+            datasets: [{
+                backgroundColor: [
+                    'Aquamarine',
+                    'LightBlue',
+                    'LightCyan',
+                    'MediumPurple',
+                    'MediumSlateBlue',
+                    'RoyalBlue',
+                    'DeepSkyBlue',
+                    'Lavender',
+                    'LightGreen',
+                    'MediumOrchid'
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalMotivosInfr as $infr) {
+                        echo $infr[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configMotivosInfraestructura = {
+            type: 'pie',
+            data: dataMotivosInfraestructura,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Infraestructura'
+                    },
+                }
+            }
+        };
+
+        //------------------------------------------
+        const labelsMotivosSTecnico = [
+            <?php
+            foreach ($totalMotivosSTecnico as $stecnico) {
+                echo "'" . $stecnico[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataMotivosSTecnico = {
+            labels: labelsMotivosSTecnico,
+            datasets: [{
+                backgroundColor: [
+                    'Aquamarine',
+                    'LightBlue',
+                    'LightCyan',
+                    'MediumPurple',
+                    'MediumSlateBlue',
+                    'RoyalBlue',
+                    'DeepSkyBlue',
+                    'Lavender',
+                    'LightGreen',
+                    'MediumOrchid'
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalMotivosSTecnico as $stecnico) {
+                        echo $stecnico[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configMotivosSTecnico = {
+            type: 'pie',
+            data: dataMotivosSTecnico,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Servicio Técnico'
+                    },
+                }
+            }
+        };
+
+        //------------------------------------------
+        const labelsMotivosReq = [
+            <?php
+            foreach ($totalMotivosRequerimientos as $req) {
+                echo "'" . $req[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataMotivosReq = {
+            labels: labelsMotivosReq,
+            datasets: [{
+                backgroundColor: [
+                    'Aquamarine',
+                    'LightBlue',
+                    'LightCyan',
+                    'MediumPurple',
+                    'MediumSlateBlue',
+                    'RoyalBlue',
+                    'DeepSkyBlue',
+                    'Lavender',
+                    'LightGreen',
+                    'MediumOrchid',
+                    'MediumSeaGreen',
+                    'NavajoWhite',
+                    'Wheat',
+                    'Crimson',
+                    'DarkSlateGray',
+                    'Khaki',
+                    'LightSalmon',
+                    'LightSeaGreen',
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalMotivosRequerimientos as $req) {
+                        echo $req[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configMotivosReq = {
+            type: 'pie',
+            data: dataMotivosReq,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Requerimientos'
+                    },
+                }
+            }
+        };
+
+        //------------------------------------------
+
+    </script>
+
+    <script>
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+        const myChart2 = new Chart(
+            document.getElementById('diagramaTotalAreas'),
+            configTotalAreas
+        );
+        const myChart3 = new Chart(
+            document.getElementById('diagramaMotivosRedes'),
+            configTotalMotivosRedes
+        );
+        const myChart4 = new Chart(
+            document.getElementById('diagramaMotivosInfr'),
+            configMotivosInfraestructura
+        );
+        const myChart5 = new Chart(
+            document.getElementById('diagramaMotivosST'),
+            configMotivosSTecnico
+        );
+        const myChart6 = new Chart(
+            document.getElementById('diagramaMotivosReq'),
+            configMotivosReq
+        );
+    </script>
+
+
 
     </html>
 

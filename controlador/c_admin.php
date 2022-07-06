@@ -13,7 +13,23 @@ class ControladorAdmin
         $totalCompletas = $co->contarTotalCompletas();
         $totalCanceladas = $co->contarTotalCanceladas();
         $totalEliminadas = $co->contarTotalEliminadas();
-        $listMotivos = $co->listarMotivosProblemasUsuario(4000000);
+
+        $totalRedes = $co->contarTotalRedes();
+        $totalInfraestrucutra = $co->contarTotalInfraestructura();
+        $totalSTecnico = $co->contarTotalSTecnico();
+        $totalRequerimientos = $co->contarTotalRequerimientos();
+        $totalFDigital = $co->contarTotalFDigital();
+        $totalPDigital = $co->contarTotalPDigital();
+        $totalCctv = $co->contarTotalCCTV();
+
+        $totalMotivosRedes = $co->totalMotivosRedes();
+        $totalMotivosInfr = $co->totalMotivosInfraestructura();
+        $totalMotivosSTecnico = $co->totalMotivosSTecnico();
+        $totalMotivosRequerimientos = $co->totalMotivosRequerimientos();
+        $totalMotivosFDigital = $co->totalMotivosFDigital();
+        $totalMotivosPDigital = $co->totalMotivosPDigital();
+        $totalMotivosCCTV = $co->totalMotivosCCTV();
+        
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('estadisticas.php');
