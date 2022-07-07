@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-07-2022 a las 19:31:49
+-- Tiempo de generación: 07-07-2022 a las 19:29:22
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -201,30 +201,34 @@ CREATE TABLE `tareas` (
   `motivoCancelacion` varchar(500) DEFAULT NULL,
   `motivoEliminacion` varchar(500) DEFAULT NULL,
   `fechaEliminado` datetime DEFAULT NULL,
-  `codigoArea3` int(11) DEFAULT NULL
+  `codigoArea3` int(11) DEFAULT NULL,
+  `fechaCreada` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tareas`
 --
 
-INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `direccion_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`, `codigoArea3`) VALUES
-(54, 6000, 'addwazsd', '192.168.0.20', 'awdsfawf', '2612634028', 'adwwdawadwd', '2022-06-27 08:28:52', '2022-06-27 11:57:49', 3, 4005, 2000000, NULL, NULL, NULL, 6),
-(55, 3000, 'klakldaklwdklm', '192.168.70.55', 'Ejemplo Persona', '2612634082', NULL, '2022-06-27 08:32:38', NULL, 2, 4007, 2000000, NULL, NULL, NULL, 3),
-(56, 3004, 'dvaegwefaafwefaweawf', '192.168.10.80', 'Ejemplo Persona', '2612634096', NULL, '2022-06-27 10:35:03', NULL, 1, 3005, 0, NULL, NULL, NULL, 3),
-(59, 3003, 'adwfasdadwa', '192.168.20.10', '', '', NULL, '2022-06-27 13:28:37', NULL, 1, 3004, 0, NULL, NULL, NULL, 3),
-(64, 2001, 'awdawdweaf', '', 'Ejemplo', '2612634090', NULL, '2022-06-29 13:13:06', NULL, 2, 3004, 12345667, NULL, NULL, NULL, 2),
-(65, 3002, 'awdwafaawdwad', '', '', '', NULL, '2022-07-05 20:42:46', NULL, 4, 3001, 0, 'awdwdawadwaawd', NULL, NULL, 3),
-(66, 2003, 'dawdawdwdaawd', '', '', '', NULL, '2022-07-05 21:18:42', NULL, 5, 3003, 0, NULL, 'wdawdafwa', '2022-07-05 21:18:52', 2),
-(67, 3000, 'wffeewaddwaawd', '', 'Apellido', '2612634096', NULL, '2022-07-06 11:43:40', NULL, 1, 3005, 0, NULL, NULL, NULL, 3),
-(69, 1000, 'dwadawdwawdawdawda', '', '', '', NULL, '2022-07-06 12:24:14', NULL, 1, 3005, 0, NULL, NULL, NULL, 1),
-(70, 1001, 'dawwdawdawda', '', '', '', NULL, '2022-07-06 12:24:30', NULL, 1, 2002, 0, NULL, NULL, NULL, 1),
-(71, 1002, 'dwaddwawadwda', '', '', '', NULL, '2022-07-06 12:27:08', NULL, 1, 1001, 0, NULL, NULL, NULL, 1),
-(72, 4004, 'awddwawadwdawadwad', '', '', '', NULL, '2022-07-06 14:11:27', NULL, 1, 3004, 0, NULL, NULL, NULL, 4),
-(73, 4001, 'wdawdwfawda', '', 'asdfg', '2612634090', NULL, '2022-07-06 14:11:56', NULL, 1, 3003, 0, NULL, NULL, NULL, 4),
-(74, 4017, 'wdawddwawad', '', '', '', NULL, '2022-07-06 14:25:46', NULL, 1, 3004, 0, NULL, NULL, NULL, 4),
-(75, 4008, 'adwwdadwaawdwdawad', '', 'asdfg', '2612634082', NULL, '2022-07-06 14:30:07', NULL, 1, 3003, 0, NULL, NULL, NULL, 4),
-(76, 4012, 'dawwdaawddwawad', '', '', '', NULL, '2022-07-06 14:30:31', NULL, 1, 3003, 0, NULL, NULL, NULL, 4);
+INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `direccion_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`, `codigoArea3`, `fechaCreada`) VALUES
+(54, 6000, 'addwazsd', '192.168.0.20', 'awdsfawf', '2612634028', 'adwwdawadwd', '2022-06-27 08:28:52', '2022-06-27 11:57:49', 3, 4005, 2000000, NULL, NULL, NULL, 6, '2022-07-04'),
+(55, 3000, 'klakldaklwdklm', '192.168.70.55', 'Ejemplo Persona', '2612634082', NULL, '2022-06-27 08:32:38', NULL, 2, 4007, 2000000, NULL, NULL, NULL, 3, '2022-07-04'),
+(56, 3004, 'dvaegwefaafwefaweawf', '192.168.10.80', 'Ejemplo Persona', '2612634096', NULL, '2022-06-27 10:35:03', NULL, 1, 3005, 0, NULL, NULL, NULL, 3, '2022-07-04'),
+(59, 3003, 'adwfasdadwa', '192.168.20.10', '', '', NULL, '2022-06-27 13:28:37', NULL, 1, 3004, 0, NULL, NULL, NULL, 3, '2022-07-05'),
+(64, 2001, 'awdawdweaf', '', 'Ejemplo', '2612634090', NULL, '2022-06-29 13:13:06', NULL, 2, 3004, 12345667, NULL, NULL, NULL, 2, '2022-07-05'),
+(65, 3002, 'awdwafaawdwad', '', '', '', NULL, '2022-07-05 20:42:46', NULL, 4, 3001, 0, 'awdwdawadwaawd', NULL, NULL, 3, '2022-07-05'),
+(66, 2003, 'dawdawdwdaawd', '', '', '', NULL, '2022-07-05 21:18:42', NULL, 5, 3003, 0, NULL, 'wdawdafwa', '2022-07-05 21:18:52', 2, '2022-07-05'),
+(67, 3000, 'wffeewaddwaawd', '', 'Apellido', '2612634096', NULL, '2022-07-06 11:43:40', NULL, 1, 3005, 0, NULL, NULL, NULL, 3, '2022-07-05'),
+(69, 1000, 'dwadawdwawdawdawda', '', '', '', NULL, '2022-07-06 12:24:14', NULL, 1, 3005, 0, NULL, NULL, NULL, 1, '2022-07-05'),
+(70, 1001, 'dawwdawdawda', '', '', '', NULL, '2022-07-06 12:24:30', NULL, 1, 2002, 0, NULL, NULL, NULL, 1, '2022-07-06'),
+(71, 1002, 'dwaddwawadwda', '', '', '', NULL, '2022-07-06 12:27:08', NULL, 1, 1001, 0, NULL, NULL, NULL, 1, '2022-07-06'),
+(72, 4004, 'awddwawadwdawadwad', '', '', '', NULL, '2022-07-06 14:11:27', NULL, 1, 3004, 0, NULL, NULL, NULL, 4, '2022-07-06'),
+(73, 4001, 'wdawdwfawda', '', 'asdfg', '2612634090', NULL, '2022-07-06 14:11:56', NULL, 1, 3003, 0, NULL, NULL, NULL, 4, '2022-07-06'),
+(74, 4017, 'wdawddwawad', '', '', '', NULL, '2022-07-06 14:25:46', NULL, 1, 3004, 0, NULL, NULL, NULL, 4, '2022-07-06'),
+(75, 4008, 'adwwdadwaawdwdawad', '', 'asdfg', '2612634082', NULL, '2022-07-06 14:30:07', NULL, 1, 3003, 0, NULL, NULL, NULL, 4, '2022-07-07'),
+(76, 4012, 'dawwdaawddwawad', '', '', '', 'dawawwdawdaawd', '2022-07-06 14:30:31', '2022-07-07 14:03:37', 3, 3003, 78782782, NULL, NULL, NULL, 4, '2022-07-07'),
+(77, 7004, 'wdawdadwadwadwa', '', '', '', NULL, '2022-07-07 08:26:22', NULL, 1, 3003, 0, NULL, NULL, NULL, 7, '2022-07-07'),
+(78, 7000, 'dwawdawadwda', '', '', '', NULL, '2022-07-07 09:20:26', NULL, 1, 3003, 0, NULL, NULL, NULL, 7, '2022-07-07'),
+(80, 3004, 'adwdaawddwaawd', '', '', '', NULL, '2022-07-07 12:47:46', NULL, 2, 2004, 2000000, NULL, NULL, NULL, 3, '2022-07-07');
 
 -- --------------------------------------------------------
 
@@ -276,7 +280,8 @@ INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contra
 (3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL, NULL),
 (4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$T7wcE1CIiWG/FzB935dV3.fTmE4czGoyJiayAHe.SzvAHGNbw/3Ri', 4, NULL, 3),
 (12345667, 'Agente', 'Infraestructura', 'alguien@gmail.com', 'agenteinfr', '$2y$10$z60iSgNERwmQzu1TLnigWOpF9S5srVwH1Ga5.N6kRU59TTAvnYnbm', 2, NULL, 2),
-(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL, NULL);
+(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL, NULL),
+(78782782, 'Agente', 'Requerimientos', '', 'agentereq', '$2y$10$yoLsB0Yupo7yH5EfENMBI.1gd4WuWrQRFUX8JXpcBH2ZvgitJLWCW', 2, NULL, 4);
 
 --
 -- Índices para tablas volcadas
@@ -352,7 +357,7 @@ ALTER TABLE `motivos`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- Restricciones para tablas volcadas
