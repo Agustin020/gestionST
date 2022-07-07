@@ -10,17 +10,18 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Estadísticas - Gestión Sistemas</title>
         <style>
+
             section {
                 padding: 15px;
             }
 
             #graficos {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
             }
 
             #total {
-                grid-column: 1/5;
+                grid-column: 1/4;
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
@@ -40,11 +41,11 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
 
                 <div id="total">
                     <div id="totalTareas">
-                        <canvas id="myChart"></canvas>
+                        <canvas style="width: 400px;" id="myChart"></canvas>
                     </div>
 
                     <div id="totalxAreas">
-                        <canvas id="diagramaTotalAreas"></canvas>
+                        <canvas style="width: 400px;" id="diagramaTotalAreas"></canvas>
                     </div>
                 </div>
 
@@ -149,7 +150,13 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
                         display: true,
                         text: 'Total de requerimientos de Sistemas: <?php echo $totalTareas; ?>'
                     },
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'center',
+                    },
                 }
+
             }
         };
 
@@ -250,10 +257,17 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
             type: 'pie',
             data: dataTotalxAreas,
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     title: {
                         display: true,
                         text: 'Total de requerimientos de Sistemas por Áreas'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'center',
                     },
                 }
             }
@@ -297,7 +311,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
                         display: true,
                         text: 'Total de requerimientos de Administración de Redes y Seguridad'
                     },
-                }
+                },
             }
         };
 
@@ -454,7 +468,6 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         };
 
         //------------------------------------------
-
     </script>
 
     <script>
