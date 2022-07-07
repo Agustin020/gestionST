@@ -2,11 +2,40 @@
 class ControladorAdmin
 {
 
-    public function verEstadisticasContr()
+    public function verEstadisticasContr($time)
     {
         echo ('<title>Estadísticas</title>');
-        require('../modelo/m_consultas.php');
-        $co = new Consultas();
+        require('../modelo/m_estadisticas.php');
+        $co = new ConsultasEstadisticas();
+
+        if ($time == 'now') {
+            $totalTareas = $co->contarTareasActual();
+            $totalPendientes = $co->contarTotalPendientesActual();
+            $totalEnProgreso = $co->contarTotalEnProgresoActual();
+            $totalCompletas = $co->contarTotalCompletasActual();
+            $totalCanceladas = $co->contarTotalCanceladasActual();
+            $totalEliminadas = $co->contarTotalEliminadasActual();
+
+            $totalRedes = $co->contarTotalRedesActual();
+            $totalInfraestrucutra = $co->contarTotalInfraestructuraActual();
+            $totalSTecnico = $co->contarTotalSTecnicoActual();
+            $totalRequerimientos = $co->contarTotalRequerimientosActual();
+            $totalFDigital = $co->contarTotalFDigitalActual();
+            $totalPDigital = $co->contarTotalPDigitalActual();
+            $totalCctv = $co->contarTotalCCTVActual();
+
+            $totalMotivosRedes = $co->totalMotivosRedesActual();
+            $totalMotivosInfr = $co->totalMotivosInfraestructuraActual();
+            $totalMotivosSTecnico = $co->totalMotivosSTecnicoActual();
+            $totalMotivosRequerimientos = $co->totalMotivosRequerimientosActual();
+            $totalMotivosFDigital = $co->totalMotivosFDigitalActual();
+            $totalMotivosPDigital = $co->totalMotivosPDigitalActual();
+            $totalMotivosCCTV = $co->totalMotivosCCTVActual();
+        }else if($time == 'month'){
+            
+        }
+
+/*        
         $totalTareas = $co->contarTareas();
         $totalPendientes = $co->contarTotalPendientes();
         $totalEnProgreso = $co->contarTotalEnProgreso();
@@ -28,8 +57,8 @@ class ControladorAdmin
         $totalMotivosRequerimientos = $co->totalMotivosRequerimientos();
         $totalMotivosFDigital = $co->totalMotivosFDigital();
         $totalMotivosPDigital = $co->totalMotivosPDigital();
-        $totalMotivosCCTV = $co->totalMotivosCCTV();
-        
+        $totalMotivosCCTV = $co->totalMotivosCCTV();*/
+
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('estadisticas.php');

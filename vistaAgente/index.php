@@ -4,9 +4,10 @@ $accion = $_GET['accion'];
 
 switch ($accion) {
     case 'verEstadisticas':
+        $time = $_GET['time'];
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
-        $controller->verEstadisticasContr();
+        $controller->verEstadisticasContr($time);
         break;
         
     case 'listarTareas':

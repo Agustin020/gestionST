@@ -101,9 +101,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             ?>
 
             <?php
+            require_once('../modelo/m_estadisticas.php');
             require_once('../modelo/m_consultas.php');
+            $c = new ConsultasEstadisticas();
             $co = new Consultas();
-            $tareasTotal = $co->contarTareas();
+            $tareasTotal = $c->contarTareasActual();
             if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
                 $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario']);
                 //

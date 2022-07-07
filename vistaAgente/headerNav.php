@@ -111,6 +111,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 $('#showMenu i').toggleClass('bi bi-caret-up');
             })
 
+
             $('.mostrarPass').click(function() {
                 if ($('.mostrarPass').is(':checked')) {
                     $('.pass').prop('type', 'text');
@@ -138,6 +139,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     $('.pass').prop('type', 'password');
                 }
             })
+
+            $('#desplegarMenuEst').hide();
+            $('#menuEst').click(function() {
+                $('#desplegarMenuEst').toggle(150);
+                $('#menuEst i').toggleClass('bi bi-caret-up');
+            });
+
 
             $('#desplegarMenuTarea').hide();
             $('#menuTarea').click(function() {
@@ -257,6 +265,38 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         </form>
     </div>
 
+    <!-- Modal Filtros Fechas Estadisticas -->
+    <div class="modal fade" id="fechas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Estadisticas por fecha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="index.php?accion=verEstadisticas" method="get">
+                    <div class="modal-body">
+
+                        <p class="fs-6">Definir el rango de fechas para luego visualizar las estadísticas durante ese período</p>
+
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" name="fechaInicio" id="floatingInput" placeholder="example">
+                            <label for="floatingInput">Fecha Inicio</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" name="fechaFin" id="floatingInput" placeholder="example">
+                            <label for="floatingInput">Fecha Fin</label>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Understood</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
     <!--SIDEBAR-->
@@ -298,9 +338,27 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 } else if ($_SESSION['rol'] == 3) {
                 ?>
 
-                    <a class="nav-link" aria-current="page" href="index.php?accion=verEstadisticas">
-                        <i class="bi bi-pie-chart"></i>Estadisticas
+                    <a class="nav-link" role="button" id="menuEst" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div id="textItem">
+                            <i class="bi bi-list-check"></i>
+                            <span style="margin-left: -5px;">
+                                Estadísticas
+                            </span>
+                        </div>
+                        <i class="bi bi-caret-down"></i>
                     </a>
+
+                    <ul class="navbar-nav" id="desplegarMenuEst">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=verEstadisticas&time=now">Creados hoy día</a>
+                        </li>
+                        <!-- Button trigger modal -->
+                        <a class="nav-link" role="button" aria-current="page" data-bs-toggle="modal" data-bs-target="#fechas">
+                            Launch static backdrop modal
+                        </a>
+
+
+                    </ul>
 
                     <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
                         <div id="textItem">
@@ -311,6 +369,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         </div>
                         <i class="bi bi-caret-down"></i>
                     </a>
+
                     <ul class="navbar-nav" id="desplegarMenuTarea">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin">Lista de tareas</a>

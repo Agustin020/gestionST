@@ -10,7 +10,6 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Estadísticas - Gestión Sistemas</title>
         <style>
-
             section {
                 padding: 15px;
             }
@@ -36,6 +35,21 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         <section id="container">
             <p class="fs-5">Estadísticas</p>
             <hr>
+
+            <div class="form-floating mb-3">
+
+                <input type="hidden" id="dni" value="<?php echo $_GET['agente']; ?>">
+
+                <select class="form-select" onchange="filtrosBusqueda(this);" id="opcionBusqueda" aria-label="Floating label select example">
+                    <option value="" selected>Seleccione...</option>
+                    <option value="1">Requerimientos creados hoy día</option>
+                    <option value="2">Por rango de fechas de soluciones</option>
+                    <option value="3">Por un día en específico (Fecha del problema)</option>
+                    <option value="4">Por un día en específico (Fecha de la solución)</option>
+                    <option value="5">Por estado de la tarea</option>
+                </select>
+                <label for="floatingSelect">Seleccione la forma de buscar</label>
+            </div>
 
             <div id="graficos">
 
@@ -63,6 +77,18 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
 
                 <div id="totalMotivosReq">
                     <canvas id="diagramaMotivosReq"></canvas>
+                </div>
+
+                <div id="totalMotivosFD">
+                    <canvas id="diagramaMotivosFD"></canvas>
+                </div>
+
+                <div id="totalMotivosPD">
+                    <canvas id="diagramaMotivosPD"></canvas>
+                </div>
+
+                <div id="totalMotivosCCTV">
+                    <canvas id="diagramaMotivosCCTV"></canvas>
                 </div>
             </div>
 
@@ -206,7 +232,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
                 backgroundColor: [
                     'lightgray',
                     'aquamarine',
-                    'LimeGreen',
+                    'MediumSeaGreen',
                     'LightSalmon',
                     'LightYellow',
                     'Tomato',
@@ -468,6 +494,158 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         };
 
         //------------------------------------------
+
+        const labelsMotivosFD = [
+            <?php
+            foreach ($totalMotivosFDigital as $fd) {
+                echo "'" . $fd[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataMotivosFD = {
+            labels: labelsMotivosFD,
+            datasets: [{
+                backgroundColor: [
+                    'Aquamarine',
+                    'LightBlue',
+                    'LightCyan',
+                    'MediumPurple',
+                    'MediumSlateBlue',
+                    'RoyalBlue',
+                    'DeepSkyBlue',
+                    'Lavender',
+                    'LightGreen',
+                    'MediumOrchid',
+                    'MediumSeaGreen',
+                    'NavajoWhite',
+                    'Wheat',
+                    'Crimson',
+                    'DarkSlateGray',
+                    'Khaki',
+                    'LightSalmon',
+                    'LightSeaGreen',
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalMotivosFDigital as $fd) {
+                        echo $fd[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configMotivosFD = {
+            type: 'pie',
+            data: dataMotivosFD,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Firma Digital'
+                    },
+                }
+            }
+        };
+
+        //------------------------------------------
+
+        const labelsMotivosPD = [
+            <?php
+            foreach ($totalMotivosPDigital as $pd) {
+                echo "'" . $pd[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataMotivosPD = {
+            labels: labelsMotivosPD,
+            datasets: [{
+                backgroundColor: [
+                    'LightSalmon',
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalMotivosPDigital as $pd) {
+                        echo $pd[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configMotivosPD = {
+            type: 'pie',
+            data: dataMotivosPD,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de Punto Digital'
+                    },
+                }
+            }
+        };
+
+        //------------------------------------------
+
+        const labelsMotivosCCTV = [
+            <?php
+            foreach ($totalMotivosCCTV as $cctv) {
+                echo "'" . $cctv[1] . "', ";
+            }
+            ?>
+        ];
+
+        const dataMotivosCCTV = {
+            labels: labelsMotivosCCTV,
+            datasets: [{
+                backgroundColor: [
+                    'Aquamarine',
+                    'LightBlue',
+                    'LightCyan',
+                    'MediumPurple',
+                    'MediumSlateBlue',
+                    'RoyalBlue',
+                    'DeepSkyBlue',
+                    'Lavender',
+                    'LightGreen',
+                    'MediumOrchid',
+                    'MediumSeaGreen',
+                    'NavajoWhite',
+                    'Wheat',
+                    'Crimson',
+                    'DarkSlateGray',
+                    'Khaki',
+                    'LightSalmon',
+                    'LightSeaGreen',
+                ],
+
+                data: [
+                    <?php
+                    foreach ($totalMotivosCCTV as $cctv) {
+                        echo $cctv[0] . ", ";
+                    }
+                    ?>
+                ],
+            }]
+        };
+
+        const configMotivosCCTV = {
+            type: 'pie',
+            data: dataMotivosCCTV,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total de requerimientos de CCTV'
+                    },
+                }
+            }
+        };
     </script>
 
     <script>
@@ -494,6 +672,20 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         const myChart6 = new Chart(
             document.getElementById('diagramaMotivosReq'),
             configMotivosReq
+        );
+        const myChart7 = new Chart(
+            document.getElementById('diagramaMotivosFD'),
+            configMotivosFD
+        );
+
+        const myChart8 = new Chart(
+            document.getElementById('diagramaMotivosPD'),
+            configMotivosPD
+        );
+
+        const myChart9 = new Chart(
+            document.getElementById('diagramaMotivosCCTV'),
+            configMotivosCCTV
         );
     </script>
 
