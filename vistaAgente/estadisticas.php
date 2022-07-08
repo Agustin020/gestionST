@@ -1,7 +1,5 @@
 <?php
 if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
-    /*SELECT COUNT(*), t.fechaCreada
-FROM tareas t where year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)*/
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -35,8 +33,9 @@ FROM tareas t where year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from
 
     <body>
         <section id="container">
-            <p class="fs-5">Estadísticas: </p>
+            <p class="fs-5">Estadísticas</p>
             <hr>
+            <p class="fs-6"><b>Nota: </b>Si hay diagramas que no se visualizan, es por el motivo de que no se han creado requerimientos en esa sección</p>
 
             <div id="graficos">
 

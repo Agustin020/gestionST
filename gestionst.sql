@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-07-2022 a las 19:29:22
+-- Tiempo de generación: 08-07-2022 a las 19:26:31
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -228,7 +228,7 @@ INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreAp
 (76, 4012, 'dawwdaawddwawad', '', '', '', 'dawawwdawdaawd', '2022-07-06 14:30:31', '2022-07-07 14:03:37', 3, 3003, 78782782, NULL, NULL, NULL, 4, '2022-07-07'),
 (77, 7004, 'wdawdadwadwadwa', '', '', '', NULL, '2022-07-07 08:26:22', NULL, 1, 3003, 0, NULL, NULL, NULL, 7, '2022-07-07'),
 (78, 7000, 'dwawdawadwda', '', '', '', NULL, '2022-07-07 09:20:26', NULL, 1, 3003, 0, NULL, NULL, NULL, 7, '2022-07-07'),
-(80, 3004, 'adwdaawddwaawd', '', '', '', NULL, '2022-07-07 12:47:46', NULL, 2, 2004, 2000000, NULL, NULL, NULL, 3, '2022-07-07');
+(80, 3004, 'adwdaawddwaawd', '', '', '', NULL, '2022-07-07 12:47:46', NULL, 4, 2004, 2000000, 'acwadawwd', NULL, NULL, 3, '2022-07-07');
 
 -- --------------------------------------------------------
 
@@ -357,7 +357,7 @@ ALTER TABLE `motivos`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- Restricciones para tablas volcadas

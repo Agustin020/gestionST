@@ -87,7 +87,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 require_once('../modelo/m_consultas.php');
                 $co = new Consultas();
 
-                $totalTareas = $co->contarTareas();
+                
                 $totalPendientes = $co->contarTareasPendientes();
                 $totalEnProgreso = $co->contarTareasEnProgreso();
                 $totalCompletas = $co->contarTareasCompletas();
@@ -101,7 +101,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         <div class="card border-dark mb-3 principal" style="max-width: auto;">
                             <div class="card-body caja1 text-dark">
                                 <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $totalTareas; ?></h1>
+                                    <h1 class="card-title"></h1>
                                     <p class="card-text">Total de tareas</p>
                                 </div>
                                 <i class="bi bi-clipboard-data"></i>

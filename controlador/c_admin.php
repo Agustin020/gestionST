@@ -54,6 +54,52 @@ class ControladorAdmin
             $totalMotivosFDigital = $co->totalMotivosFDigitalxFechas($fechaInicio, $fechaFin);
             $totalMotivosPDigital = $co->totalMotivosPDigitalxFechas($fechaInicio, $fechaFin);
             $totalMotivosCCTV = $co->totalMotivosCCTVxFechas($fechaInicio, $fechaFin);
+        } else if ($time == 'year') {
+            $totalTareas = $co->contarTareasxAnio();
+            $totalPendientes = $co->contarTotalPendientesxAnio();
+            $totalEnProgreso = $co->contarTotalEnProgresoxAnio();
+            $totalCompletas = $co->contarTotalCompletasxAnio();
+            $totalCanceladas = $co->contarTotalCanceladasxAnio();
+            $totalEliminadas = $co->contarTotalEliminadasxAnio();
+
+            $totalRedes = $co->contarTotalRedesxAnio();
+            $totalInfraestrucutra = $co->contarTotalInfraestructuraxAnio();
+            $totalSTecnico = $co->contarTotalSTecnicoxAnio();
+            $totalRequerimientos = $co->contarTotalRequerimientosxAnio();
+            $totalFDigital = $co->contarTotalFDigitalxAnio();
+            $totalPDigital = $co->contarTotalPDigitalxAnio();
+            $totalCctv = $co->contarTotalCCTVxAnio();
+
+            $totalMotivosRedes = $co->totalMotivosRedesxAnio();
+            $totalMotivosInfr = $co->totalMotivosInfraestructuraxAnio();
+            $totalMotivosSTecnico = $co->totalMotivosSTecnicoxAnio();
+            $totalMotivosRequerimientos = $co->totalMotivosRequerimientosxAnio();
+            $totalMotivosFDigital = $co->totalMotivosFDigitalxAnio();
+            $totalMotivosPDigital = $co->totalMotivosPDigitalxAnio();
+            $totalMotivosCCTV = $co->totalMotivosCCTVxAnio();
+        } else if ($time == 'all') {
+            $totalTareas = $co->contarTareasTotal();
+            $totalPendientes = $co->contarTotalPendientesTotal();
+            $totalEnProgreso = $co->contarTotalEnProgresoTotal();
+            $totalCompletas = $co->contarTotalCompletasTotal();
+            $totalCanceladas = $co->contarTotalCanceladasTotal();
+            $totalEliminadas = $co->contarTotalEliminadasTotal();
+
+            $totalRedes = $co->contarTotalRedesTotal();
+            $totalInfraestrucutra = $co->contarTotalInfraestructuraTotal();
+            $totalSTecnico = $co->contarTotalSTecnicoTotal();
+            $totalRequerimientos = $co->contarTotalRequerimientosTotal();
+            $totalFDigital = $co->contarTotalFDigitalTotal();
+            $totalPDigital = $co->contarTotalPDigitalTotal();
+            $totalCctv = $co->contarTotalCCTVTotal();
+
+            $totalMotivosRedes = $co->totalMotivosRedesTotal();
+            $totalMotivosInfr = $co->totalMotivosInfraestructuraTotal();
+            $totalMotivosSTecnico = $co->totalMotivosSTecnicoTotal();
+            $totalMotivosRequerimientos = $co->totalMotivosRequerimientosTotal();
+            $totalMotivosFDigital = $co->totalMotivosFDigitalTotal();
+            $totalMotivosPDigital = $co->totalMotivosPDigitalTotal();
+            $totalMotivosCCTV = $co->totalMotivosCCTVTotal();
         }
 
         require('libreriaEstilos.php');

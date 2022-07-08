@@ -70,7 +70,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             color: white;
         }
 
-        .sidebar #desplegarMenuTarea a {
+
+        .sidebar #desplegarMenuTarea a, .sidebar #desplegarMenuEst a {
             border-left: 5px solid #47c5b5;
         }
 
@@ -349,16 +350,22 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     </a>
 
                     <ul class="navbar-nav" id="desplegarMenuEst">
+
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?accion=verEstadisticas&time=now">Creados hoy día</a>
+                            <a class="nav-link" aria-current="page" href="index.php?accion=verEstadisticas&time=now">Creados en el día actual</a>
                         </li>
                         <!-- Button trigger modal -->
-                        <a class="nav-link" role="button" aria-current="page" data-bs-toggle="modal" data-bs-target="#fechas">
-                            Rango por fechas
-                        </a>
-
-
+                        <li>
+                            <a class="nav-link" role="button" aria-current="page" data-bs-toggle="modal" data-bs-target="#fechas">Rango por fechas</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" aria-current="page" href="index.php?accion=verEstadisticas&time=year">Creados en el año actual</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" aria-current="page" href="index.php?accion=verEstadisticas&time=all">Requerimientos en total</a>
+                        </li>
                     </ul>
+
 
                     <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
                         <div id="textItem">
