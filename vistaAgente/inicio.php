@@ -101,11 +101,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             ?>
 
             <?php
-            require_once('../modelo/m_estadisticas.php');
             require_once('../modelo/m_consultas.php');
-            $c = new ConsultasEstadisticas();
             $co = new Consultas();
-            $tareasTotal = $c->contarTareasActual();
+            //$tareasTotal = $c->contarTareasActual();
             if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
                 $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario']);
                 //
@@ -145,7 +143,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                             <div class="card border-dark mb-3" style="max-width: auto;">
                                 <div class="card-body caja1 text-dark">
                                     <div id="txtInfo">
-                                        <h1 class="card-title"><?php echo $tareasTotalArea; ?></h1>
+                                        <h1 class="card-title"></h1>
                                         <p class="card-text">Total de tareas de <?php echo $_SESSION['areaUsuarioNombre']; ?></p>
                                     </div>
                                     <i class="bi bi-clipboard-data"></i>

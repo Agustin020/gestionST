@@ -4,10 +4,13 @@ $accion = $_GET['accion'];
 
 switch ($accion) {
     case 'verEstadisticas':
+        error_reporting(0);
         $time = $_GET['time'];
+        $fechaInicio = $_POST['fechaInicio'];
+        $fechaFin = $_POST['fechaFin'];
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
-        $controller->verEstadisticasContr($time);
+        $controller->verEstadisticasContr($time, $fechaInicio, $fechaFin);
         break;
         
     case 'listarTareas':

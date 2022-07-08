@@ -273,7 +273,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     <h5 class="modal-title" id="staticBackdropLabel">Estadisticas por fecha</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="index.php?accion=verEstadisticas" method="get">
+                <form action="index.php?accion=verEstadisticas&time=month" style="margin-bottom: 0" method="post">
                     <div class="modal-body">
 
                         <p class="fs-6">Definir el rango de fechas para luego visualizar las estadísticas durante ese período</p>
@@ -290,8 +290,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Understood</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -354,7 +354,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         </li>
                         <!-- Button trigger modal -->
                         <a class="nav-link" role="button" aria-current="page" data-bs-toggle="modal" data-bs-target="#fechas">
-                            Launch static backdrop modal
+                            Rango por fechas
                         </a>
 
 

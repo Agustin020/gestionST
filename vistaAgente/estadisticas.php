@@ -1,5 +1,7 @@
 <?php
 if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
+    /*SELECT COUNT(*), t.fechaCreada
+FROM tareas t where year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)*/
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -33,23 +35,8 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
 
     <body>
         <section id="container">
-            <p class="fs-5">Estadísticas</p>
+            <p class="fs-5">Estadísticas: </p>
             <hr>
-
-            <div class="form-floating mb-3">
-
-                <input type="hidden" id="dni" value="<?php echo $_GET['agente']; ?>">
-
-                <select class="form-select" onchange="filtrosBusqueda(this);" id="opcionBusqueda" aria-label="Floating label select example">
-                    <option value="" selected>Seleccione...</option>
-                    <option value="1">Requerimientos creados hoy día</option>
-                    <option value="2">Por rango de fechas de soluciones</option>
-                    <option value="3">Por un día en específico (Fecha del problema)</option>
-                    <option value="4">Por un día en específico (Fecha de la solución)</option>
-                    <option value="5">Por estado de la tarea</option>
-                </select>
-                <label for="floatingSelect">Seleccione la forma de buscar</label>
-            </div>
 
             <div id="graficos">
 
@@ -100,7 +87,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         const labels = [
             <?php
             foreach ($totalPendientes as $pendiente) {
-                echo "'" . $pendiente[1] . "', ";
+                echo "'" . $pendiente[1] . "',";
             }
             ?>
             <?php
@@ -591,7 +578,9 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
         };
 
         //------------------------------------------
+    </script>
 
+    <script>
         const labelsMotivosCCTV = [
             <?php
             foreach ($totalMotivosCCTV as $cctv) {

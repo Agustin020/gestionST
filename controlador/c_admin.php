@@ -2,7 +2,7 @@
 class ControladorAdmin
 {
 
-    public function verEstadisticasContr($time)
+    public function verEstadisticasContr($time, $fechaInicio, $fechaFin)
     {
         echo ('<title>Estadísticas</title>');
         require('../modelo/m_estadisticas.php');
@@ -31,33 +31,30 @@ class ControladorAdmin
             $totalMotivosFDigital = $co->totalMotivosFDigitalActual();
             $totalMotivosPDigital = $co->totalMotivosPDigitalActual();
             $totalMotivosCCTV = $co->totalMotivosCCTVActual();
-        }else if($time == 'month'){
-            
+        } else if ($time == 'month') {
+            $totalTareas = $co->contarTareasxFechas($fechaInicio, $fechaFin);
+            $totalPendientes = $co->contarTotalPendientesxFechas($fechaInicio, $fechaFin);
+            $totalEnProgreso = $co->contarTotalEnProgresoxFechas($fechaInicio, $fechaFin);
+            $totalCompletas = $co->contarTotalCompletasxFechas($fechaInicio, $fechaFin);
+            $totalCanceladas = $co->contarTotalCanceladasxFechas($fechaInicio, $fechaFin);
+            $totalEliminadas = $co->contarTotalEliminadasxFechas($fechaInicio, $fechaFin);
+
+            $totalRedes = $co->contarTotalRedesxFechas($fechaInicio, $fechaFin);
+            $totalInfraestrucutra = $co->contarTotalInfraestructuraxFechas($fechaInicio, $fechaFin);
+            $totalSTecnico = $co->contarTotalSTecnicoxFechas($fechaInicio, $fechaFin);
+            $totalRequerimientos = $co->contarTotalRequerimientosxFechas($fechaInicio, $fechaFin);
+            $totalFDigital = $co->contarTotalFDigitalxFechas($fechaInicio, $fechaFin);
+            $totalPDigital = $co->contarTotalPDigitalxFechas($fechaInicio, $fechaFin);
+            $totalCctv = $co->contarTotalCCTVxFechas($fechaInicio, $fechaFin);
+
+            $totalMotivosRedes = $co->totalMotivosRedesxFechas($fechaInicio, $fechaFin);
+            $totalMotivosInfr = $co->totalMotivosInfraestructuraxFechas($fechaInicio, $fechaFin);
+            $totalMotivosSTecnico = $co->totalMotivosSTecnicoxFechas($fechaInicio, $fechaFin);
+            $totalMotivosRequerimientos = $co->totalMotivosRequerimientosxFechas($fechaInicio, $fechaFin);
+            $totalMotivosFDigital = $co->totalMotivosFDigitalxFechas($fechaInicio, $fechaFin);
+            $totalMotivosPDigital = $co->totalMotivosPDigitalxFechas($fechaInicio, $fechaFin);
+            $totalMotivosCCTV = $co->totalMotivosCCTVxFechas($fechaInicio, $fechaFin);
         }
-
-/*        
-        $totalTareas = $co->contarTareas();
-        $totalPendientes = $co->contarTotalPendientes();
-        $totalEnProgreso = $co->contarTotalEnProgreso();
-        $totalCompletas = $co->contarTotalCompletas();
-        $totalCanceladas = $co->contarTotalCanceladas();
-        $totalEliminadas = $co->contarTotalEliminadas();
-
-        $totalRedes = $co->contarTotalRedes();
-        $totalInfraestrucutra = $co->contarTotalInfraestructura();
-        $totalSTecnico = $co->contarTotalSTecnico();
-        $totalRequerimientos = $co->contarTotalRequerimientos();
-        $totalFDigital = $co->contarTotalFDigital();
-        $totalPDigital = $co->contarTotalPDigital();
-        $totalCctv = $co->contarTotalCCTV();
-
-        $totalMotivosRedes = $co->totalMotivosRedes();
-        $totalMotivosInfr = $co->totalMotivosInfraestructura();
-        $totalMotivosSTecnico = $co->totalMotivosSTecnico();
-        $totalMotivosRequerimientos = $co->totalMotivosRequerimientos();
-        $totalMotivosFDigital = $co->totalMotivosFDigital();
-        $totalMotivosPDigital = $co->totalMotivosPDigital();
-        $totalMotivosCCTV = $co->totalMotivosCCTV();*/
 
         require('libreriaEstilos.php');
         require('headerNav.php');
