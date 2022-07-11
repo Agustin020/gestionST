@@ -99,6 +99,22 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     })
                 }
 
+
+                function cargarAgentesArea(valor) {
+                    
+                    var codigoArea = valor.value;
+                    $.ajax({
+                        type: 'POST',
+                        url: 'ajax/cargarAgentesArea.php',
+                        data: 'codigoArea=' + codigoArea,
+                        success: function(r) {
+                            $('select[name=selectAgentes]').html(r);
+                        }
+                    })
+                }
+
+
+
                 function mostrarIP(valor) {
                     if (valor.checked) {
                         $('#ipSeccion').show(200);
@@ -318,12 +334,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="nombreApellidoAfectado" class="form-control" id="floatingInput" placeholder="ejemplo">
-                                                <label for="floatingInput">Nombre y apellido del afectado/a</label>
+                                                <label for="floatingInput">Nombre y apellido del afectado/a (Opcional)</label>
                                             </div>
 
                                             <div class="form-floating mb-3">
                                                 <input type="tel" name="cel" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo">
-                                                <label for="floatingInput">Nro de celular</label>
+                                                <label for="floatingInput">Nro de celular (Opcional)</label>
                                             </div>
 
                                             <div class="form-floating mb-3">
@@ -443,6 +459,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                                 Asignarme la tarea
                                                             </a>
                                                         </li>
+
                                                     <?php
                                                     }
                                                     if ($listTarea[15] != 0 && $listTarea[9] != 'Completo') {
@@ -646,12 +663,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </div>
                                     </div>
 
+
+
                                     <!--Modal Asignar Tarea-->
                                     <div class="modal fade" id="modalAsignarTarea<?php echo $listTarea[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Asignar tarea</h5>
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Asignar tarea - <?php echo $listTarea[18]; ?></h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <form action="../controlador/c_tomarTarea.php" method="get">
@@ -660,19 +679,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <input type="hidden" name="id" value="<?php echo $listTarea[0]; ?>">
 
                                                         <div class="form-floating mb-3">
-                                                            <select class="form-select" name="dni" id="floatingSelect" aria-label="Floating label select example" required>
+                                                            <select class="form-select" onchange="cargarAgentesArea(this);" aria-label="Floating label select example">
+                                                                <option value="" selected>Seleccionar...</option>
+                                                                <option value="<?php echo $listTarea[17]; ?>"><?php echo $listTarea[18]; ?></option>
+                                                            </select>
+                                                            <label for="floatingSelect">Área donde se lleva a cabo la tarea</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <select class="form-select" name="selectAgentes" aria-label="Floating label select example" required>
                                                                 <option value="" selected>Seleccione...</option>
-                                                                <?php
-                                                                foreach ($listAgentes as $agentes) {
-                                                                ?>
-                                                                    <option value="<?php echo $agentes[0]; ?>">
-                                                                        <?php
-                                                                        echo $agentes[1];
-                                                                        ?>
-                                                                    </option>
-                                                                <?php
-                                                                }
-                                                                ?>
                                                             </select>
                                                             <label for="floatingSelect">Seleccione el agente que llevará a cabo la tarea</label>
                                                         </div>
@@ -781,6 +797,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <div class="form-floating mb-3">
                                                             <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="Nombre del Afectado" required>
                                                             <label for="floatingInput">IP</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="nombreApellidoAfectado" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                            <label for="floatingInput">Nombre y apellido del afectado/a (Opcional)</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="tel" name="cel" value="<?php echo $listTarea[6]; ?>" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                            <label for="floatingInput">Nro de celular (Opcional)</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">

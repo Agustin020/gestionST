@@ -130,6 +130,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     Dar de Baja
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a type="button" class="dropdown-item" href="index.php?accion=verEstadisticasAgente&dni=<?php echo $list[0]; ?>">
+                                                    Ver estadísticas
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>

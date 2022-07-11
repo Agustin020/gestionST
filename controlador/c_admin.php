@@ -107,6 +107,22 @@ class ControladorAdmin
         require('estadisticas.php');
     }
 
+    public function verEstadisticasAgenteContr($dni){
+        echo ('<title>Estadísticas - Gestión ST</title>');
+        require('../modelo/m_estadisticas.php');
+        require('../modelo/m_consultas.php');
+        $estadistica = new ConsultasEstadisticas();
+        $co = new Consultas();
+        $listAgente = $co->listarUserActual($dni);
+        $areaAgente = $co->listarNombreAreaUsuario($dni);
+        $totalEstadoTareas = $estadistica->totalEstadoTareaAgente($dni);
+        $listEstadosTareas = $estadistica->listarEstadoTareaAgente($dni);
+        $listMotivosTareas = $estadistica->listarMotivosAgente($dni);
+        require('libreriaEstilos.php');
+        require('headerNav.php');
+        require('estadisticasAgente.php');
+    }
+
     public function listarTareasEncargadoContr()
     {
         echo ('<title>Listado de Tareas - Gestión ST</title>');

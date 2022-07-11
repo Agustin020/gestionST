@@ -12,6 +12,13 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->verEstadisticasContr($time, $fechaInicio, $fechaFin);
         break;
+
+    case 'verEstadisticasAgente':
+        $dni = $_GET['dni'];
+        require('../controlador/c_admin.php');
+        $controller = new ControladorAdmin();
+        $controller->verEstadisticasAgenteContr($dni);
+        break;
         
     case 'listarTareas':
         require('../controlador/c_admin.php');

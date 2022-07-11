@@ -1478,6 +1478,78 @@ class ConsultasEstadisticas extends Conexion
         }
         return $motivosCCTV;
     }
+
+
+    //ESTADISTICAS AGENTE-----------------------------------------------------------
+    public function totalEstadoTareaAgente($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from tareas t, estadotarea e, usuario u  
+                    where t.estadoTarea_id = e.id and t.usuario_dni = u.dni and u.dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $estadoTareasTotal = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $estadoTareasTotal;
+    }
+
+    public function listarEstadoTareaAgente($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e, usuario u  
+                    where t.estadoTarea_id = e.id and t.usuario_dni = u.dni and u.dni = '$dni' group by e.nombre";
+            $result = mysqli_query($link, $sql);
+            $estadoTareas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $estadoTareas[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $estadoTareas;
+    }
+
+    public function totalMotivosAgente($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*) from tareas t, estadotarea e, usuario u  
+                    where t.estadoTarea_id = e.id and t.usuario_dni = u.dni and u.dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $estadoTareasTotal = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $estadoTareasTotal;
+    }
+
+    public function listarMotivosAgente($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT count(*), m.motivos from tareas t, motivos m, usuario u
+                    where t.id_motivos = m.id and t.usuario_dni = u.dni and u.dni = '$dni' group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivosTareas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivosTareas[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $motivosTareas;
+    }
 }
 
 /* select count(*), e.nombre from tareas t, estadotarea e, usuario u  
