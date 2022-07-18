@@ -4,10 +4,10 @@ class Conexion
 
     protected $link;
 
-    public function Conexion()
+    public function conexionBD()
     {
         try {
-            $this->link = new mysqli('localhost','agustin','software1234','gestionst','3306');
+            $this->link = new mysqli('localhost', 'agustin', 'software1234', 'gestionst', '3306');
         } catch (Exception $e) {
             die('Error' . $e->getMessage());
         }

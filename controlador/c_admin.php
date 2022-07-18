@@ -108,7 +108,7 @@ class ControladorAdmin
     }
 
     public function verEstadisticasAgenteContr($dni){
-        echo ('<title>Estadísticas - Gestión ST</title>');
+        echo ('<title>Estadísticas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_estadisticas.php');
         require('../modelo/m_consultas.php');
         $estadistica = new ConsultasEstadisticas();
@@ -125,7 +125,7 @@ class ControladorAdmin
 
     public function listarTareasEncargadoContr()
     {
-        echo ('<title>Listado de Tareas - Gestión ST</title>');
+        echo ('<title>Listado de Tareas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listAreas = $co->listarAreas();
@@ -139,7 +139,7 @@ class ControladorAdmin
 
     public function listarTareasAgenteContr()
     {
-        echo ('<title>Listado de Tareas - Gestión ST</title>');
+        echo ('<title>Listado de Tareas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario']);
@@ -154,7 +154,7 @@ class ControladorAdmin
 
     public function listarTareasAdminContr()
     {
-        echo ('<title>Listado de Tareas - Gestión ST</title>');
+        echo ('<title>Listado de Tareas - Gestión Requerimientos</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listDatosAgentes = $co->listarAgentes();
@@ -178,7 +178,7 @@ class ControladorAdmin
 
     public function listarTareasEliminadasContr()
     {
-        echo ('<title>Listado de Tareas Eliminadas - Gestión ST</title>');
+        echo ('<title>Listado de Tareas Eliminadas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listTareasEliminadas = $co->listarTareasEliminadas();
@@ -189,7 +189,7 @@ class ControladorAdmin
 
     public function listarAgentesContr()
     {
-        echo ('<title>Listado de Agentes - Gestión ST</title>');
+        echo ('<title>Listado de Agentes - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listEncAgentes = $co->listarEncargadosAgentes();
@@ -198,9 +198,20 @@ class ControladorAdmin
         require('listaAgentes.php');
     }
 
+    public function listarMotivosReqContr(){
+        echo ('<title>Listado de Agentes - Gestión de tareas Sistemas</title>');
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listMotivosReq = $co->listarMotivosReq();
+        $listAreas = $co->listarAreas();
+        require('libreriaEstilos.php');
+        require('headerNav.php');
+        require('listaMotivos.php');
+    }
+
     public function listarTareaAgenteContr($dni)
     {
-        echo ('<title>Tareas de Agente - Gestión ST</title>');
+        echo ('<title>Tareas de Agente - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listTareaAgente = $co->listarTareaAgente($dni);
@@ -214,7 +225,7 @@ class ControladorAdmin
 
     public function listarDireccionesContr()
     {
-        echo ('<title>Listado de Áreas - Gestión ST</title>');
+        echo ('<title>Listado de Áreas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listDirecciones = $co->listarDirecciones();
@@ -226,7 +237,7 @@ class ControladorAdmin
 
     public function listarUsuariosContr()
     {
-        echo ('<title>Lista de Usuarios - Gestión ST</title>');
+        echo ('<title>Lista de Usuarios - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listUsuarios = $co->listarUsuarios();
@@ -239,7 +250,7 @@ class ControladorAdmin
 
     public function listarUsuariosBajaContr()
     {
-        echo ('<title>Lista de Usuarios de baja - Gestión ST</title>');
+        echo ('<title>Lista de Usuarios de baja - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listBajas = $co->listarBajasUsuarios();

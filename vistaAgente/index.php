@@ -43,6 +43,12 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->listarAgentesContr();
         break;
+    case 'listarMotivosReq':
+        require('../controlador/c_admin.php');
+        $controller = new ControladorAdmin();
+        $controller->listarMotivosReqContr();
+        break;
+
     case 'listarTareaAgente':
         $dni = $_GET['agente'];
         require('../controlador/c_admin.php');

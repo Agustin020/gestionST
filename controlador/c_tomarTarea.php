@@ -4,7 +4,7 @@ require('../modelo/m_consultas.php');
 $co = new Consultas();
 
 $nroArreglo = $_GET['id'];
-$dni = $_GET['dni'];
+$dni = $_GET['selectAgentes'];
 
 if ($_SESSION['rol'] == 2) {
     if ($co->tomarTareaAgente($dni, $nroArreglo)) {

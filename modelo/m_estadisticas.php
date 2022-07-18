@@ -6,7 +6,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTareasActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT COUNT(*) FROM tareas t where t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_row($result)) {
@@ -21,7 +21,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPendientesActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Pendiente' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalTareasPendientes = [];
@@ -38,7 +38,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEnProgresoActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'En progreso' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalTareasEnProgreso = [];
@@ -55,7 +55,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCompletasActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Completo' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalTareasCompletas = [];
@@ -72,7 +72,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCanceladasActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Cancelado' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalTareasCanceladas = [];
@@ -89,7 +89,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEliminadasActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Eliminado' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalTareasEliminadas = [];
@@ -107,7 +107,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRedesActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '1' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalRedes = [];
@@ -124,7 +124,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalInfraestructuraActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '2' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalInfraestructura = [];
@@ -141,7 +141,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalSTecnicoActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '3' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalSTecnico = [];
@@ -158,7 +158,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRequerimientosActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '4' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalRequerimientos = [];
@@ -175,7 +175,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalFDigitalActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '5' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalFDigital = [];
@@ -192,7 +192,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPDigitalActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '6' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalPDigital = [];
@@ -209,7 +209,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCCTVActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '7' and t.fechaCreada = curdate()";
             $result = mysqli_query($link, $sql);
             $totalCCTV = [];
@@ -229,7 +229,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRedesActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 1 and t.fechaCreada = curdate() group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -248,7 +248,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosInfraestructuraActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 2 and t.fechaCreada = curdate() group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -267,7 +267,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosSTecnicoActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 3 and t.fechaCreada = curdate() group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -286,7 +286,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRequerimientosActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 4 and t.fechaCreada = curdate() group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -305,7 +305,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosFDigitalActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 5 and t.fechaCreada = curdate() group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -324,7 +324,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosPDigitalActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 6 and t.fechaCreada = curdate() group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -343,7 +343,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosCCTVActual()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 7 and t.fechaCreada = curdate() group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -363,7 +363,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTareasxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT COUNT(*) FROM tareas t where t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_row($result)) {
@@ -378,7 +378,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPendientesxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e 
                     where t.estadoTarea_id = e.id and e.nombre = 'Pendiente' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -396,7 +396,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEnProgresoxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e 
                     where t.estadoTarea_id = e.id and e.nombre = 'En Progreso' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -414,7 +414,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCompletasxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e 
                     where t.estadoTarea_id = e.id and e.nombre = 'Completo' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -432,7 +432,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCanceladasxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e 
                     where t.estadoTarea_id = e.id and e.nombre = 'Cancelado' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -450,7 +450,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEliminadasxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e 
                     where t.estadoTarea_id = e.id and e.nombre = 'Eliminado' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -469,7 +469,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRedesxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '1' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -487,7 +487,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalInfraestructuraxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '2' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -505,7 +505,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalSTecnicoxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '3' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -523,7 +523,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRequerimientosxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '4' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -541,7 +541,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalFDigitalxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '5' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -559,7 +559,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPDigitalxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '6' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -577,7 +577,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCCTVxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '7' and t.fechaCreada between '$inicio' and '$fin'";
             $result = mysqli_query($link, $sql);
@@ -598,7 +598,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRedesxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 1 
                     and t.fechaCreada between '$inicio' and '$fin' group by m.motivos";
@@ -618,7 +618,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosInfraestructuraxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 2 
                     and t.fechaCreada between '$inicio' and '$fin' group by m.motivos";
@@ -638,7 +638,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosSTecnicoxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 3 
                     and t.fechaCreada between '$inicio' and '$fin' group by m.motivos";
@@ -658,7 +658,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRequerimientosxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 4 
                     and t.fechaCreada between '$inicio' and '$fin' group by m.motivos";
@@ -678,7 +678,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosFDigitalxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 5 
                     and t.fechaCreada between '$inicio' and '$fin' group by m.motivos";
@@ -698,7 +698,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosPDigitalxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 6 
                     and t.fechaCreada between '$inicio' and '$fin' group by m.motivos";
@@ -718,7 +718,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosCCTVxFechas($inicio, $fin)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 7 
                     and t.fechaCreada between '$inicio' and '$fin' group by m.motivos";
@@ -740,7 +740,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTareasxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT COUNT(*), t.fechaCreada FROM tareas t 
                     where year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
             $result = mysqli_query($link, $sql);
@@ -756,7 +756,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPendientesxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e 
                     where t.estadoTarea_id = e.id and e.nombre = 'Pendiente' and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
             $result = mysqli_query($link, $sql);
@@ -774,7 +774,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEnProgresoxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'En Progreso' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
             $result = mysqli_query($link, $sql);
@@ -792,7 +792,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCompletasxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Completo' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
             $result = mysqli_query($link, $sql);
@@ -810,7 +810,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCanceladasxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Cancelado' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
             $result = mysqli_query($link, $sql);
@@ -828,7 +828,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEliminadasxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Eliminado' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
             $result = mysqli_query($link, $sql);
@@ -847,7 +847,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRedesxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '1' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
@@ -866,7 +866,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalInfraestructuraxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '2' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
@@ -885,7 +885,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalSTecnicoxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '3' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
@@ -904,7 +904,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRequerimientosxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '4' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
@@ -923,7 +923,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalFDigitalxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '5' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
@@ -942,7 +942,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPDigitalxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '6' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
@@ -961,7 +961,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCCTVxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a 
                     where t.codigoArea3 = a.codigo and a.codigo = '7' 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2)";
@@ -983,7 +983,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRedesxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 1 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2) group by m.motivos ";
@@ -1003,7 +1003,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosInfraestructuraxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 2 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2) group by m.motivos ";
@@ -1023,7 +1023,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosSTecnicoxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 3 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2) group by m.motivos ";
@@ -1043,7 +1043,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRequerimientosxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 4 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2) group by m.motivos ";
@@ -1063,7 +1063,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosFDigitalxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 5 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2) group by m.motivos ";
@@ -1083,7 +1083,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosPDigitalxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 6 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2) group by m.motivos ";
@@ -1103,7 +1103,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosCCTVxAnio()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 7 
                     and year(t.fechaCreada) = (select max(year(t2.fechaCreada)) from tareas t2) group by m.motivos ";
@@ -1126,7 +1126,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTareasTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT COUNT(*) FROM tareas t";
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_row($result)) {
@@ -1141,7 +1141,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPendientesTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Pendiente'";
             $result = mysqli_query($link, $sql);
             $totalTareasPendientes = [];
@@ -1158,7 +1158,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEnProgresoTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'En progreso'";
             $result = mysqli_query($link, $sql);
             $totalTareasEnProgreso = [];
@@ -1175,7 +1175,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCompletasTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Completo'";
             $result = mysqli_query($link, $sql);
             $totalTareasCompletas = [];
@@ -1192,7 +1192,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCanceladasTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Cancelado'";
             $result = mysqli_query($link, $sql);
             $totalTareasCanceladas = [];
@@ -1209,7 +1209,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalEliminadasTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e where t.estadoTarea_id = e.id and e.nombre = 'Eliminado'";
             $result = mysqli_query($link, $sql);
             $totalTareasEliminadas = [];
@@ -1227,7 +1227,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRedesTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '1'";
             $result = mysqli_query($link, $sql);
             $totalRedes = [];
@@ -1244,7 +1244,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalInfraestructuraTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '2'";
             $result = mysqli_query($link, $sql);
             $totalInfraestructura = [];
@@ -1261,7 +1261,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalSTecnicoTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '3'";
             $result = mysqli_query($link, $sql);
             $totalSTecnico = [];
@@ -1278,7 +1278,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalRequerimientosTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '4'";
             $result = mysqli_query($link, $sql);
             $totalRequerimientos = [];
@@ -1295,7 +1295,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalFDigitalTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '5'";
             $result = mysqli_query($link, $sql);
             $totalFDigital = [];
@@ -1312,7 +1312,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalPDigitalTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '6'";
             $result = mysqli_query($link, $sql);
             $totalPDigital = [];
@@ -1329,7 +1329,7 @@ class ConsultasEstadisticas extends Conexion
     public function contarTotalCCTVTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), a.nombre from tareas t, areas a where t.codigoArea3 = a.codigo and a.codigo = '7'";
             $result = mysqli_query($link, $sql);
             $totalCCTV = [];
@@ -1349,7 +1349,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRedesTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 1 group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -1368,7 +1368,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosInfraestructuraTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 2 group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -1387,7 +1387,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosSTecnicoTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 3 group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -1406,7 +1406,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosRequerimientosTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 4 group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -1425,7 +1425,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosFDigitalTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 5 group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -1444,7 +1444,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosPDigitalTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 6 group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -1463,7 +1463,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosCCTVTotal()
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(t.nroArreglo), m.motivos from tareas t, motivos m, areas a 
                     where t.id_motivos = m.id and t.codigoArea3 = a.codigo and a.codigo = 7 group by m.motivos";
             $result = mysqli_query($link, $sql);
@@ -1484,7 +1484,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalEstadoTareaAgente($dni)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*) from tareas t, estadotarea e, usuario u  
                     where t.estadoTarea_id = e.id and t.usuario_dni = u.dni and u.dni = '$dni'";
             $result = mysqli_query($link, $sql);
@@ -1500,7 +1500,7 @@ class ConsultasEstadisticas extends Conexion
     public function listarEstadoTareaAgente($dni)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), e.nombre from tareas t, estadotarea e, usuario u  
                     where t.estadoTarea_id = e.id and t.usuario_dni = u.dni and u.dni = '$dni' group by e.nombre";
             $result = mysqli_query($link, $sql);
@@ -1519,7 +1519,7 @@ class ConsultasEstadisticas extends Conexion
     public function totalMotivosAgente($dni)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*) from tareas t, estadotarea e, usuario u  
                     where t.estadoTarea_id = e.id and t.usuario_dni = u.dni and u.dni = '$dni'";
             $result = mysqli_query($link, $sql);
@@ -1535,7 +1535,7 @@ class ConsultasEstadisticas extends Conexion
     public function listarMotivosAgente($dni)
     {
         try {
-            $link = parent::Conexion();
+            $link = parent::conexionBD();
             $sql = "SELECT count(*), m.motivos from tareas t, motivos m, usuario u
                     where t.id_motivos = m.id and t.usuario_dni = u.dni and u.dni = '$dni' group by m.motivos";
             $result = mysqli_query($link, $sql);

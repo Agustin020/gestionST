@@ -11,7 +11,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Inicio - Gestión ST</title>
+            <title>Inicio - Gestión de tareas Sistemas</title>
             <?php require('libreriaEstilos.php'); ?>
         </head>
 
@@ -85,13 +85,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 <?php
                 require_once('../modelo/m_consultas.php');
+                require_once('../modelo/m_estadisticas.php');
                 $co = new Consultas();
+                $est = new ConsultasEstadisticas();
 
-                
+                $totalTareas = $est->contarTareasTotal();
                 $totalPendientes = $co->contarTareasPendientes();
                 $totalEnProgreso = $co->contarTareasEnProgreso();
                 $totalCompletas = $co->contarTareasCompletas();
                 $totalCanceladas = $co->contarTareasCanceladas();
+                $totalEliminadas = $co->contarTareasEliminadas();
                 $cantAgentes = $co->contarAgentes();
                 ?>
 
@@ -101,8 +104,18 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         <div class="card border-dark mb-3 principal" style="max-width: auto;">
                             <div class="card-body caja1 text-dark">
                                 <div id="txtInfo">
-                                    <h1 class="card-title"></h1>
+                                    <h1 class="card-title"><?php echo $totalTareas; ?></h1>
                                     <p class="card-text">Total de tareas</p>
+                                </div>
+                                <i class="bi bi-clipboard-data"></i>
+                            </div>
+                        </div>
+
+                        <div class="card border-dark mb-3 principal" style="max-width: auto; margin-left: 10px;">
+                            <div class="card-body caja1 text-dark">
+                                <div id="txtInfo">
+                                    <h1 class="card-title"><?php echo $totalEliminadas; ?></h1>
+                                    <p class="card-text">Total de eliminadas</p>
                                 </div>
                                 <i class="bi bi-clipboard-data"></i>
                             </div>

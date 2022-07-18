@@ -11,7 +11,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Inicio - Gestión ST</title>
+            <title>Inicio - Gestión de tareas Sistemas</title>
             <?php require('libreriaEstilos.php'); ?>
 
             <style>
@@ -101,9 +101,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             ?>
 
             <?php
+            require_once('../modelo/m_estadisticas.php');
             require_once('../modelo/m_consultas.php');
             $co = new Consultas();
-            //$tareasTotal = $c->contarTareasActual();
+            $est = new ConsultasEstadisticas();
             if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
                 $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario']);
                 //
@@ -114,10 +115,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 //
                 $nroCompletasUser = $co->contarTareasCompletasUser($_SESSION['username']);
             }
+            $totalTareasSistemas = $est->contarTareasTotal();
             $tareasPendientes = $co->contarTareasPendientes();
             $tareasEnProgreso = $co->contarTareasEnProgreso();
             $tareasCompletas = $co->contarTareasCompletas();
             $tareasCanceladas = $co->contarTareasCanceladas();
+            $totalTareasEliminadas = $co->contarTareasEliminadas();
             //Usuarios
             $totalUsuarios = $co->contarTotalUsuarios();
             $totalAdmin = $co->contarAdmin();
@@ -143,7 +146,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                             <div class="card border-dark mb-3" style="max-width: auto;">
                                 <div class="card-body caja1 text-dark">
                                     <div id="txtInfo">
-                                        <h1 class="card-title"></h1>
+                                        <h1 class="card-title"><?php echo $tareasTotalArea; ?></h1>
                                         <p class="card-text">Total de tareas de <?php echo $_SESSION['areaUsuarioNombre']; ?></p>
                                     </div>
                                     <i class="bi bi-clipboard-data"></i>
@@ -158,8 +161,18 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                             <div class="card border-dark mb-3" style="max-width: auto;">
                                 <div class="card-body caja1 text-dark">
                                     <div id="txtInfo">
-                                        <h1 class="card-title"><?php echo $tareasTotal; ?></h1>
+                                        <h1 class="card-title"><?php echo $totalTareasSistemas; ?></h1>
                                         <p class="card-text">Total de tareas</p>
+                                    </div>
+                                    <i class="bi bi-clipboard-data"></i>
+                                </div>
+                            </div>
+
+                            <div class="card border-dark mb-3" style="max-width: auto; margin-left: 10px;">
+                                <div class="card-body caja1 text-dark">
+                                    <div id="txtInfo">
+                                        <h1 class="card-title"><?php echo $totalTareasEliminadas; ?></h1>
+                                        <p class="card-text">Total de eliminadas</p>
                                     </div>
                                     <i class="bi bi-clipboard-data"></i>
                                 </div>

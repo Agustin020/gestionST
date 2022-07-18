@@ -71,7 +71,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         }
 
 
-        .sidebar #desplegarMenuTarea a, .sidebar #desplegarMenuEst a {
+        .sidebar #desplegarMenuTarea a,
+        .sidebar #desplegarMenuEst a {
             border-left: 5px solid #47c5b5;
         }
 
@@ -394,6 +395,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 ?>
                     <a class="nav-link" aria-current="page" href="index.php?accion=listarAgentes">
                         <i class="bi bi-people"></i>Lista de Agentes
+                    </a>
+
+                    <a class="nav-link" aria-current="page" href="index.php?accion=listarMotivosReq">
+                        <i class="bi bi-list-nested"></i>Motivos de tareas
                     </a>
                 <?php
                 }
