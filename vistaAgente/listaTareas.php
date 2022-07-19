@@ -227,7 +227,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </div>
 
                                         <div class="modal-body">
-                                            <p class="fs-6">Ingrese la tarea con sus respectivos datos y asignación a agentes</p>
+                                            <p class="fs-6">Ingrese la tarea con sus respectivos datos</p>
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
@@ -402,7 +402,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     if ($listTarea[9] != 'Cancelado' && $listTarea[15] == 0) {
                                                     ?>
                                                         <li>
-                                                            <a class="dropdown-item" href="../controlador/c_tomarTarea.php?id=<?php echo $listTarea[0]; ?>&dni=<?php echo $_SESSION['dni']; ?>">
+                                                            <a class="dropdown-item" href="../controlador/c_tomarTarea.php?id=<?php echo $listTarea[0]; ?>&selectAgentes=<?php echo $_SESSION['dni']; ?>">
                                                                 Asignarme la tarea
                                                             </a>
                                                         </li>
@@ -615,7 +615,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Terminar tarea</h5>
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Cancelar tarea</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
 

@@ -43,6 +43,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 $(document).ready(function() {
                     $('#tablaDinamicaLoad').DataTable({
+                        aLengthMenu: [30, 50, 100, 200],
                         language: {
                             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                         }
@@ -123,9 +124,15 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 <p class="fs-5">Lista de Direcciones de la Municipalidad</p>
                 <hr>
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    Agregar Dirección
-                </button>
+                <?php
+                if ($_SESSION['rol'] == 3) {
+                ?>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Agregar Dirección
+                    </button>
+                <?php
+                }
+                ?>
 
                 <!--Modal Nueva Area-->
                 <form action="../controlador/c_agregarDireccion.php" method="post">
@@ -173,7 +180,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                             <th scope="col">Código</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">Acción</th>
+                            <?php
+                            if ($_SESSION['rol'] == 3) {
+                            ?>
+                                <th scope="col">Acción</th>
+                            <?php
+                            }
+                            ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -184,21 +197,27 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 <td><?php echo $direccion[0]; ?></td>
                                 <td><?php echo $direccion[1]; ?></td>
                                 <td><?php echo $direccion[2]; ?></td>
-                                <td id="accion">
-                                    <div class="btn-group" role="group">
-                                        <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Acción
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <li>
-                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditar<?php echo $direccion[0]; ?>">
-                                                    Editar
-                                                </a>
-                                            </li>
-                                            
-                                        </ul>
-                                    </div>
-                                </td>
+                                <?php
+                                if ($_SESSION['rol'] == 3) {
+                                ?>
+                                    <td id="accion">
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Acción
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                <li>
+                                                    <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditar<?php echo $direccion[0]; ?>">
+                                                        Editar
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </td>
+                                <?php
+                                }
+                                ?>
                             </tr>
 
                             <!-- Modal Editar Area-->

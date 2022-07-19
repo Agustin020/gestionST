@@ -166,7 +166,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p class="fs-6">Ingrese la tarea con sus respectivos datos y asignación a agentes</p>
+                                            <p class="fs-6">Ingrese la tarea con sus respectivos datos</p>
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
