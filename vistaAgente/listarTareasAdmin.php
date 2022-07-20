@@ -101,7 +101,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
                 function cargarAgentesArea(valor) {
-                    
+
                     var codigoArea = valor.value;
                     $.ajax({
                         type: 'POST',
@@ -455,14 +455,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     if ($listTarea[9] != 'Cancelado' && $listTarea[15] == 0 && $_SESSION['rol'] == 4) {
                                                     ?>
                                                         <li>
-                                                            <a class="dropdown-item" href="../controlador/c_tomarTarea.php?id=<?php echo $listTarea[0]; ?>&dni=<?php echo $_SESSION['dni']; ?>">
+                                                            <a class="dropdown-item" href="../controlador/c_tomarTarea.php?id=<?php echo $listTarea[0]; ?>&selectAgentes=<?php echo $_SESSION['dni']; ?>">
                                                                 Asignarme la tarea
                                                             </a>
                                                         </li>
 
                                                     <?php
                                                     }
-                                                    if ($listTarea[15] != 0 && $listTarea[9] != 'Completo') {
+                                                    if ($listTarea[15] != 0 && $listTarea[9] != 'Completo' && $listTarea[9] != 'Cancelado') {
                                                     ?>
                                                         <li>
                                                             <a class="dropdown-item" href="../controlador/c_quitarTareaAsignado.php?id=<?php echo $listTarea[0]; ?>">
@@ -753,23 +753,35 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                                         <input type="hidden" name="nroArreglo" value="<?php echo $listTarea[0]; ?>">
 
-                                                        <div class="form-floating mb-3">
-                                                            <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
-                                                                <option value="<?php echo $listTarea[17]; ?>" selected><?php echo $listTarea[18]; ?> (Actual)</option>
-                                                                <?php
-                                                                foreach ($listAreas as $area) {
-                                                                ?>
-                                                                    <option value="<?php echo $area[0]; ?>">
-                                                                        <?php
-                                                                        echo $area[1];
-                                                                        ?>
-                                                                    </option>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                            <label for="floatingSelect">Seleccione el Área involucrada</label>
-                                                        </div>
+                                                        <?php
+                                                        if ($_SESSION['rol'] == 3) {
+                                                        ?>
+                                                            <div class="form-floating mb-3">
+                                                                <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                    <option value="<?php echo $listTarea[17]; ?>" selected><?php echo $listTarea[18]; ?> (Actual)</option>
+                                                                    <?php
+                                                                    foreach ($listAreas as $area) {
+                                                                    ?>
+                                                                        <option value="<?php echo $area[0]; ?>">
+                                                                            <?php
+                                                                            echo $area[1];
+                                                                            ?>
+                                                                        </option>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                                <label for="floatingSelect">Seleccione el Área involucrada</label>
+                                                            </div>
+
+                                                        <?php
+                                                        }
+                                                        if ($_SESSION['rol'] == 4) {
+                                                        ?>
+                                                            <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                                        <?php
+                                                        }
+                                                        ?>
 
                                                         <div class="form-floating mb-3">
                                                             <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>

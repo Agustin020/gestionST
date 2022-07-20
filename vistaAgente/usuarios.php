@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
-    if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
+    if ($_SESSION['rol'] == 3) {
 ?>
         <!DOCTYPE html>
         <html lang="en">
