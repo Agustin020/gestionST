@@ -58,6 +58,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     var localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + time;
 
                     $('#tablaDinamicaLoad').DataTable({
+                        aLengthMenu: [25, 50, 100, 200],
                         dom: 'lBfrtip',
                         buttons: [{
                                 extend: 'excelHtml5',
