@@ -409,7 +409,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 <?php
                 if ($_SESSION['rol'] == 3) {
                 ?>
-                    <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuarios"><i class="bi bi-people"></i></i>Usuarios</a>
+                    <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuarios"><i class="bi bi-people"></i>Usuarios</a>
+                    <a class="nav-link" aria-current="page" href="index.php?accion=blanqueoPass"><i class="bi bi-key"></i>Blanquear contraseña</a>
                 <?php
                 }
                 ?>

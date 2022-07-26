@@ -259,4 +259,16 @@ class ControladorAdmin
         require('headerNav.php');
         require('listarUsuariosBaja.php');
     }
+
+    public function pageBlanquearPassContr()
+    {
+        echo ('<title>Blanquear Contraseña - Gestión de tareas Sistemas</title>');
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listUsuarios = $co->listarUsuarios();
+        require('libreriaEstilos.php');
+        require('headerNav.php');
+        require('blanqueoPass.php');
+    }
+
 }

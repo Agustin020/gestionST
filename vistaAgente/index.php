@@ -70,4 +70,8 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->listarUsuariosBajaContr();
         break;
+    case 'blanqueoPass':
+        require('../controlador/c_admin.php');
+        $controller = new ControladorAdmin();
+        $controller->pageBlanquearPassContr();
 }

@@ -375,7 +375,8 @@ class Consultas extends Conexion
         return $listEmpleados;
     }
 
-    public function listarMotivosReq(){
+    public function listarMotivosReq()
+    {
         try {
             $link = parent::conexionBD();
             $sql = "SELECT m.id, m.motivos, a.codigo, a.nombre from motivos m, areas a
@@ -393,14 +394,15 @@ class Consultas extends Conexion
         return $listMotivos;
     }
 
-    public function agregarNuevoMotivo($motivo, $codArea){
+    public function agregarNuevoMotivo($motivo, $codArea)
+    {
         try {
             $link = parent::conexionBD();
             $sql = "INSERT into motivos(motivos, codigoArea) values ('$motivo', $codArea)";
             $result = mysqli_query($link, $sql);
-            if($result){
+            if ($result) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception $e) {
@@ -408,14 +410,15 @@ class Consultas extends Conexion
         }
     }
 
-    public function editarMotivo($motivo, $codArea, $id){
+    public function editarMotivo($motivo, $codArea, $id)
+    {
         try {
             $link = parent::conexionBD();
             $sql = "UPDATE motivos set motivos = '$motivo', codigoArea = '$codArea' where id = '$id'";
             $result = mysqli_query($link, $sql);
-            if($result){
+            if ($result) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception $e) {
@@ -908,6 +911,26 @@ class Consultas extends Conexion
             }
         } catch (Exception $e) {
             die('Error ' . $e->getMessage());
+        }
+    }
+
+
+    public function blanquearPass($dni, $pass)
+    {
+        try {
+            $passFuerte = password_hash($pass, PASSWORD_DEFAULT);
+            $link = parent::conexionBD();
+            
+            $sql = "UPDATE usuario set contraseña = '$passFuerte' where dni = '$dni'";
+
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
         }
     }
 
