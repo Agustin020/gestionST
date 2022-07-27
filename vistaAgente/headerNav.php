@@ -332,13 +332,20 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 if ($_SESSION['rol'] == 4) {
                 ?>
                     <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
-                <?php
+                    <?php
                 } else if ($_SESSION['rol'] == 2) {
-                ?>
-                    <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&area=<?php echo $_SESSION['areaUsuario']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
-                <?php
+
+                    if ($_SESSION['cantAreas'] == 1) {
+                    ?>
+                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&area=<?php echo $_SESSION['areaUsuario']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
+                    <?php
+                    }
                 } else if ($_SESSION['rol'] == 3) {
-                ?>
+                    ?>
 
                     <a class="nav-link" role="button" id="menuEst" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
                         <div id="textItem">

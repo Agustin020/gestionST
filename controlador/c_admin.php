@@ -142,7 +142,13 @@ class ControladorAdmin
         echo ('<title>Listado de Tareas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
-        $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario']);
+
+        if($_SESSION['cantAreas'] == 1){
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
+        }else{
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2']);
+        }
+        
         $listMotivos = $co->listarMotivosProblemasUsuario($_SESSION['dni']);
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
@@ -161,7 +167,7 @@ class ControladorAdmin
         //Comprobar si esta en un Área el usuario, sino es Admin
         if (isset($_SESSION['areaUsuario'])) {
             if ($_SESSION['areaUsuario'] != null || $_SESSION['areaUsuario'] != '') {
-                $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario']);
+                $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
             }
         } else {
             $listTareasAgentes = $co->listarTareasAdmin();

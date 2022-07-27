@@ -71,11 +71,44 @@ class Consultas extends Conexion
         return $id;
     }
 
+    public function verificarTotalAreasAgente($usuario)
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT count(*) from areas a, usuario_area ua, usuario u 
+                    where a.codigo = ua.codigo_area2 and ua.usuario_dni2 = u.dni and u.usuario = '$usuario'";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $totalAreasAgente = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalAreasAgente;
+    }
+
     public function verificarAreaUsuario($usuario)
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT a.codigo from areas a where a.codigo in (select u.codigoArea2 from usuario u where u.usuario = '$usuario')";
+            $sql = "SELECT a.codigo from areas a where a.codigo in (select ua.codigo_area2 from usuario_area ua where ua.usuario_dni2 
+                    in (select u.dni from usuario u where u.usuario = '$usuario'))";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $areaUsuario = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $areaUsuario;
+    }
+
+    public function verificarNombreAreaUsuario($usuario)
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT a.nombre from areas a where a.codigo in (select ua.codigo_area2 from usuario_area ua where ua.usuario_dni2 
+                    in (select u.dni from usuario u where u.usuario = '$usuario'))";
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_row($result)) {
                 $areaUsuario = $row[0];
@@ -210,7 +243,8 @@ class Consultas extends Conexion
             $link = parent::conexionBD();
             $sql = "SELECT m.id, m.motivos from motivos m where m.codigoArea in 
                     (select a.codigo from areas a where a.codigo in 
-                    (select u.codigoArea2 from usuario u where u.dni = '$dni'))";
+                    (select ua.codigo_area2 from usuario_area ua where ua.usuario_dni2 in 
+                    (select u.dni from usuario u where u.dni = '$dni')))";
             $result = mysqli_query($link, $sql);
             $listMotivos = [];
             $i = 0;
@@ -452,10 +486,14 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT a.nombre from areas a where a.codigo in (select u.codigoArea2 from usuario u where u.dni = '$dni')";
+            $sql = "SELECT a.codigo, a.nombre from areas a where a.codigo in (select ua.codigo_area2 from usuario_area ua where ua.usuario_dni2 in 
+                    (select u.dni from usuario u where u.dni = '$dni'))";
             $result = mysqli_query($link, $sql);
+            $areaActual = [];
+            $i = 0;
             while ($row = mysqli_fetch_row($result)) {
-                $areaActual = $row[0];
+                $areaActual[$i] = $row;
+                $i++;
             }
         } catch (Exception $e) {
             $e->getMessage();
@@ -483,15 +521,25 @@ class Consultas extends Conexion
 
 
     //PAGE ListarTareasAgente
-    public function listarTareasAgentes($areaUsuario)
+    public function listarTareasAgentes($areaUsuario, $areaUsuario2)
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+            if($areaUsuario == '' || $areaUsuario == null){
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
                     t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
                     from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
                     where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
                     and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and codigoArea3 = '$areaUsuario'";
+            }else{
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
+                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                        and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.codigoArea3 
+                        in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
+            }
+            
             $result = mysqli_query($link, $sql);
             $listTareas = [];
             $i = 0;

@@ -22,8 +22,26 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['dni'] = $co->listarDniUserActual($user);
             $_SESSION['rol'] = $co->verificarTipoUsuario($user);
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
-            $_SESSION['areaUsuario'] = $co->verificarAreaUsuario($user);
-            $_SESSION['areaUsuarioNombre'] = $co->listarNombreAreaUsuario($_SESSION['dni']);
+
+            $totalAreasAgente = $co->verificarTotalAreasAgente($user);
+            $_SESSION['cantAreas'] = $totalAreasAgente;
+
+            if ($totalAreasAgente == 1) {
+                $_SESSION['areaUsuario'] = $co->verificarAreaUsuario($user);
+                $_SESSION['areaUsuarioNombre'] = $co->verificarNombreAreaUsuario($user);
+            } else if ($totalAreasAgente == 2){
+                $listAreas = $co->listarNombreAreaUsuario($_SESSION['dni']);
+                $nombreAreas = '';
+                foreach ($listAreas as $area) {
+                    $codigoArea .= $area[0];
+                    $nombreAreas .= $area[1] . '<br>';
+                }
+                $_SESSION['areaUsuario'] = $codigoArea[0];
+                $_SESSION['areaUsuario2'] = $codigoArea[1];
+                $_SESSION['areaUsuarioNombre'] = $nombreAreas;
+            }
+
+            
             header('Location: ../vistaAgente/inicio.php');
             break;
         case 3:

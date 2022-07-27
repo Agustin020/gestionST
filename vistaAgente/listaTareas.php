@@ -73,7 +73,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 orientation: 'landscape',
                                 pageSize: 'A4',
                                 download: 'open',
-                                messageTop: 'Reporte: ' + localdate + '\n' + 'Área: <?php echo $areaUsuario; ?>',
+                                messageTop: 'Reporte: ' + localdate,
                                 title: 'Listado de Tareas - Gestión Sistemas',
                                 exportOptions: {
                                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -85,6 +85,19 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         }
                     })
                 })
+
+                function mostrarMotivosProblemas(valor) {
+                    var codigoArea = valor.value;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'ajax/selectMotivos.php',
+                        data: 'codigoArea=' + codigoArea,
+                        success: function(r) {
+                            $('select[name=selectMotivos]').html(r);
+                        }
+                    })
+                }
 
                 function mostrarIP(valor) {
                     if (valor.checked) {
@@ -211,7 +224,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 }
                 ?>
 
-                <p class="fs-5">Tareas - <?php echo $areaUsuario ?></p>
+                <p class="fs-5">
+                    Tareas
+                    <?php
+                    foreach ($areaUsuario as $area)
+                        echo '- ( ' . $area[1] . ' ) ';
+                    ?>
+                </p>
                 <hr>
                 <p class="fs-6">Para manipular las tareas, presione <b>Acción</b></p>
                 <div class="table-responsive-xxl">
@@ -232,25 +251,59 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
 
-                                            <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                            <?php
+                                            if ($_SESSION['cantAreas'] == 1) {
+                                            ?>
+                                                <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                                <div class="form-floating mb-3">
+                                                    <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                        <option value="" selected>Seleccione...</option>
+                                                        <?php
+                                                        foreach ($listMotivos as $motivo) {
+                                                        ?>
+                                                            <option value="<?php echo $motivo[0]; ?>"><?php echo $motivo[1]; ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
 
-                                            <div class="form-floating mb-3">
-                                                <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
-                                                    <option value="" selected>Seleccione...</option>
-                                                    <?php
-                                                    foreach ($listMotivos as $motivo) {
-                                                    ?>
-                                                        <option value="<?php echo $motivo[0]; ?>">
-                                                            <?php
-                                                            echo $motivo[1];
-                                                            ?>
-                                                        </option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                                <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
-                                            </div>
+                                            <?php
+                                            if ($_SESSION['cantAreas'] > 1) {
+                                            ?>
+
+                                                <div class="form-floating mb-3">
+                                                    <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                        <option value="" selected>Seleccione...</option>
+                                                        <?php
+                                                        foreach ($areaUsuario as $area) {
+                                                        ?>
+                                                            <option value="<?php echo $area[0]; ?>">
+                                                                <?php
+                                                                echo $area[1];
+                                                                ?>
+                                                            </option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    <label for="floatingSelect">Seleccione el área de la tarea a crear</label>
+                                                </div>
+
+                                                <div class="form-floating mb-3">
+                                                    <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                        <option value="" selected>Seleccione...</option>
+                                                    </select>
+                                                    <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                                                </div>
+
+                                            <?php
+                                            }
+                                            ?>
 
                                             <div class="form-floating mb-3">
                                                 <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
