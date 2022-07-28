@@ -48,7 +48,9 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 $(document).ready(function() {
                     $('#tablaDinamicaLoad').DataTable({
-                        order: [[6, 'desc']],
+                        order: [
+                            [6, 'desc']
+                        ],
                         language: {
                             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                         }

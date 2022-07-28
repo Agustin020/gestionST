@@ -59,7 +59,7 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['rol'] = $co->verificarTipoUsuario($user);
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
             $_SESSION['areaUsuario'] = $co->verificarAreaUsuario($user);
-            $_SESSION['areaUsuarioNombre'] = $co->listarNombreAreaUsuario($_SESSION['dni']);
+            $_SESSION['areaUsuarioNombre'] = $co->verificarNombreAreaUsuario($user);
             header('Location: ../vistaAgente/inicio.php');
             break;
         default:

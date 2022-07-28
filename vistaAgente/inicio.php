@@ -106,7 +106,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             $co = new Consultas();
             $est = new ConsultasEstadisticas();
             if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
-                $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario']);
+
+                $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario'], $_SESSION['areaUsuario2']);
                 //
                 $tareasPendientesArea = $co->contarTareasPendientesArea($_SESSION['areaUsuario']);
                 $tareasCompletasArea = $co->contarTareasCompletasArea($_SESSION['areaUsuario']);

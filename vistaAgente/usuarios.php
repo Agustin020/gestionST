@@ -54,16 +54,37 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     });
                 }
 
-                function mostrarSelectArea(valor){
+                function mostrarSelectArea(valor) {
                     var selectRol = valor.value;
-                    if(selectRol == 2 || selectRol == 4){
+
+                    if (selectRol == 1 || selectRol == 3) {
+                        $('.selectCantArea').hide(200).find('select').prop('disabled', true);
+                        $('.selectArea').hide(200).find('select').prop('disabled', true);
+                    } else if (selectRol == 2) {
+                        $('.selectCantArea').show(200).find('select').prop('disabled', false);
+
+                    } else if (selectRol == 4) {
                         $('.selectArea').show(200).find('select').prop('disabled', false);
-                    }else{
+                        $('.selectCantArea').hide(200).find('select').prop('disabled', true);
+                    } else if (selectRol == '') {
+                        $('.selectCantArea').hide(200).find('select').prop('disabled', true);
                         $('.selectArea').hide(200).find('select').prop('disabled', true);
                     }
                 }
 
-                
+                function mostrarCantSelectAreas(valor) {
+                    var cantAreas = valor.value;
+                    if (cantAreas == 1) {
+                        $('.selectArea').show(200).find('select').prop('disabled', false);
+                        $('.selectArea2').hide(200).find('select').prop('disabled', true);
+                    } else if (cantAreas == 2) {
+                        $('.selectArea').show(200).find('select').prop('disabled', false);
+                        $('.selectArea2').show(200).find('select').prop('disabled', false);
+                    }else{
+                        $('.selectArea').hide(200).find('select').prop('disabled', true);
+                        $('.selectArea2').hide(200).find('select').prop('disabled', true);
+                    }
+                }
             </script>
         </head>
 
@@ -168,8 +189,31 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <label for="floatingSelect">Elegir tipo de Usuario</label>
                                         </div>
 
+                                        <div class="form-floating mb-3 selectCantArea" style="display: none;">
+                                            <select class="form-select" onchange="mostrarCantSelectAreas(this);" name="selectCantArea" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <option value="" selected>Seleccione...</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                            <label for="floatingSelect">Elegir la cantidad de área/s donde se desempeñará</label>
+                                        </div>
+
                                         <div class="form-floating mb-3 selectArea" style="display: none;">
-                                            <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example" required>
+                                            <select class="form-select" name="selectArea[]" id="floatingSelect" aria-label="Floating label select example" required>
+                                                <option value="" selected>Seleccione...</option>
+                                                <?php
+                                                foreach ($listAreas as $area) {
+                                                ?>
+                                                    <option value="<?php echo $area[0]; ?>"><?php echo $area[1]; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            <label for="floatingSelect">Elegir el Área donde se desempeña</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3 selectArea2" style="display: none;">
+                                            <select class="form-select" name="selectArea[]" id="floatingSelect" aria-label="Floating label select example" required>
                                                 <option value="" selected>Seleccione...</option>
                                                 <?php
                                                 foreach ($listAreas as $area) {
@@ -185,7 +229,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <div class="form-floating mb-3">
                                             <input type="number" name="dni" min="1000000" max="99999999" class="form-control" id="floatingInput" placeholder="ejemplo" required>
                                             <label for="floatingInput">Dni</label>
-                                            
+
                                         </div>
 
                                         <div class="form-floating mb-3">

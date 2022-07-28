@@ -525,13 +525,13 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::conexionBD();
-            if($areaUsuario == '' || $areaUsuario == null){
+            if ($areaUsuario == '' || $areaUsuario == null) {
                 $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
                     t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
                     from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
                     where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
                     and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and codigoArea3 = '$areaUsuario'";
-            }else{
+            } else {
                 $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
                         t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
                         from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
@@ -539,7 +539,7 @@ class Consultas extends Conexion
                         and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.codigoArea3 
                         in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
             }
-            
+
             $result = mysqli_query($link, $sql);
             $listTareas = [];
             $i = 0;
@@ -696,8 +696,8 @@ class Consultas extends Conexion
         try {
             $link = parent::conexionBD();
             $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.usuario, t.nombre, a.nombre 
-                    from usuario u, tipousuario t, areas a
-                    where u.idRol2 = t.idrol and t.idrol != 1 and t.idrol != 3 and u.codigoArea2 = a.codigo";
+                    from usuario u, tipousuario t, areas a, usuario_area ua 
+                    where u.idRol2 = t.idrol and t.idrol != 1 and t.idrol != 3 and u.dni = ua.usuario_dni2 and ua.codigo_area2 = a.codigo";
             $result = mysqli_query($link, $sql);
             $listEncAgentes = [];
             $i = 0;
@@ -903,22 +903,37 @@ class Consultas extends Conexion
         }
     }
 
-    public function agregarUsuario($tipoUsuario, $codArea, $dni, $nombre, $apellido, $correo, $user, $pass)
+    public function agregarUsuario($tipoUsuario, $dni, $nombre, $apellido, $correo, $user, $pass)
     {
         try {
             $passFuerte = password_hash($pass, PASSWORD_DEFAULT);
             $link = parent::conexionBD();
 
-            if ($codArea == '' || $codArea == null) {
-                $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2) 
+            $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2) 
                     values ('$dni', '$nombre', '$apellido', '$correo', '$user', '$passFuerte', '$tipoUsuario')";
-            } else {
-                $sql = "INSERT into usuario(dni, nombre, apellido, correo, usuario, contraseña, idRol2, codigoArea2) 
-                    values ('$dni', '$nombre', '$apellido', '$correo', '$user', '$passFuerte', '$tipoUsuario', $codArea)";
-            }
 
             $result = mysqli_query($link, $sql);
             if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error ' . $e->getMessage());
+        }
+    }
+
+    public function agregarUsuarioAreas($dni, $codArea)
+    {
+        try {
+
+            $link = parent::conexionBD();
+
+            $sql = "INSERT INTO usuario_area(usuario_dni2, codigo_area2) VALUES ('$dni', '$codArea')";
+
+            $result = mysqli_query($link, $sql);
+
+            if ($result) {
                 return true;
             } else {
                 return false;
@@ -968,7 +983,7 @@ class Consultas extends Conexion
         try {
             $passFuerte = password_hash($pass, PASSWORD_DEFAULT);
             $link = parent::conexionBD();
-            
+
             $sql = "UPDATE usuario set contraseña = '$passFuerte' where dni = '$dni'";
 
             $result = mysqli_query($link, $sql);
@@ -1003,12 +1018,18 @@ class Consultas extends Conexion
         return $nroCompletas;
     }
 
-    public function contarTotalTareasAreas($areaUsuario)
+    public function contarTotalTareasAreas($areaUsuario, $areaUsuario2)
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT count(*) from tareas t where t.codigoArea3 
-                    in (select a.codigo from areas a where a.codigo = '$areaUsuario')";
+            if ($areaUsuario2 == '' || $areaUsuario2 == null) {
+                $sql = "SELECT count(*) from tareas t where t.codigoArea3 
+                        in (select a.codigo from areas a where a.codigo = '$areaUsuario')";
+            } else {
+                $sql = "SELECT count(*) from tareas t where t.codigoArea3 
+                        in (select a.codigo from areas a where a.codigo = '$areaUsuario' || a.codigo = '$areaUsuario2')";
+            }
+
             $result = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_row($result)) {
                 $nroTotal = $row[0];

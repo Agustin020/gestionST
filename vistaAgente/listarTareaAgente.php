@@ -140,7 +140,6 @@ if (isset($_SESSION['rol'])) {
                         $('#estadoTareaSection').show();
                     }
                 }
-
             </script>
 
         </head>
@@ -153,7 +152,14 @@ if (isset($_SESSION['rol'])) {
                 <hr>
 
                 <p class="fs-6">
-                    Área donde se desempeña: <b><?php echo $areaUsuario; ?></b>
+                    Área donde se desempeña:
+                    <b>
+                        <?php 
+                        foreach($areaUsuario as $area){
+                            echo '(' . $area[1] . ') ';
+                        }
+                        ?>
+                    </b>
                 </p>
 
                 <div id="filtroBusqueda">

@@ -3,11 +3,14 @@ require('../modelo/m_consultas.php');
 $co = new Consultas();
 
 $tipoUsuario = $_POST['selectRol'];
-if (isset($_POST['selectArea'])) {
-    $selectArea = $_POST['selectArea'];
+
+if (isset($_POST['selectCantArea'])) {
+    $cantAreas = $_POST['selectCantArea'];
 } else {
-    $selectArea = '';
+    $cantAreas = '';
 }
+
+$selectAreas = $_POST['selectArea'];
 
 $dni = $_POST['dni'];
 $nombre = $_POST['nombre'];
@@ -21,19 +24,28 @@ if (isset($_POST['correo'])) {
 $username = $_POST['user'];
 $pass = $_POST['pass'];
 
-/*echo 'tipoUsuario: ' . $tipoUsuario . '<br>' .
+echo 'tipoUsuario: ' . $tipoUsuario . '<br>' .
     'dni: ' . $dni . '<br>' .
-    'selectArea: ' . $selectArea . '<br>' .
+    'cantAreas: ' . $cantAreas . '<br>' .
     'nombre: ' . $nombre . '<br>' .
     'apellido: ' . $apellido . '<br>' .
     'correo: ' . $correo . '<br>' .
     'username: ' . $username . '<br>' .
-    'pass: ' . $pass . '<br>';*/
+    'pass: ' . $pass . '<br>';
 
-if ($co->agregarUsuario($tipoUsuario, $selectArea, $dni, $nombre, $apellido, $correo, $username, $pass)) {
-    session_start();
-    $_SESSION['usuarioAgregado'] = true;
-    header('Location: ../vistaAgente/index.php?accion=listarUsuarios');
+foreach ($selectArea as $area) {
+    echo 'Area: ' . $area;
+}
+
+if ($co->agregarUsuario($tipoUsuario, $dni, $nombre, $apellido, $correo, $username, $pass)) {
+    if (isset($selectAreas)) {
+        foreach ($selectAreas as $codArea) {
+            $co->agregarUsuarioAreas($dni, $codArea);
+        }
+        session_start();
+        $_SESSION['usuarioAgregado'] = true;
+        header('Location: ../vistaAgente/index.php?accion=listarUsuarios');
+    }
 } else {
     session_start();
     $_SESSION['usuarioError'] = true;
