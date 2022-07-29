@@ -32,7 +32,12 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
             <hr>
             <p class="fs-6">
                 Agente: <?php echo $listAgente; ?> <br> 
-                Área donde se desempeña: <?php echo $areaAgente; ?>
+                Área donde se desempeña: 
+                <?php
+                foreach($areaAgente as $area){
+                    echo '(' . $area[1] . ') ';
+                } 
+                ?>
             </p>
 
             <div id="graficos">
@@ -124,6 +129,25 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) {
                     'Khaki',
                     'LightSalmon',
                     'LightSeaGreen',
+                    'LightSteelBlue',
+                    'MistyRose',
+                    'PaleGreen',
+                    'LightSkyBlue',
+                    'HotPink',
+                    'YellowGreen',
+                    'SpringGreen',
+                    'SlateBlue',
+                    'SandyBrown',
+                    'Plum',
+                    'PaleTurquoise',
+                    'PaleGoldenRod',
+                    'Pink',
+                    'BlueViolet',
+                    'Gold',
+                    'Peru',
+                    'SeaGreen',
+                    'Violet',
+                    'Turquoise'
                 ],
 
                 data: [

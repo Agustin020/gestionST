@@ -199,6 +199,7 @@ class ControladorAdmin
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listEncAgentes = $co->listarEncargadosAgentes();
+        $listAreas = $co->listarAreas();
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('listaAgentes.php');

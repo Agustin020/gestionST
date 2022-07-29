@@ -87,6 +87,23 @@ class Consultas extends Conexion
         return $totalAreasAgente;
     }
 
+    //Con DNI
+    public function verificarTotalAreasAgenteDni($dni)
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT count(*) from areas a, usuario_area ua, usuario u 
+                    where a.codigo = ua.codigo_area2 and ua.usuario_dni2 = u.dni and u.dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $totalAreasAgente = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $totalAreasAgente;
+    }
+
     public function verificarAreaUsuario($usuario)
     {
         try {
@@ -695,7 +712,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.usuario, t.nombre, a.nombre 
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.usuario, t.nombre, a.nombre, a.codigo 
                     from usuario u, tipousuario t, areas a, usuario_area ua 
                     where u.idRol2 = t.idrol and t.idrol != 1 and t.idrol != 3 and u.dni = ua.usuario_dni2 and ua.codigo_area2 = a.codigo";
             $result = mysqli_query($link, $sql);
@@ -930,6 +947,26 @@ class Consultas extends Conexion
             $link = parent::conexionBD();
 
             $sql = "INSERT INTO usuario_area(usuario_dni2, codigo_area2) VALUES ('$dni', '$codArea')";
+
+            $result = mysqli_query($link, $sql);
+
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error ' . $e->getMessage());
+        }
+    }
+
+    public function eliminarAreaUsuario($dni, $codArea)
+    {
+        try {
+
+            $link = parent::conexionBD();
+
+            $sql = "DELETE from usuario_area where usuario_dni2 = '$dni' and codigo_area2 = '$codArea'";
 
             $result = mysqli_query($link, $sql);
 

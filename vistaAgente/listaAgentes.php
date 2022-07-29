@@ -48,6 +48,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                 $(document).ready(function() {
                     $('#tablaDinamicaLoad').DataTable({
+                        aLengthMenu: [25, 50, 100, 200],
                         order: [
                             [6, 'desc']
                         ],
@@ -87,11 +88,23 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 <?php
                     unset($_SESSION['altaOk']);
                 }
+                if ($_SESSION['agregadoOk']) {
+                ?>
+                    <script>
+                        Swal.fire({
+                            title: 'Confirmado!',
+                            text: 'Se ha agregado el agente al área correctamente',
+                            icon: 'success'
+                        });
+                    </script>
+                <?php
+                    unset($_SESSION['agregadoOk']);
+                }
                 ?>
 
                 <p class="fs-5">Lista de Agentes</p>
                 <hr>
-                <table class="table table-bordered" id="tablaDinamicaLoad">
+                <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad">
                     <thead>
                         <tr>
                             <th scope="col">DNI</th>
@@ -137,12 +150,34 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     Ver estadísticas
                                                 </a>
                                             </li>
+                                            <?php
+                                            require_once('../modelo/m_consultas.php');
+                                            $co = new Consultas();
+                                            $cantAreasAgente = $co->verificarTotalAreasAgenteDni($list[0]);
+                                            if ($list[5] == 'Agente' && $cantAreasAgente == 1) {
+                                            ?>
+                                                <li>
+                                                    <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAgregarAreaAgente<?php echo $list[0]; ?>">
+                                                        Agregarlo a otra área además de <?php echo $list[6]; ?>
+                                                    </a>
+                                                </li>
+                                            <?php
+                                            } else if ($list[5] == 'Agente' && $cantAreasAgente == 2) {
+                                            ?>
+                                                <li>
+                                                    <a type="button" class="dropdown-item" href="../controlador/c_eliminarAreaUsuario.php?dni=<?php echo $list[0]; ?>&selectArea=<?php echo $list[7]; ?>">
+                                                        Quitar el área actual al agente
+                                                    </a>
+                                                </li>
+                                            <?php
+                                            }
+                                            ?>
                                         </ul>
                                     </div>
                                 </td>
                             </tr>
 
-                            <!-- Modal Motivo Cancelacion-->
+                            <!-- Modal Dar de baja-->
                             <div class="modal fade" id="modalMotivoCancelacion<?php echo $list[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -168,6 +203,47 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                 <button type="submit" class="btn btn-danger">Dar de baja</button>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Modal Asignar Áreas-->
+                            <div class="modal fade" id="modalAgregarAreaAgente<?php echo $list[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Asignar <?php echo $list[1] . ' ' . $list[2]; ?> a otra área</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+
+                                        <form action="../controlador/c_agregarAreaUsuario.php" method="post" style="display: none;">
+
+                                            <div class="modal-body">
+
+                                                <input type="hidden" name="dni" value="<?php echo $list[0]; ?>">
+
+                                                <div class="form-floating">
+                                                    <select class="form-select" name="selectArea" id="floatingSelect" aria-label="Floating label select example">
+                                                        <option value="" selected>Seleccione...</option>
+                                                        <?php
+                                                        foreach ($listAreas as $area) {
+                                                        ?>
+                                                            <option value="<?php echo $area[0]; ?>"><?php echo $area[1]; ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    <label for="floatingSelect">Seleccione el área donde se desempeñara el agente</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </div>
+
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
