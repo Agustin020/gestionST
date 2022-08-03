@@ -195,16 +195,43 @@ class Consultas extends Conexion
         }
     }
 
-    public function listarTareasEncargados()
+    public function listarTareasEncargados($estado)
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
+
+            if ($estado == 'actual') {
+                $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
+                        t.fechaProblema, t.fechaSolucion, t.direccion_codigo, d.nombre, a.codigo, a.nombre, concat(u.nombre, ' ', u.apellido)  
+                        from tareas t, motivos m, estadotarea e, direcciones d, areas a, usuario u 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo
+                        and t.codigoArea3 = a.codigo
+                        and t.usuario_dni = u.dni
+                        and t.estadoTarea_id != 3 and t.estadoTarea_id != 4 and t.estadoTarea_id != 5";
+            } else if ($estado == 'completadas') {
+                $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
+                        t.fechaProblema, t.fechaSolucion, t.direccion_codigo, d.nombre, a.codigo, a.nombre, concat(u.nombre, ' ', u.apellido)  
+                        from tareas t, motivos m, estadotarea e, direcciones d, areas a, usuario u 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo
+                        and t.codigoArea3 = a.codigo
+                        and t.usuario_dni = u.dni
+                        and t.estadoTarea_id != 1 and t.estadoTarea_id != 2 and t.estadoTarea_id != 4 and t.estadoTarea_id != 5";
+            } else if ($estado == 'canceladas') {
+                $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
+                        t.fechaProblema, t.fechaSolucion, t.direccion_codigo, d.nombre, a.codigo, a.nombre, concat(u.nombre, ' ', u.apellido)  
+                        from tareas t, motivos m, estadotarea e, direcciones d, areas a, usuario u 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo
+                        and t.codigoArea3 = a.codigo
+                        and t.usuario_dni = u.dni
+                        and t.estadoTarea_id = 4";
+            }
+
+            /*$sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
                     t.fechaProblema, t.fechaSolucion, t.direccion_codigo, d.nombre, a.codigo, a.nombre 
                     from tareas t, motivos m, estadotarea e, direcciones d, areas a 
                     where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo
                     and t.codigoArea3 = a.codigo
-                    and t.estadoTarea_id != 5";
+                    and t.estadoTarea_id != 5";*/
             $result = mysqli_query($link, $sql);
             $listTareasEncargados = [];
             $i = 0;
@@ -572,15 +599,30 @@ class Consultas extends Conexion
 
 
 
-    public function listarTareasAdmin()
+    public function listarTareasAdmin($estado)
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
-                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
-                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
-                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
-                    and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5";
+            if ($estado == 'actual') {
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
+                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                        and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.estadoTarea_id != 4 and t.estadoTarea_id != 3";
+            } else if ($estado == 'completos') {
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
+                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                        and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.estadoTarea_id != 1 and t.estadoTarea_id != 2 and t.estadoTarea_id != 4";
+            } else if ($estado == 'canceladas') {
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre
+                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                        and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.estadoTarea_id != 1 and t.estadoTarea_id != 2 and t.estadoTarea_id != 3";
+            }
+
             $result = mysqli_query($link, $sql);
             $listTareas = [];
             $i = 0;
@@ -593,6 +635,8 @@ class Consultas extends Conexion
         }
         return $listTareas;
     }
+
+
 
     //PAGE ADMIN: LISTAR TAREAS ELIMINADAS
 

@@ -60,6 +60,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     $('#tablaDinamicaLoad').DataTable({
                         aLengthMenu: [25, 50, 100, 200],
                         dom: 'lBfrtip',
+                        aaSorting: [[ 0, "desc" ]],
                         buttons: [{
                                 extend: 'excelHtml5',
                                 title: 'Listado de Tareas - Gestión de tareas Sistemas',
@@ -240,13 +241,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 }
                 ?>
 
-                <p class="fs-5">Tareas</p>
+                <p class="fs-5">Tareas <?php echo $estado; ?></p>
                 <hr>
                 <p class="fs-6">
                     Para ver las opciones de las tareas, presione <b>Acción</b>
                     <br>
                     Para obtener más información acerca de la tarea presione <b>Acción > Ver más Info</b>
                 </p>
+
                 <div class="table-responsive-xxl">
 
                     <div id="btnTarea">
@@ -582,7 +584,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     if ($listTarea[6] == '' || $listTarea[6] == null) {
                                                         $cel = 'No proporcionado';
                                                     } else {
-                                                        $cel = $listTarea[5];
+                                                        $cel = $listTarea[6];
                                                     }
                                                     ?>
 

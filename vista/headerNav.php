@@ -140,6 +140,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     $('.pass').prop('type', 'password');
                 }
             })
+
+            $('#desplegarMenuTarea').hide();
+            $('#menuTarea').click(function() {
+                $('#desplegarMenuTarea').toggle(150);
+                $('#menuTarea i').toggleClass('bi bi-caret-up');
+
+            });
         });
 
         function verificarPassIguales(confirmarPass) {
@@ -264,7 +271,29 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
             <div class="navbar-nav bg-dark">
                 <a class="nav-link" aria-current="page" href="inicio.php"><i class="bi bi-gear"></i>Panel de Control</a>
-                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas"><i class="bi bi-list-check"></i>Tareas</a>
+
+                <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div id="textItem">
+                            <i class="bi bi-list-check"></i>
+                            <span style="margin-left: -5px;">
+                                Tareas
+                            </span>
+                        </div>
+                        <i class="bi bi-caret-down"></i>
+                    </a>
+
+                <ul class="navbar-nav" id="desplegarMenuTarea">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=actual">Tareas pendientes y En progreso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=completadas">Tareas completadas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=canceladas">Tareas canceladas</a>
+                    </li>
+                </ul>
+
                 <a class="nav-link" aria-current="page" href="index.php?accion=listarAreas"><i class="bi bi-list-ul"></i>Direcciones</a>
             </div>
         </div>

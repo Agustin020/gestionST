@@ -35,7 +35,22 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
             height: 100%;
             color: white;
             transition: 0.2s all;
+            overflow-y: scroll;
         }
+
+        ::-webkit-scrollbar{
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track{
+            background: #dddddd;
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background: #47c5b5;
+        }
+
+        
 
         .sidebar #txtRol {
             padding: 15px;
@@ -387,7 +402,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                     <ul class="navbar-nav" id="desplegarMenuTarea">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin">Lista de tareas</a>
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&lista=actual">Tareas pendientes y En progreso</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&lista=completos">Tareas completadas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&lista=canceladas">Tareas canceladas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasEliminadas">Tareas eliminadas</a>

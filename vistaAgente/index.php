@@ -27,9 +27,10 @@ switch ($accion) {
         break;
 
     case 'listarTareasAdmin':
+        $lista = $_GET['lista'];
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
-        $controller->listarTareasAdminContr();
+        $controller->listarTareasAdminContr($lista);
         break;
 
     case 'listarTareasEliminadas':

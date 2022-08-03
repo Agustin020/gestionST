@@ -164,7 +164,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                     </div>
 
                     <!-- Modal -->
-                    <form action="../controlador/c_agregarUsuario.php" method="post">
+                    <form action="../controlador/c_agregarUsuario.php" method="post" novalidate>
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
                             <div class="modal-dialog">

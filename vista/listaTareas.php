@@ -43,11 +43,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         <script>
             $(document).ready(function() {
                 $('#tablaDinamicaLoad').DataTable({
-
+                    aLengthMenu: [25, 50, 100, 200],
+                    aaSorting: [
+                        [0, "desc"]
+                    ],
                     language: {
                         "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                     }
-                    
+
 
                 })
             })
@@ -145,7 +148,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 }
                 ?>
 
-                <p class="fs-5">Tareas</p>
+                <p class="fs-5">Tareas <?php echo $estado; ?></p>
                 <hr>
                 <p class="fs-6">
                     Para editar o cancelar una tarea. Aprete el botón <b>Acción</b><br>
@@ -196,7 +199,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 170px" required></textarea>
                                                 <label for="floatingTextarea">Descripción</label>
                                             </div>
 
@@ -266,6 +269,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
                                     <th scope="col">Dirección</th>
+                                    <th scope="col">Asignado</th>
                                     <th scope="col">Acción</th>
                                 </tr>
                             </thead>
@@ -300,16 +304,23 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         </td>
                                         <td><?php echo $listTarea[14]; ?></td>
 
+                                        <td><?php echo $listTarea[17]; ?></td>
+
                                         <td id="accion">
-                                            <?php
-                                            if ($listTarea[9] != 'Completo') {
-                                            ?>
-                                                <div class="btn-group" role="group">
-                                                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Acción
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalInfoTarea<?php echo $listTarea[0]; ?>">Ver más info</a></li>
+
+                                            <div class="btn-group" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Acción
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+
+                                                    <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalInfoTarea<?php echo $listTarea[0]; ?>">Ver más info</a></li>
+
+                                                    <?php
+                                                    if ($listTarea[9] != 'Completo') {
+                                                    ?>
+
                                                         <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarTarea<?php echo $listTarea[0]; ?>">Editar tarea</a></li>
                                                         <?php
                                                         if ($listTarea[9] != 'Cancelado' && $listTarea[9] != 'Completo') {
@@ -318,11 +329,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <?php
                                                         }
                                                         ?>
-                                                    </ul>
-                                                </div>
-                                            <?php
-                                            }
-                                            ?>
+
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                </ul>
+                                            </div>
+
                                         </td>
                                     </tr>
 
@@ -359,7 +373,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     </div>
 
                                                     <div class="form-floating mb-3">
-                                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
+                                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 170px" disabled><?php echo $listTarea[3]; ?></textarea>
                                                         <label for="floatingTextarea2">Descripción</label>
                                                     </div>
 
@@ -461,6 +475,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="area" value="<?php echo $listTarea[16]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
                                                         <label for="floatingInput">Área que lleva a cabo la tarea/reclamo</label>
+                                                    </div>
+
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[17]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Asignado</label>
                                                     </div>
 
                                                 </div>

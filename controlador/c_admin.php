@@ -123,15 +123,23 @@ class ControladorAdmin
         require('estadisticasAgente.php');
     }
 
-    public function listarTareasEncargadoContr()
+    public function listarTareasEncargadoContr($listado)
     {
         echo ('<title>Listado de Tareas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listAreas = $co->listarAreas();
-        $listMotivos = $co->listarMotivosProblemas();
-        $listTareasEncargados = $co->listarTareasEncargados();
+        $listMotivos = $co->listarMotivosProblemas($listado);
+        $listTareasEncargados = $co->listarTareasEncargados($listado);
         $listDirecciones = $co->listarDirecciones();
+
+        if($listado == 'actual'){
+            $estado = 'Pendientes y En Progreso';
+        }else if($listado == 'completadas'){
+            $estado = 'Completadas';
+        }else if($listado == 'canceladas'){
+            $estado = 'Canceladas';
+        }
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('listaTareas.php');
@@ -158,7 +166,7 @@ class ControladorAdmin
         require('listaTareas.php');
     }
 
-    public function listarTareasAdminContr()
+    public function listarTareasAdminContr($lista)
     {
         echo ('<title>Listado de Tareas - Gestión Requerimientos</title>');
         require('../modelo/m_consultas.php');
@@ -170,7 +178,14 @@ class ControladorAdmin
                 $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
             }
         } else {
-            $listTareasAgentes = $co->listarTareasAdmin();
+            $listTareasAgentes = $co->listarTareasAdmin($lista);
+            if($lista == 'actual'){
+                $estado = "Pendientes y en Progreso";
+            }else if($lista == 'completos'){
+                $estado = "Completadas";
+            }else if($lista == 'canceladas'){
+                $estado = "Canceladas";
+            }
         }
 
         $listMotivos = $co->listarMotivosProblemasUsuario($_SESSION['dni']);
