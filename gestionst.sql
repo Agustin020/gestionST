@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 08-07-2022 a las 19:26:31
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 7.4.28
+-- Servidor: localhost:3306
+-- Tiempo de generación: 03-08-2022 a las 08:56:11
+-- Versión del servidor: 10.7.4-MariaDB-1:10.7.4+maria~focal
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,8 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `areas` (
   `codigo` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nombre` varchar(100) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `areas`
@@ -55,7 +56,7 @@ CREATE TABLE `direcciones` (
   `codigo` int(11) NOT NULL,
   `nombre` varchar(150) DEFAULT NULL,
   `descripcion` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `direcciones`
@@ -67,6 +68,13 @@ INSERT INTO `direcciones` (`codigo`, `nombre`, `descripcion`) VALUES
 (1002, 'Dirección de Control de Gestión', NULL),
 (1003, 'Dirección de Comunicación y Prensa', NULL),
 (1004, 'Juzgados de Tránsito', NULL),
+(1005, 'Secretaria de Gobierno', ''),
+(1006, 'Secretaria de Obras', ''),
+(1007, 'Secretaria de Hacienda', ''),
+(1008, 'Intendencia', ''),
+(1009, 'Patrimonio', ''),
+(1010, 'Apoderados Municipales', ''),
+(1011, 'Escribanía Municipal', ''),
 (2000, 'Dirección de Rentas', NULL),
 (2001, 'Dirección de Compras y Suministros', NULL),
 (2002, 'Dirección de Comercio e Industria', NULL),
@@ -102,7 +110,7 @@ INSERT INTO `direcciones` (`codigo`, `nombre`, `descripcion`) VALUES
 CREATE TABLE `estadotarea` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `estadotarea`
@@ -203,32 +211,40 @@ CREATE TABLE `tareas` (
   `fechaEliminado` datetime DEFAULT NULL,
   `codigoArea3` int(11) DEFAULT NULL,
   `fechaCreada` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `tareas`
 --
 
 INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreApellidoAfectado`, `celular`, `solucion`, `fechaProblema`, `fechaSolucion`, `estadoTarea_id`, `direccion_codigo`, `usuario_dni`, `motivoCancelacion`, `motivoEliminacion`, `fechaEliminado`, `codigoArea3`, `fechaCreada`) VALUES
-(54, 6000, 'addwazsd', '192.168.0.20', 'awdsfawf', '2612634028', 'adwwdawadwd', '2022-06-27 08:28:52', '2022-06-27 11:57:49', 3, 4005, 2000000, NULL, NULL, NULL, 6, '2022-07-04'),
-(55, 3000, 'klakldaklwdklm', '192.168.70.55', 'Ejemplo Persona', '2612634082', NULL, '2022-06-27 08:32:38', NULL, 2, 4007, 2000000, NULL, NULL, NULL, 3, '2022-07-04'),
-(56, 3004, 'dvaegwefaafwefaweawf', '192.168.10.80', 'Ejemplo Persona', '2612634096', NULL, '2022-06-27 10:35:03', NULL, 1, 3005, 0, NULL, NULL, NULL, 3, '2022-07-04'),
-(59, 3003, 'adwfasdadwa', '192.168.20.10', '', '', NULL, '2022-06-27 13:28:37', NULL, 1, 3004, 0, NULL, NULL, NULL, 3, '2022-07-05'),
-(64, 2001, 'awdawdweaf', '', 'Ejemplo', '2612634090', NULL, '2022-06-29 13:13:06', NULL, 2, 3004, 12345667, NULL, NULL, NULL, 2, '2022-07-05'),
-(65, 3002, 'awdwafaawdwad', '', '', '', NULL, '2022-07-05 20:42:46', NULL, 4, 3001, 0, 'awdwdawadwaawd', NULL, NULL, 3, '2022-07-05'),
-(66, 2003, 'dawdawdwdaawd', '', '', '', NULL, '2022-07-05 21:18:42', NULL, 5, 3003, 0, NULL, 'wdawdafwa', '2022-07-05 21:18:52', 2, '2022-07-05'),
-(67, 3000, 'wffeewaddwaawd', '', 'Apellido', '2612634096', NULL, '2022-07-06 11:43:40', NULL, 1, 3005, 0, NULL, NULL, NULL, 3, '2022-07-05'),
-(69, 1000, 'dwadawdwawdawdawda', '', '', '', NULL, '2022-07-06 12:24:14', NULL, 1, 3005, 0, NULL, NULL, NULL, 1, '2022-07-05'),
-(70, 1001, 'dawwdawdawda', '', '', '', NULL, '2022-07-06 12:24:30', NULL, 1, 2002, 0, NULL, NULL, NULL, 1, '2022-07-06'),
-(71, 1002, 'dwaddwawadwda', '', '', '', NULL, '2022-07-06 12:27:08', NULL, 1, 1001, 0, NULL, NULL, NULL, 1, '2022-07-06'),
-(72, 4004, 'awddwawadwdawadwad', '', '', '', NULL, '2022-07-06 14:11:27', NULL, 1, 3004, 0, NULL, NULL, NULL, 4, '2022-07-06'),
-(73, 4001, 'wdawdwfawda', '', 'asdfg', '2612634090', NULL, '2022-07-06 14:11:56', NULL, 1, 3003, 0, NULL, NULL, NULL, 4, '2022-07-06'),
-(74, 4017, 'wdawddwawad', '', '', '', NULL, '2022-07-06 14:25:46', NULL, 1, 3004, 0, NULL, NULL, NULL, 4, '2022-07-06'),
-(75, 4008, 'adwwdadwaawdwdawad', '', 'asdfg', '2612634082', NULL, '2022-07-06 14:30:07', NULL, 1, 3003, 0, NULL, NULL, NULL, 4, '2022-07-07'),
-(76, 4012, 'dawwdaawddwawad', '', '', '', 'dawawwdawdaawd', '2022-07-06 14:30:31', '2022-07-07 14:03:37', 3, 3003, 78782782, NULL, NULL, NULL, 4, '2022-07-07'),
-(77, 7004, 'wdawdadwadwadwa', '', '', '', NULL, '2022-07-07 08:26:22', NULL, 1, 3003, 0, NULL, NULL, NULL, 7, '2022-07-07'),
-(78, 7000, 'dwawdawadwda', '', '', '', NULL, '2022-07-07 09:20:26', NULL, 1, 3003, 0, NULL, NULL, NULL, 7, '2022-07-07'),
-(80, 3004, 'adwdaawddwaawd', '', '', '', NULL, '2022-07-07 12:47:46', NULL, 4, 2004, 2000000, 'acwadawwd', NULL, NULL, 3, '2022-07-07');
+(1, 4002, 'Asignacion directa para renzo.bavetta', '', 'RENZO BAVETTA', '2615555', NULL, '2022-07-26 10:26:06', NULL, 5, 4005, 0, NULL, 'Prueba', '2022-08-01 13:42:37', 4, '2022-07-26'),
+(2, 4011, 'baklbabakakba', '', '', '', 'bla...bla...bla...', '2022-08-01 10:13:56', '2022-08-02 07:32:31', 5, 4006, 28700618, NULL, 'prueba', '2022-08-02 08:43:46', 4, '2022-08-01'),
+(3, 3004, 'Nitro', '192.168.2.2', 'Evelyn', '261000', 'Instalacion de programa exitosa', '2022-08-01 13:45:48', '2022-08-01 13:47:34', 5, 4000, 36768171, NULL, '123', '2022-08-01 13:54:27', 3, '2022-08-01'),
+(4, 3006, 'sdgeragasdf\r\nSOLICITAR IP, LA MISMA ES INCORRECTA', '1123', 'regrweg', '645641', NULL, '2022-08-01 13:48:44', NULL, 5, 3002, 0, NULL, '123', '2022-08-01 13:54:33', 3, '2022-08-01'),
+(5, 3005, 'Area Accidentología (Terminal de Omnibus)\r\nLos saca del Sistema cuando van a cargar en Tránsito (InfoGob). Son 3 PCs: 15.92 , 15.97 y 15.76------------- las personas comparten usuarios , problema de contraseña y no de software ', '192.168.15.92', 'German Zotelo', '222222222', 'problema de usuarios , no es de software ', '2022-08-02 08:37:58', '2022-08-02 09:42:50', 3, 4004, 29112717, NULL, NULL, NULL, 3, '2022-08-02'),
+(6, 3002, 'Conectar Pc e Impresora. Roxana Lobos', '', 'Roxana Lobos', '156669905', 'Cableado e instalacion de impresora en pc de Roxana Lobos', '2022-08-02 08:48:42', '2022-08-02 11:00:52', 3, 3001, 41191664, NULL, NULL, NULL, 3, '2022-08-02'),
+(7, 3003, 'Remplazar monitor. ', '', 'Alejandro Latorre - Liquidación de Haberes ', '2616561597', 'cambio de monitor', '2022-08-02 08:57:13', '2022-08-02 11:17:12', 3, 2003, 36768171, NULL, NULL, NULL, 3, '2022-08-02'),
+(8, 2000, 'Retirar Pantalla para proyeccción de la Biblioteca Almafuerte y llevarla al 6to piso para capacitaciones. POR FAVOR antes de las 13:30. ', '', 'Carlos Gatica', '2615357587', 'Se retiro el proyector y se llevo al 6to piso', '2022-08-02 09:09:06', '2022-08-02 13:47:17', 3, 2003, 41191664, NULL, NULL, NULL, 2, '2022-08-02'),
+(9, 3002, 'El monitor no prende cuando encienden el cpu. Si la reinician en ese caso si arranca.', '192.168.45.181', 'Micaela Tobares - Centro Verde', '2614184227', 'NO SE PUDO SOLUCIONAR YA QUE LA PERSONONA NO DEJA TRABAJAR, SE LE INFORMO X MEDIO DEL CHAT DEL VNC QUE PARA LA PROXIMA QUE LE SUCEDA, TENDRA QUE HACER UNA NOTA ELECTRONICA FIRMADA X EL DIRECTOR ASI VAMOS A VERLA ALLA\r\n', '2022-08-02 09:24:34', '2022-08-02 11:20:22', 3, 3008, 36768171, NULL, NULL, NULL, 3, '2022-08-02'),
+(10, 3002, 'Sin internet. Ayer se comunicó por el mismo problema.', '192.168.41.228', 'Melani de Defensa del Consumidor', '222222222', 'Se reinicio la pc', '2022-08-02 09:33:41', '2022-08-02 11:56:48', 3, 1001, 36768171, NULL, NULL, NULL, 3, '2022-08-02'),
+(11, 3000, 'No puede imprimir, le da error.', '192.168.176.72', 'Escribana Paola Rodriguez', '222222222', 'instalacion de impresora', '2022-08-02 10:06:02', '2022-08-02 11:25:52', 3, 1001, 29112717, NULL, NULL, NULL, 3, '2022-08-02'),
+(12, 3002, 'La PC esta imprimiendo en la impresora de Inspectores y necesita que imprima en la impresora de Despacho', '192.168.110.113', 'Roxana Lobos', '222222222', 'Impresora configurada', '2022-08-02 10:37:20', '2022-08-02 10:57:01', 3, 3001, 35871182, NULL, NULL, NULL, 3, '2022-08-02'),
+(13, 3002, 'Una de las PC está fija y no puede trabajar', '', 'Biblioteca Municipal', '123', 'se le desintalo el driver de wifi\r\n', '2022-08-02 10:41:16', '2022-08-02 13:25:27', 3, 4003, 36768171, NULL, NULL, NULL, 3, '2022-08-02'),
+(14, 3002, 'Mirna (Bromatología): Necesita conectar la Notebook a internet, lo habia pedido el 29-07.', '', 'Mirna', '222222222', 'Cable conectado para darle red a la notebook', '2022-08-02 11:01:28', '2022-08-02 13:12:02', 3, 4007, 35871182, NULL, NULL, NULL, 3, '2022-08-02'),
+(15, 3002, 'Una PC ha sido actualizada a Win 7, y la misma no puede transferir un expediente en el Sistema de Civitas. ', '', 'Escibania', '123', 'cambio de navegador ', '2022-08-02 11:40:00', '2022-08-02 11:58:37', 3, 1001, 29112717, NULL, NULL, NULL, 3, '2022-08-02'),
+(16, 4000, 'Se crea usuario web para expediente estructurado', '', 'Sergio Martin Vicchi', '', 'reclamo resuelto', '2022-08-02 11:54:00', '2022-08-02 11:56:08', 3, 4005, 29148522, NULL, NULL, NULL, 4, '2022-08-02'),
+(17, 4004, 'Probar version 14.5.3.1\r\n\r\nse revisa y prueba la unidad secundaria, el inconveniente de esto es que si se asignan PA a la bandeja personal, no hay una vista rápida para saber de que UO proviene.', '192.168.41.228', '', '', NULL, '2022-08-02 12:41:24', NULL, 2, 4005, 28700618, NULL, NULL, NULL, 4, '2022-08-02'),
+(18, 4001, '24 usuarios. Revisar legajos, pedir decretos', '', '', '', 'se crean con permisos de administración y creación de PA, se responde al correo con instructivo adjunto', '2022-08-02 12:48:39', '2022-08-02 12:59:21', 3, 4002, 28700618, NULL, NULL, NULL, 4, '2022-08-02'),
+(19, 4017, 'Javier Masso no puede firmar Resoluciones autonumeradas, le aparece la leyenda \"no existe responsable asignado\"', '', '', '', 'con la actualización 14.5.2 se desconfiguró, se vuelve a asignar responsable', '2022-08-02 12:50:35', '2022-08-02 12:54:18', 3, 2002, 29148522, NULL, NULL, NULL, 4, '2022-08-02'),
+(20, 4013, 'El profesional  solicita el desarchivo del  EE-10153-2022', '', 'Cristian Cantalejos', '', 'Reclamo resuelto', '2022-08-02 12:51:48', '2022-08-02 12:52:12', 3, 4005, 29148522, NULL, NULL, NULL, 4, '2022-08-02'),
+(21, 4003, 'Colocar asignacion directa a vanina.gauna hasta las 12hrs', '12', 'Vanina Gauna', '', 'resuelto', '2022-08-02 12:51:50', '2022-08-02 12:56:59', 3, 2003, 29148522, NULL, NULL, NULL, 4, '2022-08-02'),
+(22, 4017, 'Pestaña visible: \"Bajas contaduria general\"', '', '', '', 'Realizado', '2022-08-02 12:52:55', '2022-08-02 14:08:54', 3, 1009, 29148522, NULL, NULL, NULL, 4, '2022-08-02'),
+(23, 4002, 'se inactiva ruben vidal y se otorgan permisos a lucia.frugoni por nota 03/08/2022 // dec-2664/2022', '192.168.41.228', 'lucia frugoni // ruben vidal', '', 'realizado', '2022-08-03 08:10:52', '2022-08-03 08:15:52', 3, 3008, 28700618, NULL, NULL, NULL, 4, '2022-08-03'),
+(24, 3002, 'Cristina de Contabilidad Central, ayer le iban a instalar Windows 10 y no estuvo, en este momento pregunta si pueden ir ahora a instalarlo.\r\nRaúl', '', 'Cristina', '222222222', NULL, '2022-08-03 08:12:50', NULL, 1, 1007, 0, NULL, NULL, NULL, 3, '2022-08-03'),
+(25, 3002, 'Cristina de Contabilidad Central, ayer fueron a instalarle en su PC windows 10 y no estuvo, pregunta si podrian instalarle ahora el Sistema Operativo.', '', 'Cristina', '222222222', NULL, '2022-08-03 08:17:33', NULL, 5, 1007, 0, 'Repetido', 'Duplicado', '2022-08-03 08:41:36', 3, '2022-08-03'),
+(26, 1002, 'Mabel de la Sala de Arte, estan sin internet.', '', 'Mabel', '222222222', NULL, '2022-08-03 08:36:18', NULL, 1, 4003, 0, NULL, NULL, NULL, 1, '2022-08-03'),
+(27, 3000, 'Configurar para que la pc 192.168.20.184 imprima desde la impresora 192.168.20.15', '192.168.20.184', 'Joaquin Rubio', '', 'listo', '2022-08-03 08:39:12', '2022-08-03 08:48:54', 3, 4002, 38101303, NULL, NULL, NULL, 3, '2022-08-03');
 
 -- --------------------------------------------------------
 
@@ -239,7 +255,7 @@ INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreAp
 CREATE TABLE `tipousuario` (
   `idrol` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `tipousuario`
@@ -265,23 +281,72 @@ CREATE TABLE `usuario` (
   `usuario` varchar(45) DEFAULT NULL,
   `contraseña` varchar(200) DEFAULT NULL,
   `idRol2` int(11) DEFAULT NULL,
-  `motivoBaja` varchar(500) DEFAULT NULL,
-  `codigoArea2` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `motivoBaja` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`, `codigoArea2`) VALUES
-(0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$aBwwtzVpyabi1kDBhBZUhOIOgiLhOAZGfyqVvCuzkW2dDGwBQe1BG', 1, NULL, 3),
-(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$fTydZAorPh.XWBjLmQWQUOdC2XeHJw/xhsYM.cX6FynDxxKP4qNtK', 2, NULL, 3),
-(3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL, NULL),
-(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$T7wcE1CIiWG/FzB935dV3.fTmE4czGoyJiayAHe.SzvAHGNbw/3Ri', 4, NULL, 3),
-(12345667, 'Agente', 'Infraestructura', 'alguien@gmail.com', 'agenteinfr', '$2y$10$z60iSgNERwmQzu1TLnigWOpF9S5srVwH1Ga5.N6kRU59TTAvnYnbm', 2, NULL, 2),
-(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$1tmOsQbiLA.DjY0OSYCEN.cqWcd0x0zdf8OsGPrLSoF.p9xe5NyK.', 3, NULL, NULL),
-(78782782, 'Agente', 'Requerimientos', '', 'agentereq', '$2y$10$yoLsB0Yupo7yH5EfENMBI.1gd4WuWrQRFUX8JXpcBH2ZvgitJLWCW', 2, NULL, 4);
+INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`) VALUES
+(0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$/u8oZKm/xNswIicsb4ZC2ONgDo3AuFZNq/ulv.Fx47FXLpulV0no6', 1, NULL),
+(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$WYKtVVo27UNn044KHkmBwuWFenzX/Zn8JRcGkrNP6kAH17gEOV/im', 2, NULL),
+(3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL),
+(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$7B1xJ.MwWMUKOgqoKB1S..im/76v5W/HnncZowyrzk5Od5Hll3h1q', 4, NULL),
+(12345667, 'Agente', 'Infraestructura', 'alguien@gmail.com', 'agenteinfr', '$2y$10$z60iSgNERwmQzu1TLnigWOpF9S5srVwH1Ga5.N6kRU59TTAvnYnbm', 2, NULL),
+(16179758, 'Sonia', 'ROMAN', '', 'sonia.roman', '$2y$10$tQfRlCHKUgSAAJ1JTMFGB.0g8YWc0pW4yArEnFBKVny2x.MJOqBh.', 1, NULL),
+(16222799, 'Raul', 'SORIA', '', 'raul.soria', '$2y$10$52Ih7O06NHyd6wJ6MiMuq.unbXAY2L6FdhLDcakLST6k1tAj0sYY6', 1, NULL),
+(18079575, 'Pedro', ' GARBARINO', '', 'pedro.garbarino', '$2y$10$ScILno.6Y3ymFYQvaXSN.emg9hMJ73FJpL4ajTY3hFrfXDhr8g0BG', 2, NULL),
+(24207076, 'Javier', 'Crayachichi', 'javier.crayachichi@guaymallen.gob.ar', 'javier.crayachichi', '$2y$10$InkqYRHI5TVq.2bx29j9R.mjAOjdPpuC3lZcQ..ie.RZoqkPae63i', 2, NULL),
+(24925742, 'Monica', 'LIVOLSI', '', 'monica.livolsi', '$2y$10$f5bZHuKZagtQdBMC0M9z5uojoaS/JKzYH9GPdfITFKlz62M51nnOq', 1, NULL),
+(28700618, 'German', 'SANCHEZ', '', 'german.sanchez', '$2y$10$HS7RVZ59x.bqKfDdIvB3ouo0Vum0gvNRzv8Etf9CaEM1Sz/DsZkf.', 4, NULL),
+(28757006, 'Mauricio', 'SCARAVILLI', '', 'mauricio.scaravilli', '$2y$10$YwYosNnkthhqYTAzoWFgp.qcN93Kl6QwKzt4P/diTYgYgYpSU5HoK', 1, NULL),
+(29112717, 'Lucas', 'SALEME', '', 'lucas.saleme', '$2y$10$qhQ3rYPzHHQrQmhnjKhrtuY5aRifpJSI6CJAHcBCv0TGoVGHyTv1K', 4, NULL),
+(29148522, 'Nicolas', 'MAURE', '', 'nicolas.maure', '$2y$10$oDtCtvEhbNcJQ1qsflTqjeAOpIOQwo8sbZw0/47lFbJCU8JgIh77W', 2, NULL),
+(30839932, 'Marcelo', 'ALARCON', 'marcelo.alarcon@gmail.com', 'marcelo.alarcon', '$2y$10$7KccNJPq5IOo4qEB3QNDZulL.ue8hUdSotixicoc2fGIByDvMPerC', 2, NULL),
+(33966823, 'Evelyn', 'CARDENAS', '', 'evelyn.cardenas', '$2y$10$E0TlAsgGDGnEji3iIAc0MOvnRB8uvl9ZpFr0zMB1.ESchS2nlbd9G', 1, NULL),
+(35871182, 'Leandro', 'BORQUEZ', '', 'leandro.borquez', '$2y$10$68/hJFosD2RTKkJI77czXen4/ux8LLobk4WLB0qYfZxyAvIlyy3.6', 2, NULL),
+(36768171, 'Cristian', 'BARRERA', '', 'barrera.cristian', '$2y$10$lKVpNCBhb0hRPpN2.VlzkOIlqFRLDUK0bPOciRdl1aSkSXe0OPaze', 2, NULL),
+(37513387, 'Renzo', 'BAVETTA', '', '37513387', '$2y$10$U.VcWhp.lu97D2Omg/TYuOOe2EoBYBAsefmQJ4UTRHOMM1lK7vxWK', 1, NULL),
+(38101303, 'Emanuel', 'GARCIA', '', 'emanuel.garcia', '$2y$10$E/zZC8afK6l1dqs.9J51QeZa4c7hywcbxGhpxnkaraCBlOmm7nTde', 2, NULL),
+(41191664, 'Franco', 'Moreno', 'franco.moreno@guaymallen.gob.ar', 'franco.moreno', '$2y$10$gZoVZEKJSH5/VCOu.0djju5kFbeUIceYGLI0aNxFdyvLz3uioGKu6', 2, NULL),
+(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$hlvaCVn742FJJumABLaqHOKrqclW5pxJqWGPwySvv0IjDzUxUDl/O', 3, NULL),
+(78782782, 'Agente', 'Requerimientos', '', 'agentereq', '$2y$10$yoLsB0Yupo7yH5EfENMBI.1gd4WuWrQRFUX8JXpcBH2ZvgitJLWCW', 2, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_area`
+--
+
+CREATE TABLE `usuario_area` (
+  `id` int(11) NOT NULL,
+  `usuario_dni2` int(11) DEFAULT NULL,
+  `codigo_area2` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuario_area`
+--
+
+INSERT INTO `usuario_area` (`id`, `usuario_dni2`, `codigo_area2`) VALUES
+(1, 2000000, 2),
+(2, 2000000, 3),
+(3, 4000000, 3),
+(4, 12345667, 2),
+(5, 18079575, 1),
+(6, 28700618, 4),
+(7, 29112717, 3),
+(8, 29148522, 4),
+(9, 30839932, 1),
+(11, 35871182, 3),
+(12, 36768171, 3),
+(13, 38101303, 3),
+(14, 24207076, 2),
+(15, 24207076, 7),
+(16, 41191664, 2),
+(17, 41191664, 3);
 
 --
 -- Índices para tablas volcadas
@@ -334,8 +399,15 @@ ALTER TABLE `tipousuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`dni`),
-  ADD KEY `fk_usuario_rol_idx` (`idRol2`),
-  ADD KEY `fk_codigoArea2` (`codigoArea2`);
+  ADD KEY `fk_usuario_rol_idx` (`idRol2`);
+
+--
+-- Indices de la tabla `usuario_area`
+--
+ALTER TABLE `usuario_area`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_usuario_dni2` (`usuario_dni2`),
+  ADD KEY `fk_codigo_area2` (`codigo_area2`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -351,13 +423,19 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `motivos`
 --
 ALTER TABLE `motivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7007;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7008;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario_area`
+--
+ALTER TABLE `usuario_area`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas
@@ -383,8 +461,14 @@ ALTER TABLE `tareas`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_codigoArea2` FOREIGN KEY (`codigoArea2`) REFERENCES `areas` (`codigo`),
   ADD CONSTRAINT `fk_idRol2` FOREIGN KEY (`idRol2`) REFERENCES `tipousuario` (`idrol`);
+
+--
+-- Filtros para la tabla `usuario_area`
+--
+ALTER TABLE `usuario_area`
+  ADD CONSTRAINT `fk_codigo_area2` FOREIGN KEY (`codigo_area2`) REFERENCES `areas` (`codigo`),
+  ADD CONSTRAINT `fk_usuario_dni2` FOREIGN KEY (`usuario_dni2`) REFERENCES `usuario` (`dni`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
