@@ -27,7 +27,12 @@ switch ($accion) {
         break;
 
     case 'listarTareasAdmin':
-        $lista = $_GET['lista'];
+        if(isset($_GET['lista'])){
+            $lista = $_GET['lista'];
+        }else{
+            $lista = null;
+        }
+        
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
         $controller->listarTareasAdminContr($lista);

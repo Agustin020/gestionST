@@ -14,6 +14,7 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['username'] = $user;
             $_SESSION['rol'] = $co->verificarTipoUsuario($user);
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
+            $_SESSION['dni'] = $co->listarDniUserActual($user);
             $_SESSION['time'] = time();
             header('Location: ../vista/inicio.php');
             break;

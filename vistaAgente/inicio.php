@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
+if (!(time() - $_SESSION['time'] > 5400)) {
     if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
@@ -368,6 +368,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
     <?php
     }
 } else {
+    session_destroy();
     ?>
 
     <!DOCTYPE html>

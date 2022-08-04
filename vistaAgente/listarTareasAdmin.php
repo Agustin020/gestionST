@@ -1,5 +1,6 @@
 <?php
-if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
+error_reporting(E_ALL ^ E_NOTICE);
+if (!(time() - $_SESSION['time'] > 5400)) {
     if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
@@ -318,7 +319,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
 
                                             <div class="form-floating mb-3">
-                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required></textarea>
                                                 <label for="floatingTextarea">Descripción</label>
                                             </div>
 
@@ -550,7 +551,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     </div>
 
                                                     <div class="form-floating mb-3">
-                                                        <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
+                                                        <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 170px" disabled><?php echo $listTarea[3]; ?></textarea>
                                                         <label for="floatingTextarea">Descripción</label>
                                                     </div>
 
@@ -655,7 +656,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingInput">Área donde se lleva a cabo</label>
                                                     </div>
 
-
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[19]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Creado por</label>
+                                                    </div>
 
                                                 </div>
                                                 <div class="modal-footer">
@@ -804,12 +808,12 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[3]; ?></textarea>
+                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required><?php echo $listTarea[3]; ?></textarea>
                                                             <label for="floatingTextarea">Descripción</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="Nombre del Afectado" required>
+                                                            <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="Nombre del Afectado">
                                                             <label for="floatingInput">IP</label>
                                                         </div>
 
@@ -959,6 +963,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
     <?php
     }
 } else {
+    session_destroy();
     ?>
 
     <!DOCTYPE html>
@@ -980,7 +985,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
     </head>
 
     <body>
-        <p class="fs-5">Para acceder a esta sección debe iniciar sesión <a href="../vista/login.php" class="link-primary">Click aquí</a></p>
+        <p class="fs-5">Sesión caducada. Para acceder a esta sección debe iniciar sesión <a href="../vista/login.php" class="link-primary">Click aquí</a></p>
     </body>
 
     </html>

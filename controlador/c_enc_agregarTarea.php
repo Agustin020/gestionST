@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
@@ -15,6 +16,8 @@ $cel = $_POST['cel'];
 $direccion = $_POST['selectDireccion'];
 $selectArea = $_POST['selectArea'];
 
+$usuarioCreado = $_SESSION['nombreApellido'];
+
 /*echo 'SelectMotivos: ' . $selectMotivos . '<br>' .
 'descripcion: ' . $descripcion . '<br>' .
 'ip: ' . $ip . '<br>' .
@@ -23,12 +26,10 @@ $selectArea = $_POST['selectArea'];
 'direccion: ' . $direccion . '<br>' .
 'selectArea: ' . $selectArea . '<br>';*/
 
-if ($co->agregarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $direccion, $selectArea)) {
-    session_start();
+if ($co->agregarTareaEncargado($selectMotivos, $descripcion, $ip, $nombreApellido, $cel, $direccion, $selectArea, $usuarioCreado)) {
     $_SESSION['tareaOK'] = true;
-    header('location: ../vista/index.php?accion=listarTareas');
+    header('location: ../vista/index.php?accion=listarTareas&listado=actual');
 } else {
-    session_start();
     $_SESSION['tareaAgregadaError'] = true;
     header('location: ../vista/index.php?accion=listarTareas');
 }

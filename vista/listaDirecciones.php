@@ -1,5 +1,7 @@
 <?php
-if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
+session_start();
+error_reporting(E_ALL ^ E_NOTICE);
+if (!(time() - $_SESSION['time'] > 5400)) {
     if ($_SESSION['rol'] == 1) {
 ?>
         <!DOCTYPE html>
@@ -131,6 +133,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
     <?php
     }
 } else {
+    session_destroy();
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -153,7 +156,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
     </head>
 
     <body>
-        <p class="fs-5">Para acceder a esta sección debe iniciar sesión <a href="login.php" class="link-primary">Click aquí</a></p>
+        <p class="fs-5">Sesión caducada. Para acceder a esta sección debe iniciar sesión <a href="login.php" class="link-primary">Click aquí</a></p>
     </body>
 
     </html>

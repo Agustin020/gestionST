@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
@@ -11,6 +12,8 @@ $direccion = $_POST['direccion'];
 $areaUsuario = $_POST['areaUsuario'];
 $rol = $_POST['rol'];
 
+$usuarioCreado = $_SESSION['nombreApellido'];
+
 /*echo 'selectMotivos: ' . $selectMotivos . '<br>' .
 'descripcion: ' . $descripcion . '<br>' .
 'ip: ' . $ip . '<br>' .
@@ -20,20 +23,17 @@ $rol = $_POST['rol'];
 'rol: ' . $rol . '<br>';*/
 
 if ($rol == 2) {
-    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario)) {
-        session_start();
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareas&area=' . $areaUsuario);
     }
 } else if ($rol == 3) {
-    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario)) {
-        session_start();
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin');
+        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&lista=actual');
     }
 } else {
-    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario)) {
-        session_start();
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario);
     }

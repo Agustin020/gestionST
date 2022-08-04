@@ -59,6 +59,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                     $('#tablaDinamicaLoad').DataTable({
                         aLengthMenu: [25, 50, 100, 200],
+                        aaSorting: [[ 0, "desc" ]],
                         dom: 'lBfrtip',
                         buttons: [{
                                 extend: 'excelHtml5',
@@ -306,7 +307,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             ?>
 
                                             <div class="form-floating mb-3">
-                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required></textarea>
                                                 <label for="floatingTextarea">Descripción</label>
                                             </div>
 
@@ -537,7 +538,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     </div>
 
                                                     <div class="form-floating mb-3">
-                                                        <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $listTarea[3]; ?></textarea>
+                                                        <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 170px" disabled><?php echo $listTarea[3]; ?></textarea>
                                                         <label for="floatingTextarea">Descripción</label>
                                                     </div>
 
@@ -656,6 +657,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingInput">Área donde se lleva a cabo la tarea/reclamo</label>
                                                     </div>
 
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[19]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Creado por</label>
+                                                    </div>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
@@ -768,7 +774,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $listTarea[3]; ?></textarea>
+                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required><?php echo $listTarea[3]; ?></textarea>
                                                             <label for="floatingTextarea">Descripción</label>
                                                         </div>
 

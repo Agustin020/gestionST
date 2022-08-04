@@ -1,5 +1,6 @@
 <?php
-if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
+error_reporting(E_ALL ^ E_NOTICE);
+if (!(time() - $_SESSION['time'] > 5400)) {
     if ($_SESSION['rol'] == 1) {
 ?>
 
@@ -138,7 +139,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         Swal.fire({
                             position: 'bottom-end',
                             icon: 'success',
-                            title: 'La tarea ha sido modificada',
+                            title: 'La tarea ha sido cancelada',
                             showConfirmButton: false,
                             timer: 1500
                         })
@@ -216,13 +217,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="nombreApellidoAfectado" class="form-control" id="floatingInput" placeholder="ejemplo" required>
-                                                <label for="floatingInput">Nombre y apellido del afectado/a</label>
+                                                <input type="text" name="nombreApellidoAfectado" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                <label for="floatingInput">Nombre y apellido del afectado/a (Opcional)</label>
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                <input type="tel" name="cel" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo" required>
-                                                <label for="floatingInput">Nro de celular</label>
+                                                <input type="tel" name="cel" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                <label for="floatingInput">Nro de celular (Opcional)</label>
                                             </div>
 
 
@@ -482,6 +483,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         <label for="floatingInput">Asignado</label>
                                                     </div>
 
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="area" value="<?php echo $listTarea[18]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                        <label for="floatingInput">Creado por</label>
+                                                    </div>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
@@ -543,22 +549,22 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"><?php echo $listTarea[3]; ?></textarea>
+                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 170px"><?php echo $listTarea[3]; ?></textarea>
                                                             <label for="floatingTextarea">Descripción</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="..." required>
+                                                            <input type="text" name="ip" value="<?php echo $listTarea[4]; ?>" class="form-control" id="floatingInput" placeholder="...">
                                                             <label for="floatingInput">IP</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <input type="text" name="nombreApellidoAfectado" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                                            <input type="text" name="nombreApellidoAfectado" value="<?php echo $listTarea[5]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo">
                                                             <label for="floatingInput">Nombre y apellido del afectado/a</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">
-                                                            <input type="tel" name="cel" value="<?php echo $listTarea[6]; ?>" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                                                            <input type="tel" name="cel" value="<?php echo $listTarea[6]; ?>" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo">
                                                             <label for="floatingInput">Nro de celular</label>
                                                         </div>
 
@@ -659,6 +665,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
     <?php
     } else {
+        session_destroy();
     ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -681,7 +688,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
         </head>
 
         <body>
-            <p class="fs-5">Para acceder a esta sección debe iniciar sesión <a href="login.php" class="link-primary">Click aquí</a></p>
+            <p class="fs-5">Sesión caducada. Para acceder a esta sección debe iniciar sesión <a href="login.php" class="link-primary">Click aquí</a></p>
         </body>
 
         </html>

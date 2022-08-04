@@ -47,14 +47,15 @@ $nroArreglo = $_POST['nroArreglo'];
 
 if ($_SESSION['rol'] == 2) {
     if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $areaUsuario, $nroArreglo)) {
-        session_start();
         $_SESSION['tareaEditada'] = true;
         header('location: ../vistaAgente/index.php?accion=listarTareas');
     }
-} else {
+} else if ($_SESSION['rol'] == 3) {
     if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $areaUsuario, $nroArreglo)) {
-        session_start();
         $_SESSION['tareaEditada'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin');
+        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&lista=actual');
     }
+} else {
+    $_SESSION['tareaEditada'] = true;
+    header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario);
 }
