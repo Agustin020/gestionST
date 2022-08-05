@@ -1,7 +1,6 @@
 <?php
-error_reporting(0);
-$username = $_SESSION['username'];
-if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
+error_reporting(E_ALL ^ E_NOTICE);
+if (!(time() - $_SESSION['time'] > 5400)) {
 ?>
 
     <style>

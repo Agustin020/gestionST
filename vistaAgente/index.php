@@ -19,7 +19,7 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->verEstadisticasAgenteContr($dni);
         break;
-        
+
     case 'listarTareas':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
@@ -27,12 +27,12 @@ switch ($accion) {
         break;
 
     case 'listarTareasAdmin':
-        if(isset($_GET['lista'])){
+        if (isset($_GET['lista'])) {
             $lista = $_GET['lista'];
-        }else{
+        } else {
             $lista = null;
         }
-        
+
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
         $controller->listarTareasAdminContr($lista);
@@ -76,8 +76,14 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->listarUsuariosBajaContr();
         break;
+    case 'listarUsuariosCargados':
+        require('../controlador/c_admin.php');
+        $controller = new ControladorAdmin();
+        $controller->listarUsuariosCargadosContr();
+        break;
     case 'blanqueoPass':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
         $controller->pageBlanquearPassContr();
+        break;
 }

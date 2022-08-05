@@ -247,7 +247,7 @@ class ControladorAdmin
 
     public function listarDireccionesContr()
     {
-        echo ('<title>Listado de Áreas - Gestión de tareas Sistemas</title>');
+        echo ('<title>Listado de Direcciones - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listDirecciones = $co->listarDirecciones();
@@ -280,6 +280,16 @@ class ControladorAdmin
         require('libreriaEstilos.php');
         require('headerNav.php');
         require('listarUsuariosBaja.php');
+    }
+
+    public function listarUsuariosCargadosContr(){
+        echo ('<title>Lista de Usuarios cargados - Gestión de tareas Sistemas</title>');
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listUsuarios = $co->listarUsuariosCargados();
+        require('libreriaEstilos.php');
+        require('headerNav.php');
+        require('usuariosCargados.php');
     }
 
     public function pageBlanquearPassContr()

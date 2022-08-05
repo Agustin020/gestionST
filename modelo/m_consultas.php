@@ -26,6 +26,22 @@ class Consultas extends Conexion
         }
     }
 
+    public function verificarUltimoAcceso($usuario)
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "UPDATE usuario set ultimoAcceso = now() where usuario = '$usuario'";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
     public function listarDniUserActual($user)
     {
         try {
@@ -571,7 +587,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::conexionBD();
-            if ($areaUsuario == '' || $areaUsuario == null) {
+            if ($areaUsuario2 == '' || $areaUsuario2 == null) {
                 $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
                         t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
                         from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
@@ -950,6 +966,26 @@ class Consultas extends Conexion
             die('Error ' . $e->getMessage());
         }
         return $listBajas;
+    }
+
+    public function listarUsuariosCargados()
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.usuario, t.nombre, u.ultimoAcceso
+                    from usuario u, tipousuario t 
+                    where u.idRol2 = t.idrol";
+            $result = mysqli_query($link, $sql);
+            $listUsuarios = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listUsuarios[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error ' . $e->getMessage());
+        }
+        return $listUsuarios;
     }
 
     public function altaUsuario($idRol, $dni)

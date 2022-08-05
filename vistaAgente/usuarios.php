@@ -81,7 +81,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                     } else if (cantAreas == 2) {
                         $('.selectArea').show(200).find('select').prop('disabled', false);
                         $('.selectArea2').show(200).find('select').prop('disabled', false);
-                    }else{
+                    } else {
                         $('.selectArea').hide(200).find('select').prop('disabled', true);
                         $('.selectArea2').hide(200).find('select').prop('disabled', true);
                     }
@@ -269,13 +269,9 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                     </form>
 
                     <div id="btnUsuarios">
-                        <?php
-                        if ($_SESSION['rol'] == 3) {
-                        ?>
-                            <a type="button" class="btn btn-danger" href="index.php?accion=listarBajas">Lista de bajas</a>
-                        <?php
-                        }
-                        ?>
+
+                        <a type="button" class="btn btn-danger" href="index.php?accion=listarBajas">Lista de bajas</a>
+
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             Nuevo Usuario
                         </button>

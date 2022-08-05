@@ -14,7 +14,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             <title>Document</title>
             <style>
                 section {
-                    padding: 10px;
+                    padding: 15px;
                 }
 
                 table {
@@ -42,6 +42,16 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                         }
                     });
                 }
+
+                $(document).ready(function() {
+                    $('#tablaDinamicaLoad').DataTable({
+                        aLengthMenu: [50, 100, 200],
+                        aaSorting: [[ 0, "asc" ]],
+                        language: {
+                            "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                        }
+                    })
+                })
             </script>
 
         </head>
@@ -102,7 +112,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 <p class="fs-5">Lista de Direcciones de la Municipalidad</p>
                 <hr>
 
-                <table class="table table-responsive table-bordered table-hover">
+                <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad">
                     <thead>
                         <tr>
                             <th scope="col">Código</th>

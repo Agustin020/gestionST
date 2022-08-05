@@ -21,6 +21,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 th,
                 td {
                     vertical-align: middle;
+                    font-size: 15px;
                 }
 
                 table #nroArreglo {
@@ -35,6 +36,8 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             <script>
                 $(document).ready(function() {
                     $('#tablaDinamicaLoad').DataTable({
+                        aLengthMenu: [25, 50, 100, 200],
+                        aaSorting: [[ 0, "desc" ]],
                         language: {
                             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                         }

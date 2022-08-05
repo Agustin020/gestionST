@@ -1,6 +1,6 @@
 <?php
-$username = $_SESSION['username'];
-if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
+error_reporting(E_ALL ^ E_NOTICE);
+if (!(time() - $_SESSION['time'] > 5400)) {
 ?>
 
     <style>
@@ -438,6 +438,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 if ($_SESSION['rol'] == 3) {
                 ?>
                     <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuarios"><i class="bi bi-people"></i>Usuarios</a>
+                    <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuariosCargados"><i class="bi bi-people"></i>Usuarios cargados</a>
                     <a class="nav-link" aria-current="page" href="index.php?accion=blanqueoPass"><i class="bi bi-key"></i>Blanquear contraseña</a>
                 <?php
                 }

@@ -16,6 +16,7 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
             $_SESSION['dni'] = $co->listarDniUserActual($user);
             $_SESSION['time'] = time();
+            $co->verificarUltimoAcceso($user);
             header('Location: ../vista/inicio.php');
             break;
         case 2:
@@ -44,6 +45,8 @@ if ($co->autenticarUsuario($user, $password)) {
             }
             $_SESSION['time'] = time();
 
+            $co->verificarUltimoAcceso($user);
+
             
             header('Location: ../vistaAgente/inicio.php');
             break;
@@ -54,6 +57,9 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['dni'] = $co->listarDniUserActual($user);
             $_SESSION['nombreApellido'] = $co->mostrarDatosUsuario($user);
             $_SESSION['time'] = time();
+
+            $co->verificarUltimoAcceso($user);
+
             header('Location: ../vistaAgente/inicio.php');
             break;
         case 4:
@@ -65,6 +71,9 @@ if ($co->autenticarUsuario($user, $password)) {
             $_SESSION['areaUsuario'] = $co->verificarAreaUsuario($user);
             $_SESSION['areaUsuarioNombre'] = $co->verificarNombreAreaUsuario($user);
             $_SESSION['time'] = time();
+
+            $co->verificarUltimoAcceso($user);
+
             header('Location: ../vistaAgente/inicio.php');
             break;
         default:
