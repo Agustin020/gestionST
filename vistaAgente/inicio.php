@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+
 session_start();
 if (!(time() - $_SESSION['time'] > 5400)) {
     if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
@@ -68,7 +68,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             <?php
             require('headerNav.php');
 
-
+            error_reporting(0);
             $datosAct = $_SESSION['datosAct'];
             if ($datosAct == true) {
             ?>
