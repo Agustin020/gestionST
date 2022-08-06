@@ -1,0 +1,5 @@
+Usuarios - Pass
+reclamos - reclamost
+agente - 1234
+supervisor - supervisorst
+admin - adminst
