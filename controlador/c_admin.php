@@ -107,7 +107,8 @@ class ControladorAdmin
         require('estadisticas.php');
     }
 
-    public function verEstadisticasAgenteContr($dni){
+    public function verEstadisticasAgenteContr($dni)
+    {
         echo ('<title>Estadísticas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_estadisticas.php');
         require('../modelo/m_consultas.php');
@@ -133,11 +134,11 @@ class ControladorAdmin
         $listTareasEncargados = $co->listarTareasEncargados($listado);
         $listDirecciones = $co->listarDirecciones();
 
-        if($listado == 'actual'){
+        if ($listado == 'actual') {
             $estado = 'Pendientes y En Progreso';
-        }else if($listado == 'completadas'){
+        } else if ($listado == 'completadas') {
             $estado = 'Completadas';
-        }else if($listado == 'canceladas'){
+        } else if ($listado == 'canceladas') {
             $estado = 'Canceladas';
         }
         require('libreriaEstilos.php');
@@ -151,12 +152,12 @@ class ControladorAdmin
         require('../modelo/m_consultas.php');
         $co = new Consultas();
 
-        if($_SESSION['cantAreas'] == 1){
+        if ($_SESSION['cantAreas'] == 1) {
             $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
-        }else{
+        } else {
             $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2']);
         }
-        
+
         $listMotivos = $co->listarMotivosProblemasUsuario($_SESSION['dni']);
         $listDirecciones = $co->listarDirecciones();
         $listAgentes = $co->listarAgentes();
@@ -174,16 +175,18 @@ class ControladorAdmin
         $listDatosAgentes = $co->listarAgentes();
         //Comprobar si esta en un Área el usuario, sino es Admin
         if (isset($_SESSION['areaUsuario'])) {
-            if ($_SESSION['areaUsuario'] != null || $_SESSION['areaUsuario'] != '') {
-                $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
-            }
+
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
+            $listTareasAgentesCompletas = $co->listarTareasAgentesCompletosActual($_SESSION['areaUsuario'], '');
+
         } else {
             $listTareasAgentes = $co->listarTareasAdmin($lista);
-            if($lista == 'actual'){
+            if ($lista == 'actual') {
                 $estado = "Pendientes y en Progreso";
-            }else if($lista == 'completos'){
+            } else if ($lista == 'completos') {
                 $estado = "Completadas";
-            }else if($lista == 'canceladas'){
+                $listTareasCompletasActual = $co->listarTareasCompletasActual();
+            } else if ($lista == 'canceladas') {
                 $estado = "Canceladas";
             }
         }
@@ -220,7 +223,8 @@ class ControladorAdmin
         require('listaAgentes.php');
     }
 
-    public function listarMotivosReqContr(){
+    public function listarMotivosReqContr()
+    {
         echo ('<title>Listado de Agentes - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
@@ -282,7 +286,8 @@ class ControladorAdmin
         require('listarUsuariosBaja.php');
     }
 
-    public function listarUsuariosCargadosContr(){
+    public function listarUsuariosCargadosContr()
+    {
         echo ('<title>Lista de Usuarios cargados - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
@@ -302,5 +307,4 @@ class ControladorAdmin
         require('headerNav.php');
         require('blanqueoPass.php');
     }
-
 }

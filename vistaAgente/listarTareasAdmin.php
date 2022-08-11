@@ -61,7 +61,9 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                     $('#tablaDinamicaLoad').DataTable({
                         aLengthMenu: [25, 50, 100, 200],
                         dom: 'lBfrtip',
-                        aaSorting: [[ 0, "desc" ]],
+                        aaSorting: [
+                            [0, "desc"]
+                        ],
                         buttons: [{
                                 extend: 'excelHtml5',
                                 title: 'Listado de Tareas - Gestión de tareas Sistemas',
@@ -81,6 +83,16 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                                 },
                             },
+                        ],
+                        language: {
+                            "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                        }
+                    })
+
+                    $('#tablaDinamicaLoad2').DataTable({
+                        aLengthMenu: [10, 25, 50, 100, 200],
+                        aaSorting: [
+                            [0, "desc"]
                         ],
                         language: {
                             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
@@ -377,8 +389,483 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                         </button>
                     </div>
 
+                    <?php
+                    if ($_GET['lista'] == 'completos') {
+                    ?>
+
+
+                        <div id="tCompletadosActual">
+                            <p class="fs-5 text-center">Tareas completadas hoy día</p>
+                            <hr>
+                            <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Motivo</th>
+                                        <th scope="col">Descripción</th>
+
+                                        <th scope="col">Afectado/a</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Fecha Problema</th>
+
+                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Asignado</th>
+                                        <th scope="col">Área encargada</th>
+                                        <th scope="col">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($listTareasCompletasActual as $completas) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $completas[0]; ?></td>
+                                            <td><?php echo $completas[2]; ?></td>
+                                            <td><?php echo $completas[3]; ?></td>
+                                            <td><?php echo $completas[5]; ?></td>
+                                            <td>
+                                                <?php
+                                                if ($completas[9] == 'Completo') {
+                                                    echo '<span class="badge text-bg-success">' . $completas[9] . '</span>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?php echo $completas[11]; ?></td>
+                                            <td><?php echo $completas[14]; ?></td>
+                                            <td><?php echo $completas[16]; ?></td>
+                                            <td><?php echo $completas[18]; ?></td>
+                                            <td id="accion">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Acción
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                                        <li>
+                                                            <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalVerInfo<?php echo $completas[0]; ?>">
+                                                                Ver más info
+                                                            </a>
+                                                        </li>
+
+                                                        <?php
+                                                        if ($completas[9] != 'Cancelado' && $completas[15] == 0) {
+                                                        ?>
+                                                            <li>
+                                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAsignarTarea<?php echo $completas[0]; ?>">
+                                                                    Asignar la tarea a un agente
+                                                                </a>
+                                                            </li>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                        <?php
+                                                        if ($completas[9] != 'Cancelado' && $completas[15] == 0 && $_SESSION['rol'] == 4) {
+                                                        ?>
+                                                            <li>
+                                                                <a class="dropdown-item" href="../controlador/c_tomarTarea.php?id=<?php echo $completas[0]; ?>&selectAgentes=<?php echo $_SESSION['dni']; ?>">
+                                                                    Asignarme la tarea
+                                                                </a>
+                                                            </li>
+
+                                                        <?php
+                                                        }
+                                                        if ($completas[15] != 0 && $completas[9] != 'Completo' && $completas[9] != 'Cancelado') {
+                                                        ?>
+                                                            <li>
+                                                                <a class="dropdown-item" href="../controlador/c_quitarTareaAsignado.php?id=<?php echo $completas[0]; ?>">
+                                                                    Quitar la tarea asignada al agente
+                                                                </a>
+                                                            </li>
+                                                        <?php
+                                                        }
+                                                        if ($completas[9] == 'En Progreso') {
+                                                        ?>
+                                                            <li>
+                                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalTareaCompletada<?php echo $completas[0]; ?>">
+                                                                    Terminar tarea
+                                                                </a>
+                                                            </li>
+
+                                                        <?php
+                                                        }
+                                                        if ($completas[9] != 'Cancelado' && $completas[9] != 'Completo') {
+                                                        ?>
+                                                            <li>
+                                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCancelarTarea<?php echo $completas[0]; ?>">
+                                                                    Cancelar tarea
+                                                                </a>
+                                                            </li>
+
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                        <li>
+                                                            <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarTarea<?php echo $completas[0]; ?>">
+                                                                Editar tarea
+                                                            </a>
+                                                        </li>
+                                                        <?php
+                                                        if ($_SESSION['rol'] == 3) {
+                                                        ?>
+                                                            <li>
+                                                                <a class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#modalEliminarTarea<?php echo $completas[0]; ?>">
+                                                                    Eliminar tarea
+                                                                </a>
+                                                            </li>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Modal Ver Info Tarea -->
+                                        <div class="modal fade modalEditar" id="modalVerInfo<?php echo $completas[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Información de la tarea</h5>
+                                                        <button type="button" class="btn-close btnCerrarModalEditar" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body bodyModalInfo">
+
+                                                        <p class="fs-6">Tarea N° <?php echo $completas[0]; ?></p>
+
+                                                        <input type="hidden" name="nroArreglo" value="<?php echo $completas[0]; ?>">
+
+                                                        <div class="form-floating mb-3">
+                                                            <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" disabled>
+                                                                <option value="<?php echo $completas[1]; ?>" selected><?php echo $completas[2]; ?></option>
+                                                                <?php
+                                                                foreach ($listMotivos as $motivo) {
+                                                                ?>
+                                                                    <option value="<?php echo $motivo[0]; ?>">
+                                                                        <?php
+                                                                        echo $motivo[1];
+                                                                        ?>
+                                                                    </option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                            <label for="floatingSelect">Motivo del incoveniente</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <textarea class="form-control" name="descripcion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 170px" disabled><?php echo $completas[3]; ?></textarea>
+                                                            <label for="floatingTextarea">Descripción</label>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($completas[4] == '' || $completas[4] == null) {
+                                                            $ip = 'No proporcionado';
+                                                        } else {
+                                                            $ip = $completas[4];
+                                                        }
+                                                        ?>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="ip" value="<?php echo $ip; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">IP</label>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($completas[5] == '' || $completas[5] == null) {
+                                                            $nombreApellidoAfectado = 'No proporcionado';
+                                                        } else {
+                                                            $nombreApellidoAfectado = $listTarea[5];
+                                                        }
+                                                        ?>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="nombreApellido" value="<?php echo $nombreApellidoAfectado; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Nombre y apellido del afectado/a</label>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($completas[6] == '' || $completas[6] == null) {
+                                                            $cel = 'No proporcionado';
+                                                        } else {
+                                                            $cel = $completas[6];
+                                                        }
+                                                        ?>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="cel" value="<?php echo $cel; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Nro de celular de contacto</label>
+                                                        </div>
+
+
+                                                        <?php
+                                                        if ($completas[7] != '') {
+                                                        ?>
+                                                            <div class="form-floating mb-3">
+                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $completas[7]; ?>    
+                                                            </textarea>
+                                                                <label for="floatingTextarea">Solución del incoveniente</label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="estadoTarea" value="<?php echo $completas[9]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Estado de la tarea</label>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($completas[10] != '') {
+                                                        ?>
+                                                            <div class="form-floating mb-3">
+                                                                <textarea class="form-control" name="solucion" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" disabled><?php echo $completas[10]; ?>    
+                                                            </textarea>
+                                                                <label for="floatingTextarea">Motivo de la cancelación</label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                        <?php
+                                                        $date = date_create($completas[11]);
+                                                        $fechaProblema = date_format($date, 'd/m/Y H:i:s');
+                                                        ?>
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="fechaProblema" value="<?php echo $fechaProblema; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Fecha del problema</label>
+                                                        </div>
+
+                                                        <?php
+                                                        if ($completas[12] != '') {
+                                                            $date = date_create($completas[12]);
+                                                            $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
+                                                        ?>
+                                                            <div class="form-floating mb-3">
+                                                                <input type="text" name="fechaSolucion" value="<?php echo $fechaSolucion; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                                <label for="floatingInput">Fecha de la solución</label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="area" value="<?php echo $completas[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Dirección donde se desempeña el/la afectado/a</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="area" value="<?php echo $completas[18]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Área donde se lleva a cabo</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" name="area" value="<?php echo $completas[19]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
+                                                            <label for="floatingInput">Creado por</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary btnCerrarModalEditar" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Editar Tarea -->
+                                        <div class="modal fade" id="modalEditarTarea<?php echo $completas[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Editar tarea</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <form action="../controlador/c_editarTarea.php" method="post" style="display: none;">
+
+                                                        <div class="modal-body">
+
+                                                            <p class="fs-6">Editar en caso de que haya habido un cambio o un error.</p>
+
+                                                            <input type="hidden" name="nroArreglo" value="<?php echo $completas[0]; ?>">
+
+                                                            <?php
+                                                            if ($_SESSION['rol'] == 3) {
+                                                            ?>
+                                                                <div class="form-floating mb-3">
+                                                                    <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                        <option value="<?php echo $completas[17]; ?>" selected><?php echo $completas[18]; ?> (Actual)</option>
+                                                                        <?php
+                                                                        foreach ($listAreas as $area) {
+                                                                        ?>
+                                                                            <option value="<?php echo $area[0]; ?>">
+                                                                                <?php
+                                                                                echo $area[1];
+                                                                                ?>
+                                                                            </option>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                    <label for="floatingSelect">Seleccione el Área involucrada</label>
+                                                                </div>
+
+                                                            <?php
+                                                            }
+                                                            if ($_SESSION['rol'] == 4) {
+                                                            ?>
+                                                                <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                            <div class="form-floating mb-3">
+                                                                <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                    <option value="<?php echo $completas[1]; ?>" selected><?php echo $completas[2]; ?> (Actual)</option>
+                                                                    <?php
+                                                                    foreach ($listMotivos as $motivo) {
+                                                                    ?>
+                                                                        <option value="<?php echo $motivo[0]; ?>">
+                                                                            <?php
+                                                                            echo $motivo[1];
+                                                                            ?>
+                                                                        </option>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                                <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                                                            </div>
+
+                                                            <div class="form-floating mb-3">
+                                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required><?php echo $completas[3]; ?></textarea>
+                                                                <label for="floatingTextarea">Descripción</label>
+                                                            </div>
+
+                                                            <div class="form-floating mb-3">
+                                                                <input type="text" name="ip" value="<?php echo $completas[4]; ?>" class="form-control" id="floatingInput" placeholder="Nombre del Afectado">
+                                                                <label for="floatingInput">IP</label>
+                                                            </div>
+
+                                                            <div class="form-floating mb-3">
+                                                                <input type="text" name="nombreApellidoAfectado" value="<?php echo $completas[5]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                                <label for="floatingInput">Nombre y apellido del afectado/a (Opcional)</label>
+                                                            </div>
+
+                                                            <div class="form-floating mb-3">
+                                                                <input type="tel" name="cel" value="<?php echo $completas[6]; ?>" oninput="validarInputNumerico(this);" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                                <label for="floatingInput">Nro de celular (Opcional)</label>
+                                                            </div>
+
+                                                            <div class="form-floating mb-3">
+                                                                <select class="form-select" name="selectDireccion" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                    <option value="<?php echo $completas[13]; ?>" selected><?php echo $completas[14]; ?> (Actual)</option>
+                                                                    <?php
+                                                                    foreach ($listDirecciones as $direccion) {
+                                                                    ?>
+                                                                        <option value="<?php echo $direccion[0]; ?>">
+                                                                            <?php echo $direccion[1]; ?>
+                                                                        </option>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                                <label for="floatingSelect">Seleccione el área donde se desempeña</label>
+                                                            </div>
+
+
+                                                            <?php
+                                                            if ($completas[7] != '' || $completas[7] != null) {
+                                                            ?>
+                                                                <hr>
+                                                                <div class="form-floating mb-3">
+                                                                    <textarea class="form-control" name="solucion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $completas[7]; ?></textarea>
+                                                                    <label for="floatingTextarea">Solución</label>
+                                                                </div>
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                            <?php
+                                                            if ($completas[10] != '' || $completas[10] != null) {
+                                                            ?>
+                                                                <hr>
+                                                                <div class="form-floating mb-3">
+                                                                    <textarea class="form-control" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required><?php echo $completas[10]; ?></textarea>
+                                                                    <label for="floatingTextarea">Motivo de la cancelación</label>
+                                                                </div>
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Eliminar Tarea -->
+                                        <div class="modal fade" id="modalEliminarTarea<?php echo $completas[0]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Eliminar tarea N°<?php echo $completas[0]; ?></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <form action="../controlador/c_eliminarTarea.php" id="formEliminarTarea" method="post" style="display: none;">
+
+                                                        <div class="modal-body">
+
+                                                            <p class="fs-6">Para eliminar la tarea debe completar lo siguiente</p>
+
+                                                            <input type="hidden" name="id" value="<?php echo $completas[0]; ?>">
+
+                                                            <div class="form-floating mb-3">
+                                                                <textarea class="form-control" name="motivoEliminacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                                <label for="floatingTextarea">Motivo de la eliminación</label>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-danger">Eliminar tarea</button>
+                                                        </div>
+
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+
+                    <br>
 
                     <div id="tPrincipal">
+                        <?php
+                        if ($_GET['lista'] == 'completos') {
+                        ?>
+                            <p class="fs-5 text-center">Tareas completadas en total</p>
+
+                            <hr>
+                        <?php
+                        }
+                        ?>
                         <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad">
                             <thead>
                                 <tr>

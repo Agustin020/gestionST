@@ -587,20 +587,38 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::conexionBD();
-            if ($areaUsuario2 == '' || $areaUsuario2 == null) {
-                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
-                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
-                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
-                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
-                        and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and codigoArea3 = '$areaUsuario'";
-            } else {
-                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
-                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
-                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
-                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
-                        and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.codigoArea3 
-                        in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
+
+            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
+                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                    and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.codigoArea3 
+                    in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
+
+
+            $result = mysqli_query($link, $sql);
+            $listTareas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listTareas[$i] = $row;
+                $i++;
             }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listTareas;
+    }
+
+    public function listarTareasAgentesCompletosActual($areaUsuario, $areaUsuario2)
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
+                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                    and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.codigoArea3 
+                    in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2') and date(t.fechaSolucion) = curdate()";
 
             $result = mysqli_query($link, $sql);
             $listTareas = [];
@@ -616,6 +634,7 @@ class Consultas extends Conexion
     }
 
 
+    //LISTADO DE TAREAS ADMIN/SUPERVISOR
 
     public function listarTareasAdmin($estado)
     {
@@ -652,6 +671,28 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $listTareas;
+    }
+
+    public function listarTareasCompletasActual()
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
+                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                    and t.codigoArea3 = a.codigo and t.estadoTarea_id = 3 and date(t.fechaSolucion) = curdate()";
+            $result = mysqli_query($link, $sql);
+            $listTareasCompletas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listTareasCompletas[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listTareasCompletas;
     }
 
 
