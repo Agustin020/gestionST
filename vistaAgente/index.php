@@ -21,9 +21,10 @@ switch ($accion) {
         break;
 
     case 'listarTareas':
+        $listado = $_GET['listado'];
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
-        $controller->listarTareasAgenteContr();
+        $controller->listarTareasAgenteContr($listado);
         break;
 
     case 'listarTareasAdmin':
@@ -33,9 +34,15 @@ switch ($accion) {
             $lista = null;
         }
 
+        if (isset($_GET['area'])) {
+            $areaSupervisor = $_GET['area'];
+        } else {
+            $areaSupervisor = null;
+        }
+
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
-        $controller->listarTareasAdminContr($lista);
+        $controller->listarTareasAdminContr($lista, $areaSupervisor);
         break;
 
     case 'listarTareasEliminadas':

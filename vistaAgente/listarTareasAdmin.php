@@ -390,7 +390,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                     </div>
 
                     <?php
-                    if ($_GET['lista'] == 'completos') {
+                    if ($_GET['lista'] == 'completas') {
                     ?>
 
 
@@ -858,7 +858,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
                     <div id="tPrincipal">
                         <?php
-                        if ($_GET['lista'] == 'completos') {
+                        if ($_GET['lista'] == 'completas') {
                         ?>
                             <p class="fs-5 text-center">Tareas completadas en total</p>
 
@@ -1271,7 +1271,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                         }
                                                         if ($_SESSION['rol'] == 4) {
                                                         ?>
-                                                            <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                                            <input type="hidden" name="selectArea" value="<?php echo $_SESSION['areaUsuario']; ?>">
                                                         <?php
                                                         }
                                                         ?>

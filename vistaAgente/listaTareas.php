@@ -59,14 +59,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                     $('#tablaDinamicaLoad').DataTable({
                         aLengthMenu: [25, 50, 100, 200],
-                        aaSorting: [[ 0, "desc" ]],
+                        aaSorting: [
+                            [0, "desc"]
+                        ],
                         dom: 'lBfrtip',
                         buttons: [{
                                 extend: 'excelHtml5',
                                 title: 'Listado de Tareas - Gestión Sistemas',
                                 messageTop: 'Reporte: ' + localdate,
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                                 }
                             },
                             {
@@ -77,7 +79,38 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                 messageTop: 'Reporte: ' + localdate,
                                 title: 'Listado de Tareas - Gestión Sistemas',
                                 exportOptions: {
-                                    columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                                },
+                            },
+                        ],
+                        language: {
+                            "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                        }
+                    })
+
+                    $('#tablaDinamicaLoad2').DataTable({
+                        aLengthMenu: [10, 25, 50, 100, 200],
+                        aaSorting: [
+                            [0, "desc"]
+                        ],
+                        dom: 'lBfrtip',
+                        buttons: [{
+                                extend: 'excelHtml5',
+                                title: 'Listado de Tareas - Gestión Sistemas',
+                                messageTop: 'Reporte: ' + localdate,
+                                exportOptions: {
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                                }
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                orientation: 'landscape',
+                                pageSize: 'A4',
+                                download: 'open',
+                                messageTop: 'Reporte: ' + localdate,
+                                title: 'Listado de Tareas - Gestión Sistemas',
+                                exportOptions: {
+                                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                                 },
                             },
                         ],
@@ -226,10 +259,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                 ?>
 
                 <p class="fs-5">
-                    Tareas
+                    Tareas <?php echo $estado; ?>
                     <?php
-                    foreach ($areaUsuario as $area)
+                    foreach ($areaUsuario as $area) {
                         echo '- ( ' . $area[1] . ' ) ';
+                    }
                     ?>
                 </p>
                 <hr>
@@ -255,7 +289,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <?php
                                             if ($_SESSION['cantAreas'] == 1) {
                                             ?>
-                                                <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+
                                                 <div class="form-floating mb-3">
                                                     <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
                                                         <option value="" selected>Seleccione...</option>
@@ -365,8 +399,171 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                         </button>
                     </div>
 
+                    <?php
+                    if ($_GET['listado'] == 'completas') {
+                    ?>
+
+                        <div id="tCompletasActual">
+                            <p class="fs-5 text-center">Tareas completadas en el día actual</p>
+                            <hr>
+                            <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Motivo</th>
+                                        <th scope="col">Descripción</th>
+
+                                        <?php
+                                        //IP
+                                        if ($_SESSION['areaUsuario'] == 1 || $_SESSION['areaUsuario'] == 2 || $_SESSION['areaUsuario'] == 3 || $_SESSION['areaUsuario'] == 7) {
+                                        ?>
+                                            <th scope="col">IP</th>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <th scope="col">Afectado/a</th>
+                                        <?php
+                                        }
+                                        ?>
+
+
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Fecha Problema</th>
+
+                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Asignado</th>
+                                        <th scope="col">Área</th>
+                                        <th scope="col">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <?php
+                                    foreach ($tareasCompletasActual as $completas) {
+                                    ?>
+                                        <tr>
+                                            <td style="text-align: center;"><?php echo $completas[0]; ?></td>
+                                            <td><?php echo $completas[2]; ?></td>
+                                            <td><?php echo $completas[3]; ?></td>
+                                            <?php
+                                            //IP
+                                            if ($_SESSION['areaUsuario'] == 1 || $_SESSION['areaUsuario'] == 2 || $_SESSION['areaUsuario'] == 3 || $_SESSION['areaUsuario'] == 7) {
+                                            ?>
+                                                <td><?php echo $completas[4]; ?></td>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <td><?php echo $completas[5]; ?></td>
+                                            <?php
+                                            }
+                                            ?>
+
+                                            <td>
+                                                <?php
+                                                if ($completas[9] == 'Completo') {
+                                                    echo '<span class="badge bg-success">' . $completas[9] . '</span>';
+                                                }
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                $date = date_create($completas[11]);
+                                                $fechaProblema = date_format($date, 'd/m/Y H:i:s');
+                                                echo $fechaProblema;
+                                                ?>
+                                            </td>
+
+                                            <td><?php echo $completas[14]; ?></td>
+                                            <td><?php echo $completas[16]; ?></td>
+                                            <td><?php echo $completas[18]; ?></td>
+                                            <td id="accion">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Acción
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                                                        <li>
+                                                            <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalInfoTarea<?php echo $completas[0]; ?>">
+                                                                Ver más info
+                                                            </a>
+                                                        </li>
+
+                                                        <?php
+                                                        if ($completas[9] != 'Cancelado' && $completas[15] == 0) {
+                                                        ?>
+                                                            <li>
+                                                                <a class="dropdown-item" href="../controlador/c_tomarTarea.php?id=<?php echo $completas[0]; ?>&selectAgentes=<?php echo $_SESSION['dni']; ?>">
+                                                                    Asignarme la tarea
+                                                                </a>
+                                                            </li>
+                                                        <?php
+                                                        }
+                                                        if ($completas[15] != 0 && $completas[9] != 'Completo' && $completas[15] == $_SESSION['dni']) {
+                                                        ?>
+                                                            <li>
+                                                                <a class="dropdown-item" href="../controlador/c_quitarTareaAsignado.php?id=<?php echo $completas[0]; ?>">
+                                                                    Quitarme la tarea asignada
+                                                                </a>
+                                                            </li>
+                                                        <?php
+                                                        }
+                                                        if ($completas[9] == 'En Progreso' && $completas[15] == $_SESSION['dni']) {
+                                                        ?>
+                                                            <li>
+                                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalTareaCompletada<?php echo $completas[0]; ?>">
+                                                                    Terminar tarea
+                                                                </a>
+                                                            </li>
+
+                                                        <?php
+                                                        }
+                                                        if ($completas[9] != 'Cancelado' && $completas[9] != 'Completo' && $completas[15] == $_SESSION['dni'] || $completas[9] == 'Pendiente') {
+                                                        ?>
+                                                            <li>
+                                                                <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCancelarTarea<?php echo $completas[0]; ?>">
+                                                                    Cancelar tarea
+                                                                </a>
+                                                            </li>
+
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                        <li>
+                                                            <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarTarea<?php echo $completas[0]; ?>">
+                                                                Editar tarea
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+
+                    <br>
+                    <br>
 
                     <div id="tPrincipal">
+                        <?php
+                        if ($_GET['listado'] == 'completas') {
+                        ?>
+                            <p class="fs-5 text-center">Tareas completadas en total</p>
+                            <hr>
+                        <?php
+                        }
+                        ?>
                         <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad">
                             <thead>
                                 <tr>
@@ -380,14 +577,20 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     ?>
                                         <th scope="col">IP</th>
                                     <?php
+                                    } else {
+                                    ?>
+                                        <th scope="col">Afectado/a</th>
+                                    <?php
                                     }
                                     ?>
 
+
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
-                                    <th scope="col">Fecha Solución</th>
+
                                     <th scope="col">Dirección</th>
                                     <th scope="col">Asignado</th>
+                                    <th scope="col">Área</th>
                                     <th scope="col">Acción</th>
                                 </tr>
                             </thead>
@@ -405,6 +608,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         if ($_SESSION['areaUsuario'] == 1 || $_SESSION['areaUsuario'] == 2 || $_SESSION['areaUsuario'] == 3 || $_SESSION['areaUsuario'] == 7) {
                                         ?>
                                             <td><?php echo $listTarea[4]; ?></td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <td><?php echo $listTarea[5]; ?></td>
                                         <?php
                                         }
                                         ?>
@@ -429,17 +636,10 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             echo $fechaProblema;
                                             ?>
                                         </td>
-                                        <td>
-                                            <?php
-                                            if ($listTarea[12] != null) {
-                                                $date = date_create($listTarea[12]);
-                                                $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
-                                                echo $fechaSolucion;
-                                            }
-                                            ?>
-                                        </td>
+
                                         <td><?php echo $listTarea[14]; ?></td>
                                         <td><?php echo $listTarea[16]; ?></td>
+                                        <td><?php echo $listTarea[18]; ?></td>
                                         <td id="accion">
                                             <div class="btn-group" role="group">
                                                 <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -753,25 +953,70 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                                         <input type="hidden" name="nroArreglo" value="<?php echo $listTarea[0]; ?>">
 
-                                                        <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                                        <?php
+                                                        if ($_SESSION['cantAreas'] == 1) {
+                                                        ?>
 
-                                                        <div class="form-floating mb-3">
-                                                            <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
-                                                                <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?> (Actual)</option>
-                                                                <?php
-                                                                foreach ($listMotivos as $motivo) {
-                                                                ?>
-                                                                    <option value="<?php echo $motivo[0]; ?>">
-                                                                        <?php
-                                                                        echo $motivo[1];
-                                                                        ?>
-                                                                    </option>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                            <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
-                                                        </div>
+                                                        <input type="hidden" name="selectArea" value="<?php echo $_SESSION['areaUsuario']; ?>">
+
+                                                            <div class="form-floating mb-3">
+
+                                                                <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                    <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?> (Actual)</option>
+                                                                    
+                                                                    <?php
+                                                                    foreach ($listMotivos as $motivos) {
+                                                                    ?>
+
+                                                                        <option value="<?php echo $motivos[0]; ?>">
+                                                                            <?php
+                                                                            echo $motivos[1];
+                                                                            ?>
+                                                                        </option>
+
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+
+                                                                </select>
+                                                                <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                                                            </div>
+
+                                                        <?php
+                                                        } else if ($_SESSION['cantAreas'] > 1) {
+                                                        ?>
+
+                                                            <div class="form-floating mb-3">
+                                                                <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                    <option value="<?php echo $listTarea[17]; ?>" selected><?php echo $listTarea[18]; ?> (Actual)</option>
+                                                                    <?php
+                                                                    foreach ($areaUsuario as $areasAgente) {
+                                                                    ?>
+                                                                        <option value="<?php echo $areasAgente[0]; ?>">
+                                                                            <?php
+                                                                            echo $areasAgente[1];
+                                                                            ?>
+                                                                        </option>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                                <label for="floatingSelect">Seleccione el área donde se llevará a cabo</label>
+                                                            </div>
+
+                                                            <div class="form-floating mb-3">
+
+                                                                <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                    <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?> (Actual)</option>
+
+                                                                </select>
+                                                                <label for="floatingSelect">Seleccione el motivo del incoveniente</label>
+                                                            </div>
+
+                                                        <?php
+                                                        }
+                                                        ?>
+
 
                                                         <div class="form-floating mb-3">
                                                             <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required><?php echo $listTarea[3]; ?></textarea>

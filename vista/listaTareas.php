@@ -51,6 +51,16 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                     language: {
                         "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                     }
+                })
+
+                $('#tablaDinamicaLoad2').DataTable({
+                    aLengthMenu: [10, 25, 50, 100, 200],
+                    aaSorting: [
+                        [0, "desc"]
+                    ],
+                    language: {
+                        "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                    }
 
 
                 })
@@ -258,19 +268,131 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                         </button>
                     </div>
 
+                    <div id="tCompletadasActual">
+                        <?php
+                        if ($_GET['listado'] == 'completadas') {
+                        ?>
+
+                            <p class="fs-5 text-center">Tareas completadas en el día de hoy</p>
+                            <hr>
+
+                            <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad2">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Motivo</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Afectado/a</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Fecha Problema</th>
+                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Asignado</th>
+                                        <th scope="col">Área</th>
+                                        <th scope="col">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($tareasEncargadosCompletasActual as $completas) {
+                                    ?>
+
+                                        <tr>
+                                            <td><?php echo $completas[0]; ?></td>
+                                            <td><?php echo $completas[2]; ?></td>
+                                            <td><?php echo $completas[3]; ?></td>
+                                            <td><?php echo $completas[5]; ?></td>
+                                            <td>
+                                                <?php
+                                                if ($completas[9] == 'Completo') {
+                                                    echo '<span class="badge text-bg-success">' . $completas[9] . '</span>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                if ($completas[11] != '' || $completas[11] != null) {
+
+                                                    $date = date_create($completas[11]);
+                                                    $fechaProblema = date_format($date, 'd/m/Y H:i:s');
+                                                    echo $fechaProblema;
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?php echo $completas[14]; ?></td>
+                                            <td><?php echo $completas[17]; ?></td>
+                                            <td><?php echo $completas[16]; ?></td>
+
+                                            <td id="accion">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Acción
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+
+                                                        <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalInfoTarea<?php echo $completas[0]; ?>">Ver más info</a></li>
+
+                                                        <?php
+                                                        if ($completas[9] != 'Completo') {
+                                                        ?>
+
+                                                            <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarTarea<?php echo $completas[0]; ?>">Editar tarea</a></li>
+                                                            <?php
+                                                            if ($completas[9] != 'Cancelado' && $completas[9] != 'Completo') {
+                                                            ?>
+                                                                <li><a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCancelarTarea<?php echo $completas[0]; ?>">Cancelar tarea</a></li>
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </ul>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+
+                        <?php
+                        }
+                        ?>
+
+                    </div>
+
+                    <br>
+                    <br>
 
                     <div id="tPrincipal">
+                        <?php
+                        if ($_GET['listado'] == 'completadas') {
+                        ?>
+                            <p class="fs-5 text-center">Tareas completadas en total</p>
+                            <hr>
+                        <?php
+                        }
+                        ?>
+
+
                         <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Motivo</th>
                                     <th scope="col">Descripción</th>
-                                    <th scope="col">IP</th>
+                                    <th scope="col">Afectado/a</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
                                     <th scope="col">Dirección</th>
                                     <th scope="col">Asignado</th>
+                                    <th scope="col">Área</th>
                                     <th scope="col">Acción</th>
                                 </tr>
                             </thead>
@@ -282,7 +404,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                         <td style="text-align: center;"><?php echo $listTarea[0]; ?></td>
                                         <td><?php echo $listTarea[2]; ?></td>
                                         <td><?php echo $listTarea[3]; ?></td>
-                                        <td><?php echo $listTarea[4]; ?></td>
+                                        <td><?php echo $listTarea[5]; ?></td>
                                         <td>
                                             <?php
                                             if ($listTarea[9] == 'Pendiente') {
@@ -306,6 +428,8 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                         <td><?php echo $listTarea[14]; ?></td>
 
                                         <td><?php echo $listTarea[17]; ?></td>
+
+                                        <td><?php echo $listTarea[16]; ?></td>
 
                                         <td id="accion">
 

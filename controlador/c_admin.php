@@ -132,6 +132,11 @@ class ControladorAdmin
         $listAreas = $co->listarAreas();
         $listMotivos = $co->listarMotivosProblemas($listado);
         $listTareasEncargados = $co->listarTareasEncargados($listado);
+
+        if ($listado == 'completadas') {
+            $tareasEncargadosCompletasActual = $co->listarTareasEncargadosCompletosActual();
+        }
+
         $listDirecciones = $co->listarDirecciones();
 
         if ($listado == 'actual') {
@@ -146,16 +151,29 @@ class ControladorAdmin
         require('listaTareas.php');
     }
 
-    public function listarTareasAgenteContr()
+    public function listarTareasAgenteContr($listado)
     {
         echo ('<title>Listado de Tareas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
 
         if ($_SESSION['cantAreas'] == 1) {
-            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '', $listado);
         } else {
-            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2']);
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $listado);
+        }
+
+        if ($listado == 'actual') {
+            $estado = 'Pendiente y en Progreso';
+        } else if ($listado == 'completas') {
+            $estado = 'Completadas';
+            if ($_SESSION['cantAreas'] == 1) {
+                $tareasCompletasActual = $co->listarTareasAgentesCompletosActual($_SESSION['areaUsuario'], '');
+            } else {
+                $tareasCompletasActual = $co->listarTareasAgentesCompletosActual($_SESSION['areaUsuario'], $_SESSION['areaUsuario2']);
+            }
+        } else if ($listado == 'canceladas') {
+            $estado = 'Canceladas';
         }
 
         $listMotivos = $co->listarMotivosProblemasUsuario($_SESSION['dni']);
@@ -167,7 +185,7 @@ class ControladorAdmin
         require('listaTareas.php');
     }
 
-    public function listarTareasAdminContr($lista)
+    public function listarTareasAdminContr($lista, $areaSupervisor)
     {
         echo ('<title>Listado de Tareas - Gestión Requerimientos</title>');
         require('../modelo/m_consultas.php');
@@ -176,14 +194,20 @@ class ControladorAdmin
         //Comprobar si esta en un Área el usuario, sino es Admin
         if (isset($_SESSION['areaUsuario'])) {
 
-            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '');
-            $listTareasAgentesCompletas = $co->listarTareasAgentesCompletosActual($_SESSION['areaUsuario'], '');
-
+            $listTareasAgentes = $co->listarTareasAgentes($areaSupervisor, '', $lista);
+            if ($lista == 'actual') {
+                $estado = "Pendientes y en Progreso";
+            } else if ($lista == 'completas') {
+                $estado = "Completadas";
+                $listTareasCompletasActual = $co->listarTareasAgentesCompletosActual($areaSupervisor, '');
+            } else if ($lista == 'canceladas') {
+                $estado = "Canceladas";
+            }
         } else {
             $listTareasAgentes = $co->listarTareasAdmin($lista);
             if ($lista == 'actual') {
                 $estado = "Pendientes y en Progreso";
-            } else if ($lista == 'completos') {
+            } else if ($lista == 'completas') {
                 $estado = "Completadas";
                 $listTareasCompletasActual = $co->listarTareasCompletasActual();
             } else if ($lista == 'canceladas') {

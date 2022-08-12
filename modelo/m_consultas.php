@@ -261,6 +261,32 @@ class Consultas extends Conexion
         return $listTareasEncargados;
     }
 
+    public function listarTareasEncargadosCompletosActual(){
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT t.nroArreglo, t.id_motivos, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, t.estadoTarea_id, e.nombre, t.motivoCancelacion,
+                    t.fechaProblema, t.fechaSolucion, t.direccion_codigo, d.nombre, a.codigo, a.nombre, concat(u.nombre, ' ', u.apellido), t.usuarioCreado   
+                    from tareas t, motivos m, estadotarea e, direcciones d, areas a, usuario u 
+                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo
+                    and t.codigoArea3 = a.codigo
+                    and t.usuario_dni = u.dni
+                    and t.estadoTarea_id = 3 and date(t.fechaSolucion) = curdate()";
+
+            $result = mysqli_query($link, $sql);
+            $tareasEncargadosCompletosActual = [];
+            $i = 0;
+
+            while($row = mysqli_fetch_row($result)){
+                $tareasEncargadosCompletosActual[$i] = $row;
+                $i++;
+            }
+
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $tareasEncargadosCompletosActual;
+    }
+
     public function listarAreas()
     {
         try {
@@ -583,19 +609,34 @@ class Consultas extends Conexion
 
 
     //PAGE ListarTareasAgente
-    public function listarTareasAgentes($areaUsuario, $areaUsuario2)
+    public function listarTareasAgentes($areaUsuario, $areaUsuario2, $estado)
     {
         try {
             $link = parent::conexionBD();
 
-            $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
-                    t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
-                    from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
-                    where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
-                    and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.codigoArea3 
-                    in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
-
-
+            if($estado == 'actual'){
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
+                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                        and t.codigoArea3 = a.codigo and t.estadoTarea_id != 3 and t.estadoTarea_id != 4 and t.estadoTarea_id != 5 and t.codigoArea3 
+                        in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
+            }else if($estado == 'completas'){
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
+                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                        and t.codigoArea3 = a.codigo and t.estadoTarea_id = 3 and t.codigoArea3 
+                        in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
+            }else if($estado == 'canceladas'){
+                $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
+                        t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
+                        from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
+                        where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
+                        and t.codigoArea3 = a.codigo and t.estadoTarea_id = 4 and t.codigoArea3 
+                        in (select a2.codigo from areas a2 where a.codigo = '$areaUsuario' or a.codigo = '$areaUsuario2')";
+            }
+            
             $result = mysqli_query($link, $sql);
             $listTareas = [];
             $i = 0;
@@ -646,7 +687,7 @@ class Consultas extends Conexion
                         from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 
                         where t.id_motivos = m.id and t.estadoTarea_id = e.id and t.direccion_codigo = d.codigo and t.usuario_dni = u.dni 
                         and t.codigoArea3 = a.codigo and t.estadoTarea_id != 5 and t.estadoTarea_id != 4 and t.estadoTarea_id != 3";
-            } else if ($estado == 'completos') {
+            } else if ($estado == 'completas') {
                 $sql = "SELECT t.nroArreglo, m.id, m.motivos, t.descripcion, t.ip, t.nombreApellidoAfectado, t.celular, t.solucion, e.id, e.nombre, t.motivoCancelacion, 
                         t.fechaProblema, t.fechaSolucion, d.codigo, d.nombre, u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, a.codigo, a.nombre, t.usuarioCreado
                         from tareas t, motivos m, estadotarea e, direcciones d, usuario u, areas a 

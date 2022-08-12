@@ -9,7 +9,13 @@ $ip = $_POST['ip'];
 $nombreApellido = $_POST['nombreApellidoAfectado'];
 $celular = $_POST['cel'];
 $direccion = $_POST['direccion'];
-$areaUsuario = $_POST['areaUsuario'];
+$areaUsuario = $_SESSION['areaUsuario'];
+
+
+$areaUsuario2 = $_SESSION['areaUsuario2'];
+
+
+
 $rol = $_POST['rol'];
 
 $usuarioCreado = $_SESSION['nombreApellido'];
@@ -25,7 +31,11 @@ $usuarioCreado = $_SESSION['nombreApellido'];
 if ($rol == 2) {
     if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareas&area=' . $areaUsuario);
+        if ($_SESSION['cantAreas'] == 1) {
+            header('location: ../vistaAgente/index.php?accion=listarTareas&listado=actual&area=' . $areaUsuario);
+        } else {
+            header('location: ../vistaAgente/index.php?accion=listarTareas&listado=actual&area=' . $areaUsuario . '&area2=' . $areaUsuario2);
+        }
     }
 } else if ($rol == 3) {
     if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
@@ -35,6 +45,6 @@ if ($rol == 2) {
 } else {
     if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario);
+        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario . '&lista=actual');
     }
 }

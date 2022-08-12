@@ -38,19 +38,19 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             overflow-y: scroll;
         }
 
-        ::-webkit-scrollbar{
+        ::-webkit-scrollbar {
             width: 10px;
         }
 
-        ::-webkit-scrollbar-track{
+        ::-webkit-scrollbar-track {
             background: #dddddd;
         }
 
-        ::-webkit-scrollbar-thumb{
+        ::-webkit-scrollbar-thumb {
             background: #47c5b5;
         }
 
-        
+
 
         .sidebar #txtRol {
             padding: 15px;
@@ -346,17 +346,81 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 <?php
                 if ($_SESSION['rol'] == 4) {
                 ?>
-                    <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
+
+                    <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div id="textItem">
+                            <i class="bi bi-list-check"></i>
+                            <span style="margin-left: -5px;">
+                                Tareas
+                            </span>
+                        </div>
+                        <i class="bi bi-caret-down"></i>
+                    </a>
+
+                    <ul class="navbar-nav" id="desplegarMenuTarea">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>&lista=actual">Tareas pendientes y En progreso</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>&lista=completas">Tareas completadas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>&lista=canceladas">Tareas canceladas</a>
+                        </li>
+                    </ul>
+
                     <?php
                 } else if ($_SESSION['rol'] == 2) {
 
                     if ($_SESSION['cantAreas'] == 1) {
                     ?>
-                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&area=<?php echo $_SESSION['areaUsuario']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
+                        <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div id="textItem">
+                                <i class="bi bi-list-check"></i>
+                                <span style="margin-left: -5px;">
+                                    Tareas
+                                </span>
+                            </div>
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+
+                        <ul class="navbar-nav" id="desplegarMenuTarea">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=actual&area=<?php echo $_SESSION['areaUsuario']; ?>">Tareas pendientes y En progreso</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=completas&area=<?php echo $_SESSION['areaUsuario']; ?>">Tareas completadas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=canceladas&area=<?php echo $_SESSION['areaUsuario']; ?>">Tareas canceladas</a>
+                            </li>
+                        </ul>
                     <?php
                     } else {
                     ?>
-                        <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>"><i class="bi bi-list-check"></i>Tareas</a>
+
+                        <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div id="textItem">
+                                <i class="bi bi-list-check"></i>
+                                <span style="margin-left: -5px;">
+                                    Tareas
+                                </span>
+                            </div>
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+
+                        <ul class="navbar-nav" id="desplegarMenuTarea">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=actual&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>">Tareas pendientes y En progreso</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=completas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>">Tareas completadas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=canceladas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>">Tareas canceladas</a>
+                            </li>
+                        </ul>
+
                     <?php
                     }
                 } else if ($_SESSION['rol'] == 3) {
