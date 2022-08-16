@@ -296,7 +296,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                             } else if ($_SESSION['rol'] == 4) {
                                             ?>
 
-                                                <input type="hidden" name="areaUsuario" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                                <input type="hidden" name="selectArea" value="<?php echo $_SESSION['areaUsuario']; ?>">
 
                                                 <div class="form-floating mb-3">
                                                     <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
@@ -416,7 +416,13 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                 }
                                                 ?>
                                             </td>
-                                            <td><?php echo $completas[11]; ?></td>
+                                            <td>
+                                                <?php
+                                                $date = date_create($completas[11]);
+                                                $fechaProblema = date_format($date, 'd/m/Y H:i:s');
+                                                echo $fechaProblema;
+                                                ?>
+                                            </td>
                                             <td><?php echo $completas[14]; ?></td>
                                             <td><?php echo $completas[16]; ?></td>
                                             <td><?php echo $completas[18]; ?></td>

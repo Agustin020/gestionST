@@ -80,7 +80,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Afectado/a</th>
                                 <th scope="col">Fecha Eliminada</th>
-                                <th scope="col">Área</th>
+                                <th scope="col">Dirección</th>
                                 <th scope="col">Motivo Eliminación</th>
 
                                 <th scope="col">Acción</th>

@@ -26,16 +26,12 @@ $usuarioCreado = $_SESSION['nombreApellido'];
 if ($rol == 2) {
     if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $area, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
-        if ($_SESSION['cantAreas'] == 1) {
-            header('location: ' . $_SERVER['HTTP_REFERER']);
-        } else {
-            header('location: ' . $_SERVER['HTTP_REFERER']);
-        }
+        header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 } else if ($rol == 3) {
     if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $area, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
-        header('location: ' . $_SERVER['HTTP_REFERER']);
+        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&lista=actual');
     }
 } else {
     if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $area, $usuarioCreado)) {
