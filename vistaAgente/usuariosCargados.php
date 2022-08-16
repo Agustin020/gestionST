@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL ^ E_NOTICE || E_WARNING);
 if (!(time() - $_SESSION['time'] > 5400)) {
     if ($_SESSION['rol'] == 3) {
 ?>
@@ -40,6 +40,38 @@ if (!(time() - $_SESSION['time'] > 5400)) {
         </script>
 
         <body>
+
+            <?php
+            if ($_SESSION['usuarioAgregado']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'success',
+                        title: 'El usuario ha sido agregado al sistema',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                </script>
+            <?php
+                unset($_SESSION['usuarioAgregado']);
+            }
+
+            if ($_SESSION['usuarioError']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'No se ha podido añadir el usuario. Posiblemente el dni del usuario ya exista en el Sistema. Intente nuevamente'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['usuarioError']);
+            }
+            ?>
+
             <section id="container">
                 <p class="fs-5">Lista de usuarios cargados</p>
                 <hr>
@@ -75,7 +107,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                             $date = date_create($usuario[6]);
                                             $ultimologin = date_format($date, 'd/m/Y H:i:s');
                                             echo $ultimologin;
-                                        }else{
+                                        } else {
                                             echo $usuario[6];
                                         }
 

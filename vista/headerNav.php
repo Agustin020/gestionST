@@ -164,7 +164,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 <button id="iconToggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión de tareas - Sistemas</a>
+                <a class="navbar-brand" style="margin-left: 5px;">Gestión de tareas - Sistemas</a>
             </div>
 
             <ul class="navbar-nav settingsUser">

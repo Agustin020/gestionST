@@ -10,11 +10,11 @@ if ($co->asignarRolUsuario($idRol, $dni)) {
     $_SESSION['asignadoOk'] = true;
     if ($idRol < 5) {
         if ($co->quitarTareaAdmin($dni)) {
-            header('location: ../vistaAgente/index.php?accion=listarUsuarios');
+            header('location: ../vistaAgente/index.php?accion=cambioRoles');
         }
     }
 } else {
     session_start();
     $_SESSION['asignadoError'] = true;
-    header('location: ../vistaAgente/index.php?accion=listarUsuarios');
+    header('location: ../vistaAgente/index.php?accion=cambioRoles');
 }

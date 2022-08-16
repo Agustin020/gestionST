@@ -26,6 +26,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
+                    margin-bottom: 20px;
                 }
             </style>
 
@@ -51,6 +52,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                         </div>
                     </div>
 
+
                     <div id="totalMotivosRedes">
                         <canvas id="diagramaMotivosRedes"></canvas>
                     </div>
@@ -63,9 +65,13 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                         <canvas id="diagramaMotivosST"></canvas>
                     </div>
 
-                    <div id="totalMotivosReq">
-                        <canvas id="diagramaMotivosReq"></canvas>
+                    <hr style="grid-column: 1/4;">
+
+                    <div id="totalMotivosReq" style="grid-column: 1/4;">
+                        <canvas id="diagramaMotivosReq" width="400" height="400"></canvas>
                     </div>
+
+                    <hr style="grid-column: 1/4;">
 
                     <div id="totalMotivosFD">
                         <canvas id="diagramaMotivosFD"></canvas>
@@ -346,7 +352,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                         'LightBlue',
                         'LightCyan',
                         'MediumPurple',
-                        'MediumSlateBlue',
+                        'orange',
                         'RoyalBlue',
                         'DeepSkyBlue',
                         'Lavender',
@@ -394,7 +400,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                         'LightBlue',
                         'LightCyan',
                         'MediumPurple',
-                        'MediumSlateBlue',
+                        'MediumSeaGreen',
                         'RoyalBlue',
                         'DeepSkyBlue',
                         'Lavender',
@@ -477,8 +483,16 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                             display: true,
                             text: 'Total de requerimientos de Requerimientos'
                         },
-                    }
-                }
+                        legend: {
+                            display: true,
+                            position: 'left',
+                            align: 'middle',
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                },
+
             };
 
             //------------------------------------------

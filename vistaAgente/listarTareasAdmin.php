@@ -238,20 +238,6 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 <?php
                     unset($_SESSION['tareaEditada']);
                 }
-                if ($_SESSION['tareaEliminada']) {
-                ?>
-                    <script>
-                        Swal.fire({
-                            position: 'bottom-end',
-                            icon: 'success',
-                            title: 'La tarea ha sido eliminada',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    </script>
-                <?php
-                    unset($_SESSION['tareaEliminada']);
-                }
                 ?>
 
                 <p class="fs-5">Tareas <?php echo $estado; ?></p>
@@ -283,7 +269,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                             if ($_SESSION['rol'] == 3) {
                                             ?>
                                                 <div class="form-floating mb-3">
-                                                    <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                    <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
                                                         <option value="" selected>Seleccione...</option>
                                                         <?php
                                                         foreach ($listAreas as $area) {
@@ -693,7 +679,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                             if ($_SESSION['rol'] == 3) {
                                                             ?>
                                                                 <div class="form-floating mb-3">
-                                                                    <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                    <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
                                                                         <option value="<?php echo $completas[17]; ?>" selected><?php echo $completas[18]; ?> (Actual)</option>
                                                                         <?php
                                                                         foreach ($listAreas as $area) {
@@ -1250,7 +1236,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                         if ($_SESSION['rol'] == 3) {
                                                         ?>
                                                             <div class="form-floating mb-3">
-                                                                <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                                <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
                                                                     <option value="<?php echo $listTarea[17]; ?>" selected><?php echo $listTarea[18]; ?> (Actual)</option>
                                                                     <?php
                                                                     foreach ($listAreas as $area) {

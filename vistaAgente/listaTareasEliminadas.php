@@ -37,7 +37,9 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 $(document).ready(function() {
                     $('#tablaDinamicaLoad').DataTable({
                         aLengthMenu: [25, 50, 100, 200],
-                        aaSorting: [[ 0, "desc" ]],
+                        aaSorting: [
+                            [0, "desc"]
+                        ],
                         language: {
                             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                         }
@@ -48,6 +50,23 @@ if (!(time() - $_SESSION['time'] > 5400)) {
         </head>
 
         <body>
+            <?php
+            error_reporting(0);
+            if ($_SESSION['tareaEliminada']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'success',
+                        title: 'La tarea ha sido eliminada',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                </script>
+            <?php
+                unset($_SESSION['tareaEliminada']);
+            }
+            ?>
             <section id="container">
                 <p class="fs-5">Lista de tareas eliminadas</p>
                 <hr>
@@ -59,9 +78,8 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                 <th scope="col">#</th>
                                 <th scope="col">Motivo</th>
                                 <th scope="col">Descripción</th>
-                                <th scope="col">IP</th>
                                 <th scope="col">Afectado/a</th>
-                                <th scope="col">Fecha Problema</th>
+                                <th scope="col">Fecha Eliminada</th>
                                 <th scope="col">Área</th>
                                 <th scope="col">Motivo Eliminación</th>
 
@@ -76,11 +94,10 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                     <td id="nroArreglo"><?php echo $tarea[0]; ?></td>
                                     <td><?php echo $tarea[1]; ?></td>
                                     <td><?php echo $tarea[2]; ?></td>
-                                    <td><?php echo $tarea[3]; ?></td>
                                     <td><?php echo $tarea[4]; ?></td>
                                     <td>
                                         <?php
-                                        $date = date_create($tarea[9]);
+                                        $date = date_create($tarea[14]);
                                         $fechaProblema = date_format($date, 'd/m/Y H:i:s');
                                         echo $fechaProblema;
                                         ?>
@@ -204,7 +221,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
                                                 <?php
                                                 if ($tarea[10] != '') {
-                                                    $date = date_create($tarea[12]);
+                                                    $date = date_create($tarea[10]);
                                                     $fechaSolucion = date_format($date, 'd/m/Y H:i:s');
                                                 ?>
                                                     <div class="form-floating mb-3">

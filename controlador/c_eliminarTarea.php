@@ -7,7 +7,6 @@ $motivoEliminacion = $_POST['motivoEliminacion'];
 $nroArreglo = $_POST['id'];
 
 if ($co->eliminarTarea($motivoEliminacion, $nroArreglo)) {
-    session_start();
     $_SESSION['tareaEliminada'] = true;
-    header('location: ../vistaAgente/index.php?accion=listarTareasAdmin');
+    header('location: ../vistaAgente/index.php?accion=listarTareasEliminadas');
 }

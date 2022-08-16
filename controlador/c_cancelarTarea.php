@@ -5,18 +5,15 @@ $co = new Consultas();
 
 $motivoCancelacion = $_POST['motivoCancelacion'];
 $nroArreglo = $_POST['id'];
-$areaUsuario = $_SESSION['areaUsuario'];
 
 if ($_SESSION['rol'] == 2) {
     if ($co->cancelarTareaAgente($motivoCancelacion, $nroArreglo)) {
-        session_start();
-        $_SESSION['tareaCancelada'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareas');
+            $_SESSION['tareaCancelada'] = true;
+            header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 } else {
     if ($co->cancelarTareaAgente($motivoCancelacion, $nroArreglo)) {
-        session_start();
         $_SESSION['tareaCancelada'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario . '&lista=actual');
+        header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

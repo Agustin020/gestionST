@@ -24,14 +24,14 @@ if (isset($_POST['correo'])) {
 $username = $_POST['user'];
 $pass = $_POST['pass'];
 
-echo 'tipoUsuario: ' . $tipoUsuario . '<br>' .
+/*echo 'tipoUsuario: ' . $tipoUsuario . '<br>' .
     'dni: ' . $dni . '<br>' .
     'cantAreas: ' . $cantAreas . '<br>' .
     'nombre: ' . $nombre . '<br>' .
     'apellido: ' . $apellido . '<br>' .
     'correo: ' . $correo . '<br>' .
     'username: ' . $username . '<br>' .
-    'pass: ' . $pass . '<br>';
+    'pass: ' . $pass . '<br>';*/
 
 foreach ($selectArea as $area) {
     echo 'Area: ' . $area;

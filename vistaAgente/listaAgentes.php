@@ -163,11 +163,12 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                     Ver estadísticas
                                                 </a>
                                             </li>
+
                                             <?php
                                             require_once('../modelo/m_consultas.php');
                                             $co = new Consultas();
                                             $cantAreasAgente = $co->verificarTotalAreasAgenteDni($list[0]);
-                                            if ($list[5] == 'Agente' && $cantAreasAgente == 1) {
+                                            if ($list[5] == 'Agente' && $cantAreasAgente == 1 || $cantAreasAgente == 2) {
                                             ?>
                                                 <li>
                                                     <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAgregarAreaAgente<?php echo $list[0]; ?>">
@@ -175,7 +176,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                     </a>
                                                 </li>
                                             <?php
-                                            } else if ($list[5] == 'Agente' && $cantAreasAgente == 2) {
+                                            } else if ($list[5] == 'Agente' && $cantAreasAgente == 2 || $cantAreasAgente == 3) {
                                             ?>
                                                 <li>
                                                     <a type="button" class="dropdown-item" href="../controlador/c_eliminarAreaUsuario.php?dni=<?php echo $list[0]; ?>&selectArea=<?php echo $list[7]; ?>">

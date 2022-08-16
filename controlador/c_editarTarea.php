@@ -3,6 +3,7 @@ session_start();
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
+$nroArreglo = $_POST['nroArreglo'];
 $selectArea = $_POST['selectArea'];
 $selectMotivos = $_POST['selectMotivos'];
 $descripcion = $_POST['descripcion'];
@@ -33,15 +34,6 @@ if (isset($_POST['solucion'])) {
     $solucion = '';
 }
 
-$nroArreglo = $_POST['nroArreglo'];
-
-$areaUsuario = $_SESSION['areaUsuario'];
-
-if (isset($_SESSION['areaUsuario2'])) {
-    $areaUsuario2 = $_SESSION['areaUsuario2'];
-} else {
-    $areaUsuario2 = '';
-}
 
 /*echo 'nroArreglo: ' . $nroArreglo . '<br>' . 
 'selectMotivos: ' . $selectMotivos . '<br>' .
@@ -56,20 +48,16 @@ if (isset($_SESSION['areaUsuario2'])) {
 if ($_SESSION['rol'] == 2) {
     if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $selectArea, $nroArreglo)) {
         $_SESSION['tareaEditada'] = true;
-        if ($_SESSION['cantAreas'] == 1) {
-            header('location: ../vistaAgente/index.php?accion=listarTareas&listado=actual&area=' . $areaUsuario);
-        } else {
-            header('location: ../vistaAgente/index.php?accion=listarTareas&listado=actual&area=' . $areaUsuario . '&area2=' . $areaUsuario2);
-        }
+        header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 } else if ($_SESSION['rol'] == 3) {
     if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $selectArea, $nroArreglo)) {
         $_SESSION['tareaEditada'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&lista=actual');
+        header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 } else {
     if ($co->editarTareaAgente($selectMotivos, $descripcion, $ip, $nombre_apellido, $cel, $selectDireccion, $motivoCancelacion, $solucion, $selectArea, $nroArreglo)) {
         $_SESSION['tareaEditada'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario . '&lista=actual');
+        header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

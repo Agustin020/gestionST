@@ -290,6 +290,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             if ($_SESSION['cantAreas'] == 1) {
                                             ?>
 
+                                                <input type="hidden" name="selectArea" value="<?php echo $_SESSION['areaUsuario'] ?>">
+
                                                 <div class="form-floating mb-3">
                                                     <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
                                                         <option value="" selected>Seleccione...</option>
@@ -312,7 +314,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             ?>
 
                                                 <div class="form-floating mb-3">
-                                                    <select class="form-select" name="areaUsuario" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
+                                                    <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>
                                                         <option value="" selected>Seleccione...</option>
                                                         <?php
                                                         foreach ($areaUsuario as $area) {
@@ -957,13 +959,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                         if ($_SESSION['cantAreas'] == 1) {
                                                         ?>
 
-                                                        <input type="hidden" name="selectArea" value="<?php echo $_SESSION['areaUsuario']; ?>">
+                                                            <input type="hidden" name="selectArea" value="<?php echo $_SESSION['areaUsuario']; ?>">
 
                                                             <div class="form-floating mb-3">
 
                                                                 <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
                                                                     <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?> (Actual)</option>
-                                                                    
+
                                                                     <?php
                                                                     foreach ($listMotivos as $motivos) {
                                                                     ?>

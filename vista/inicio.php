@@ -24,7 +24,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             }
 
             section {
-                padding: 10px;
+                padding: 15px;
             }
 
             .cajas {

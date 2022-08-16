@@ -42,6 +42,18 @@ if ($co->autenticarUsuario($user, $password)) {
                 $_SESSION['areaUsuario'] = $codigoArea[0];
                 $_SESSION['areaUsuario2'] = $codigoArea[1];
                 $_SESSION['areaUsuarioNombre'] = $nombreAreas;
+            } else if ($totalAreasAgente == 3){
+                $listAreas = $co->listarNombreAreaUsuario($_SESSION['dni']);
+                $nombreAreas = '';
+                foreach($listAreas as $area){
+                    $codigoArea .= $area[0];
+                    $nombreAreas .= $area[1] . '<br>';
+                }
+
+                $_SESSION['areaUsuario'] = $codigoArea[0];
+                $_SESSION['areaUsuario2'] = $codigoArea[1];
+                $_SESSION['areaUsuario3'] = $codigoArea[2];
+                $_SESSION['areaUsuarioNombre'] = $nombreAreas;
             }
             $_SESSION['time'] = time();
 

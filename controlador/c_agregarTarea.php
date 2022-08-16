@@ -3,18 +3,13 @@ session_start();
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
+$area = $_POST['selectArea'];
 $selectMotivos = $_POST['selectMotivos'];
 $descripcion = $_POST['descripcion'];
 $ip = $_POST['ip'];
 $nombreApellido = $_POST['nombreApellidoAfectado'];
 $celular = $_POST['cel'];
 $direccion = $_POST['direccion'];
-$areaUsuario = $_SESSION['areaUsuario'];
-
-
-$areaUsuario2 = $_SESSION['areaUsuario2'];
-
-
 
 $rol = $_POST['rol'];
 
@@ -29,22 +24,22 @@ $usuarioCreado = $_SESSION['nombreApellido'];
 'rol: ' . $rol . '<br>';*/
 
 if ($rol == 2) {
-    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $area, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
         if ($_SESSION['cantAreas'] == 1) {
-            header('location: ../vistaAgente/index.php?accion=listarTareas&listado=actual&area=' . $areaUsuario);
+            header('location: ' . $_SERVER['HTTP_REFERER']);
         } else {
-            header('location: ../vistaAgente/index.php?accion=listarTareas&listado=actual&area=' . $areaUsuario . '&area2=' . $areaUsuario2);
+            header('location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
 } else if ($rol == 3) {
-    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $area, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&lista=actual');
+        header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 } else {
-    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $areaUsuario, $usuarioCreado)) {
+    if ($co->agregarTarea($selectMotivos, $descripcion, $ip, $nombreApellido, $celular, $direccion, $area, $usuarioCreado)) {
         $_SESSION['tareaOK'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario . '&lista=actual');
+        header('location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

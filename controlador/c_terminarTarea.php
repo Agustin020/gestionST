@@ -5,21 +5,18 @@ $co = new Consultas();
 
 $solucion = $_POST['solucion'];
 $nroArreglo = $_POST['id'];
-$areaUsuario = $_SESSION['areaUsuario'];
 
-if($_SESSION['rol'] == 2){
-    if($co->terminarTareaAgente($solucion, $nroArreglo)){
-        session_start();
+$cantAreas = $_SESSION['cantAreas'];
+
+if ($_SESSION['rol'] == 2) {
+    if ($co->terminarTareaAgente($solucion, $nroArreglo)) {
         $_SESSION['tareaTerminada'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareas');
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
-}else{
-    if($co->terminarTareaAgente($solucion, $nroArreglo)){
+} else {
+    if ($co->terminarTareaAgente($solucion, $nroArreglo)) {
         session_start();
         $_SESSION['tareaTerminada'] = true;
-        header('location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario . '&lista=actual');
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
-
-
-

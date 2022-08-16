@@ -107,12 +107,12 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             $est = new ConsultasEstadisticas();
             if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
 
-                $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario'], $_SESSION['areaUsuario2']);
+                $tareasTotalArea = $co->contarTotalTareasAreas($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3']);
                 //
-                $tareasPendientesArea = $co->contarTareasPendientesArea($_SESSION['areaUsuario']);
-                $tareasCompletasArea = $co->contarTareasCompletasArea($_SESSION['areaUsuario']);
-                $tareasEnProgresoArea = $co->contarTareasEnProgresoArea($_SESSION['areaUsuario']);
-                $tareasCanceladasArea = $co->contarTareasCanceladasArea($_SESSION['areaUsuario']);
+                $tareasPendientesArea = $co->contarTareasPendientesArea($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3']);
+                $tareasCompletasArea = $co->contarTareasCompletasArea($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3']);
+                $tareasEnProgresoArea = $co->contarTareasEnProgresoArea($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3']);
+                $tareasCanceladasArea = $co->contarTareasCanceladasArea($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3']);
                 //
                 $nroCompletasUser = $co->contarTareasCompletasUser($_SESSION['username']);
             }

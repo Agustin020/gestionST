@@ -21,7 +21,18 @@ switch ($accion) {
         break;
 
     case 'listarTareas':
+        error_reporting(0);
         $listado = $_GET['listado'];
+        $area = $_GET['area'];
+        $area2 = $_GET['area2'];
+        $area3 = $_GET['area3'];
+
+
+        if ($area != $_SESSION['areaUsuario'] || $area2 != $_SESSION['areaUsuario2'] || $area3 != $_SESSION['areaUsuario3']) {
+            header("location:javascript:history.go(-1)");
+        }
+
+
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
         $controller->listarTareasAgenteContr($listado);
@@ -31,13 +42,13 @@ switch ($accion) {
         if (isset($_GET['lista'])) {
             $lista = $_GET['lista'];
         } else {
-            $lista = null;
+            $lista = '';
         }
 
         if (isset($_GET['area'])) {
             $areaSupervisor = $_GET['area'];
         } else {
-            $areaSupervisor = null;
+            $areaSupervisor = '';
         }
 
         require('../controlador/c_admin.php');
@@ -73,7 +84,7 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->listarDireccionesContr();
         break;
-    case 'listarUsuarios':
+    case 'cambioRoles':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
         $controller->listarUsuariosContr();
@@ -83,7 +94,7 @@ switch ($accion) {
         $controller = new ControladorAdmin();
         $controller->listarUsuariosBajaContr();
         break;
-    case 'listarUsuariosCargados':
+    case 'listarUsuarios':
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
         $controller->listarUsuariosCargadosContr();
@@ -92,5 +103,9 @@ switch ($accion) {
         require('../controlador/c_admin.php');
         $controller = new ControladorAdmin();
         $controller->pageBlanquearPassContr();
+        break;
+
+    default:
+        header("location:javascript:history.go(-1)");
         break;
 }

@@ -657,17 +657,6 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                         <div class="form-floating mb-3">
                                                             <select class="form-select" name="selectMotivos" id="floatingSelect" aria-label="Floating label select example" required>
                                                                 <option value="<?php echo $listTarea[1]; ?>" selected><?php echo $listTarea[2]; ?> (Actual)</option>
-                                                                <?php
-                                                                foreach ($listMotivos as $motivo) {
-                                                                ?>
-                                                                    <option value="<?php echo $motivo[0]; ?>">
-                                                                        <?php
-                                                                        echo $motivo[1];
-                                                                        ?>
-                                                                    </option>
-                                                                <?php
-                                                                }
-                                                                ?>
                                                             </select>
                                                             <label for="floatingSelect">Motivo del incoveniente</label>
                                                         </div>

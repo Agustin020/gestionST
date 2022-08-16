@@ -153,27 +153,23 @@ class ControladorAdmin
 
     public function listarTareasAgenteContr($listado)
     {
+        //listado = estadoTarea
         echo ('<title>Listado de Tareas - Gestión de tareas Sistemas</title>');
         require('../modelo/m_consultas.php');
         $co = new Consultas();
 
-        if ($_SESSION['cantAreas'] == 1) {
-            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], '', $listado);
-        } else {
-            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $listado);
-        }
-
         if ($listado == 'actual') {
             $estado = 'Pendiente y en Progreso';
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3'], $listado);
         } else if ($listado == 'completas') {
             $estado = 'Completadas';
-            if ($_SESSION['cantAreas'] == 1) {
-                $tareasCompletasActual = $co->listarTareasAgentesCompletosActual($_SESSION['areaUsuario'], '');
-            } else {
-                $tareasCompletasActual = $co->listarTareasAgentesCompletosActual($_SESSION['areaUsuario'], $_SESSION['areaUsuario2']);
-            }
+            $tareasCompletasActual = $co->listarTareasAgentesCompletosActual($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3']);
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3'], $listado);
         } else if ($listado == 'canceladas') {
             $estado = 'Canceladas';
+            $listTareasAgentes = $co->listarTareasAgentes($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3'], $listado);
+        } else{
+            header("location:javascript:history.go(-1)");
         }
 
         $listMotivos = $co->listarMotivosProblemasUsuario($_SESSION['dni']);
@@ -193,25 +189,36 @@ class ControladorAdmin
         $listDatosAgentes = $co->listarAgentes();
         //Comprobar si esta en un Área el usuario, sino es Admin
         if (isset($_SESSION['areaUsuario'])) {
-
-            $listTareasAgentes = $co->listarTareasAgentes($areaSupervisor, '', $lista);
-            if ($lista == 'actual') {
-                $estado = "Pendientes y en Progreso";
-            } else if ($lista == 'completas') {
-                $estado = "Completadas";
-                $listTareasCompletasActual = $co->listarTareasAgentesCompletosActual($areaSupervisor, '');
-            } else if ($lista == 'canceladas') {
-                $estado = "Canceladas";
+            if ($_SESSION['areaUsuario'] == $areaSupervisor) {
+                if ($lista == 'actual') {
+                    $listTareasAgentes = $co->listarTareasAgentes($areaSupervisor, '', '', $lista);
+                    $estado = "Pendientes y en Progreso";
+                } else if ($lista == 'completas') {
+                    $estado = "Completadas";
+                    $listTareasAgentes = $co->listarTareasAgentes($areaSupervisor, '', '', $lista);
+                    $listTareasCompletasActual = $co->listarTareasAgentesCompletosActual($areaSupervisor, '', '');
+                } else if ($lista == 'canceladas') {
+                    $listTareasAgentes = $co->listarTareasAgentes($areaSupervisor, '', '', $lista);
+                    $estado = "Canceladas";
+                } else {
+                    header("location:javascript:history.go(-1)");
+                }
+            } else {
+                header("location:javascript:history.go(-1)");
             }
         } else {
-            $listTareasAgentes = $co->listarTareasAdmin($lista);
             if ($lista == 'actual') {
                 $estado = "Pendientes y en Progreso";
+                $listTareasAgentes = $co->listarTareasAdmin($lista);
             } else if ($lista == 'completas') {
                 $estado = "Completadas";
+                $listTareasAgentes = $co->listarTareasAdmin($lista);
                 $listTareasCompletasActual = $co->listarTareasCompletasActual();
             } else if ($lista == 'canceladas') {
                 $estado = "Canceladas";
+                $listTareasAgentes = $co->listarTareasAdmin($lista);
+            } else {
+                header("location:javascript:history.go(-1)");
             }
         }
 
@@ -295,7 +302,7 @@ class ControladorAdmin
         $listAreas = $co->listarAreas();
         require('libreriaEstilos.php');
         require('headerNav.php');
-        require('usuarios.php');
+        require('cambioRoles.php');
     }
 
     public function listarUsuariosBajaContr()

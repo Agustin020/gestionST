@@ -5,18 +5,22 @@ $co = new Consultas();
 
 $nroArreglo = $_GET['id'];
 
-$areaUsuario = $_SESSION['areaUsuario'];
+$cantAreas = $_SESSION['cantAreas'];
 
 if ($_SESSION['rol'] == 2) {
     if ($co->quitarAgenteAsignado($nroArreglo)) {
-        session_start();
-        $_SESSION['tareaAsignadaQuitada'] = true;
-        header('Location: ../vistaAgente/index.php?accion=listarTareas');
+        if ($cantAreas == 1) {
+            $_SESSION['tareaAsignadaQuitada'] = true;
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            $_SESSION['tareaAsignadaQuitada'] = true;
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }
     }
 } else {
     if ($co->quitarAgenteAsignado($nroArreglo)) {
         session_start();
         $_SESSION['tareaAsignadaQuitada'] = true;
-        header('Location: ../vistaAgente/index.php?accion=listarTareasAdmin&area=' . $areaUsuario . '&lista=actual');
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

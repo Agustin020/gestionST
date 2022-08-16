@@ -87,7 +87,8 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
 
         .sidebar #desplegarMenuTarea a,
-        .sidebar #desplegarMenuEst a {
+        .sidebar #desplegarMenuEst a,
+        .sidebar #desplegarMenuUsuarios a {
             border-left: 5px solid #47c5b5;
         }
 
@@ -170,6 +171,14 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 $('#menuTarea i').toggleClass('bi bi-caret-up');
 
             });
+
+            $('#desplegarMenuUsuarios').hide();
+            $('#menuUsuarios').click(function() {
+                $('#desplegarMenuUsuarios').toggle(150);
+                $('#menuUsuarios i').toggleClass('bi bi-caret-up');
+
+            });
+
         });
 
         function verificarPassIguales(confirmarPass) {
@@ -180,6 +189,58 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 document.getElementById('passRepetido').setCustomValidity('');
             }
         }
+
+        //MODAL NUEVO USUARIO
+
+        function mostrarSelectArea(valor) {
+            var selectRol = valor.value;
+
+            if (selectRol == 1 || selectRol == 3) {
+                $('.selectCantArea').hide(200).find('select').prop('disabled', true);
+                $('.selectArea').hide(200).find('select').prop('disabled', true);
+            } else if (selectRol == 2) {
+                $('.selectCantArea').show(200).find('select').prop('disabled', false);
+
+            } else if (selectRol == 4) {
+                $('.selectArea').show(200).find('select').prop('disabled', false);
+                $('.selectCantArea').hide(200).find('select').prop('disabled', true);
+            } else if (selectRol == '') {
+                $('.selectCantArea').hide(200).find('select').prop('disabled', true);
+                $('.selectArea').hide(200).find('select').prop('disabled', true);
+            }
+        }
+
+        function mostrarCantSelectAreas(valor) {
+            var cantAreas = valor.value;
+            if (cantAreas == 1) {
+                $('.selectArea').show(200).find('select').prop('disabled', false);
+                $('.selectArea2').hide(200).find('select').prop('disabled', true);
+                $('.selectArea3').hide(200).find('select').prop('disabled', true);
+            } else if (cantAreas == 2) {
+                $('.selectArea').show(200).find('select').prop('disabled', false);
+                $('.selectArea2').show(200).find('select').prop('disabled', false);
+                $('.selectArea3').show(200).find('select').prop('disabled', false);
+            } else if (cantAreas == 3) {
+                $('.selectArea').show(200).find('select').prop('disabled', false);
+                $('.selectArea2').show(200).find('select').prop('disabled', false);
+                $('.selectArea3').show(200).find('select').prop('disabled', false);
+            } else {
+                $('.selectArea').hide(200).find('select').prop('disabled', true);
+                $('.selectArea2').hide(200).find('select').prop('disabled', true);
+                $('.selectArea3').hide(200).find('select').prop('disabled', true);
+            }
+        }
+
+        function validarUsernameExistente(username) {
+            $.ajax({
+                type: 'POST',
+                url: 'validacionDatosRepetidos/validarUsernameExistente.php',
+                data: 'usuario=' + username.value,
+                success: function(r) {
+                    $('#userExistente').html(r);
+                }
+            });
+        }
     </script>
 
     <nav id="navHeader" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top header">
@@ -188,7 +249,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 <button id="iconToggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión de tareas - Sistemas</a>
+                <a class="navbar-brand" style="margin-left: 5px;">Gestión de tareas - Sistemas</a>
             </div>
 
             <ul class="navbar-nav settingsUser">
@@ -396,7 +457,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                             </li>
                         </ul>
                     <?php
-                    } else {
+                    } else if ($_SESSION['cantAreas'] == 2) {
                     ?>
 
                         <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
@@ -418,6 +479,32 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=canceladas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>">Tareas canceladas</a>
+                            </li>
+                        </ul>
+
+                    <?php
+                    } else if ($_SESSION['cantAreas'] == 3) {
+                    ?>
+
+                        <a class="nav-link" role="button" id="menuTarea" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div id="textItem">
+                                <i class="bi bi-list-check"></i>
+                                <span style="margin-left: -5px;">
+                                    Tareas
+                                </span>
+                            </div>
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+
+                        <ul class="navbar-nav" id="desplegarMenuTarea">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=actual&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>&area3=<?php echo $_SESSION['areaUsuario3'] ?>">Tareas pendientes y En progreso</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=completas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>&area3=<?php echo $_SESSION['areaUsuario3'] ?>">Tareas completadas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="index.php?accion=listarTareas&listado=canceladas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>&area3=<?php echo $_SESSION['areaUsuario3'] ?>">Tareas canceladas</a>
                             </li>
                         </ul>
 
@@ -469,7 +556,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                             <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&lista=actual">Tareas pendientes y En progreso</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&lista=completos">Tareas completadas</a>
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&lista=completas">Tareas completadas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasAdmin&lista=canceladas">Tareas canceladas</a>
@@ -478,16 +565,6 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                             <a class="nav-link" aria-current="page" href="index.php?accion=listarTareasEliminadas">Tareas eliminadas</a>
                         </li>
                     </ul>
-                <?php
-                }
-                ?>
-
-                <?php
-                if ($_SESSION['rol'] == 3) {
-                ?>
-                    <a class="nav-link" aria-current="page" href="index.php?accion=listarAgentes">
-                        <i class="bi bi-people"></i>Lista de Agentes
-                    </a>
 
                     <a class="nav-link" aria-current="page" href="index.php?accion=listarMotivosReq">
                         <i class="bi bi-list-nested"></i>Motivos de tareas
@@ -501,8 +578,35 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 <?php
                 if ($_SESSION['rol'] == 3) {
                 ?>
-                    <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuarios"><i class="bi bi-people"></i>Usuarios</a>
-                    <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuariosCargados"><i class="bi bi-people"></i>Usuarios cargados</a>
+
+                    <a class="nav-link" role="button" id="menuUsuarios" aria-current="page" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div id="textItem">
+                            <i class="bi bi-people"></i>
+                            <span style="margin-left: -5px;">
+                                Usuarios
+                            </span>
+                        </div>
+                        <i class="bi bi-caret-down"></i>
+                    </a>
+
+                    <ul class="navbar-nav" id="desplegarMenuUsuarios">
+                        <li class="nav-item">
+                            <a class="nav-link" role="button" data-bs-toggle="modal" data-bs-target="#modalNuevoUsuario">Agregar nuevo Usuario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarAgentes">Listado de Agentes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarUsuarios">Listado de Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=cambioRoles">Cambio de roles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?accion=listarBajas">Listado de bajas</a>
+                        </li>
+                    </ul>
+
                     <a class="nav-link" aria-current="page" href="index.php?accion=blanqueoPass"><i class="bi bi-key"></i>Blanquear contraseña</a>
                 <?php
                 }
@@ -525,6 +629,132 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
 
     </nav>
+
+    <!-- Modal Nuevo Usuario -->
+    <form action="../controlador/c_agregarUsuario.php" method="post" novalidate>
+        <div class="modal fade" id="modalNuevoUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Agregar Nuevo Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <?php
+                        require_once('../modelo/m_consultas.php');
+                        $co = new Consultas();
+                        $listRoles = $co->listarRoles();
+                        $listAreas = $co->listarAreas();
+                        ?>
+
+                        <div class="form-floating mb-3">
+                            <select class="form-select" onchange="mostrarSelectArea(this);" name="selectRol" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected>Seleccione...</option>
+                                <?php
+                                foreach ($listRoles as $rol) {
+                                ?>
+                                    <option value="<?php echo $rol[0]; ?>"><?php echo $rol[1]; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Elegir tipo de Usuario</label>
+                        </div>
+
+                        <div class="form-floating mb-3 selectCantArea" style="display: none;">
+                            <select class="form-select" onchange="mostrarCantSelectAreas(this);" name="selectCantArea" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected>Seleccione...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <label for="floatingSelect">Elegir la cantidad de área/s donde se desempeñará</label>
+                        </div>
+
+                        <div class="form-floating mb-3 selectArea" style="display: none;">
+                            <select class="form-select" name="selectArea[]" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected>Seleccione...</option>
+                                <?php
+                                foreach ($listAreas as $area) {
+                                ?>
+                                    <option value="<?php echo $area[0]; ?>"><?php echo $area[1]; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Elegir el Área donde se desempeña</label>
+                        </div>
+
+                        <div class="form-floating mb-3 selectArea2" style="display: none;">
+                            <select class="form-select" name="selectArea[]" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected>Seleccione...</option>
+                                <?php
+                                foreach ($listAreas as $area) {
+                                ?>
+                                    <option value="<?php echo $area[0]; ?>"><?php echo $area[1]; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Elegir el Área donde se desempeña</label>
+                        </div>
+
+                        <div class="form-floating mb-3 selectArea3" style="display: none;">
+                            <select class="form-select" name="selectArea[]" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected>Seleccione...</option>
+                                <?php
+                                foreach ($listAreas as $area) {
+                                ?>
+                                    <option value="<?php echo $area[0]; ?>"><?php echo $area[1]; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Elegir el Área donde se desempeña</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="number" name="dni" min="1000000" max="99999999" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                            <label for="floatingInput">Dni</label>
+
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" name="nombre" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                            <label for="floatingInput">Nombre</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" name="apellido" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                            <label for="floatingInput">Apellido</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="ejemplo">
+                            <label for="floatingInput">Correo (Opcional)</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" name="user" oninput="validarUsernameExistente(this);" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                            <label for="floatingInput">Nombre de Usuario</label>
+                            <span id="userExistente" style="color: #dc3545;"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" name="pass" class="form-control" id="floatingInput" placeholder="ejemplo" required>
+                            <label for="floatingInput">Contraseña</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" id="btnGuardar" class="btn btn-primary">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 <?php
 }
 ?>
