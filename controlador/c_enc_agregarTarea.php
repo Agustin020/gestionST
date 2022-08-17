@@ -16,7 +16,7 @@ $cel = $_POST['cel'];
 $direccion = $_POST['selectDireccion'];
 $selectArea = $_POST['selectArea'];
 
-$usuarioCreado = $_SESSION['nombreApellido'];
+$usuarioCreado = $_POST['nombreApellido'];
 
 /*echo 'SelectMotivos: ' . $selectMotivos . '<br>' .
 'descripcion: ' . $descripcion . '<br>' .

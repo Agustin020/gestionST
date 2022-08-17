@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-if (!(time() - $_SESSION['time'] > 5400)) {
+if (!(time() - $_SESSION['time'] > 10)) {
     if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
@@ -264,6 +264,8 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                             <p class="fs-6">Ingrese la tarea con sus respectivos datos</p>
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
+
+                                            <input type="hidden" name="nombreApellido" value="<?php echo $_SESSION['nombreApellido']; ?>">
 
                                             <?php
                                             if ($_SESSION['rol'] == 3) {

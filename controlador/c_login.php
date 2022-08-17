@@ -1,5 +1,6 @@
 <?php
 
+
 require('../modelo/m_consultas.php');
 
 $user = $_POST['user'];

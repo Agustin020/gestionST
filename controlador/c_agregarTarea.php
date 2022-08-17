@@ -13,7 +13,7 @@ $direccion = $_POST['direccion'];
 
 $rol = $_POST['rol'];
 
-$usuarioCreado = $_SESSION['nombreApellido'];
+$usuarioCreado = $_POST['nombreApellido'];
 
 /*echo 'selectMotivos: ' . $selectMotivos . '<br>' .
 'descripcion: ' . $descripcion . '<br>' .

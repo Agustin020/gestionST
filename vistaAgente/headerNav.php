@@ -631,7 +631,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
     </nav>
 
     <!-- Modal Nuevo Usuario -->
-    <form action="../controlador/c_agregarUsuario.php" method="post" novalidate>
+    <form action="../controlador/c_agregarUsuario.php" method="post">
         <div class="modal fade" id="modalNuevoUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
             <div class="modal-dialog">

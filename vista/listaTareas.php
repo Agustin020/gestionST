@@ -110,14 +110,14 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             <section id="container">
 
                 <?php
-                error_reporting(0);
+                
                 if ($_SESSION['tareaOK'] == true) {
                 ?>
                     <script>
                         Swal.fire({
                             position: 'bottom-end',
                             icon: 'success',
-                            title: 'La tarea ha sido añadida exitosamente',
+                            title: 'La tarea ha sido añadida con éxito!',
                             showConfirmButton: false,
                             timer: 1500
                         })
@@ -128,7 +128,6 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                 ?>
 
                 <?php
-                error_reporting(0);
                 if ($_SESSION['tareaEditada'] == true) {
                 ?>
                     <script>
@@ -183,6 +182,8 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                             <p class="fs-6">Ingrese la tarea con sus respectivos datos</p>
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
+
+                                            <input type="hidden" name="nombreApellido" value="<?php echo $_SESSION['nombreApellido'];?>">
 
                                             <div class="form-floating mb-3">
                                                 <select class="form-select" name="selectArea" onchange="mostrarMotivosProblemas(this);" id="floatingSelect" aria-label="Floating label select example" required>

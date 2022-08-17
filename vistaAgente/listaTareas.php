@@ -285,6 +285,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                             <p class="fs-6">Ingrese la tarea con sus respectivos datos</p>
 
                                             <input type="hidden" name="rol" value="<?php echo $_SESSION['rol']; ?>">
+                                            
+                                            <input type="hidden" name="nombreApellido" value="<?php echo $_SESSION['nombreApellido']; ?>">
 
                                             <?php
                                             if ($_SESSION['cantAreas'] == 1) {
