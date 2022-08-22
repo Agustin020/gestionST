@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-if (!(time() - $_SESSION['time'] > 5400)) {
+if (!(time() - $_SESSION['time'] >= 3600)) {
+    $_SESSION['time'] = time();
     if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
@@ -8,6 +9,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
         <head>
             <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="3600">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
@@ -122,7 +124,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             ?>
 
             <section id="container">
-                <p class="fs-5">Lista de Direcciones de la Municipalidad</p>
+                <p class="fs-5">Lista de Direcciones/Entidades</p>
                 <hr>
 
                 <?php
@@ -157,7 +159,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
                                     <div class="form-floating mb-3">
                                         <input type="text" name="direccion" class="form-control" id="floatingInput" placeholder="ejemplo" required>
-                                        <label for="floatingInput">Nombre de la dirección</label>
+                                        <label for="floatingInput">Nombre de la Dirección o Entidad</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
@@ -226,7 +228,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Editar Dirección</h5>
+                                            <h5 class="modal-title" id="staticBackdropLabel">Editar Dirección o Entidad</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form action="../controlador/c_editarDireccion.php" method="post" style="display: none;">
@@ -243,7 +245,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
                                                 <div class="form-floating mb-3">
                                                     <input type="text" name="direccion" value="<?php echo $direccion[1]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo" required>
-                                                    <label for="floatingInput">Nombre del Área o Sector</label>
+                                                    <label for="floatingInput">Nombre de la Direccón o Entidad</label>
                                                 </div>
 
                                                 <div class="form-floating mb-3">

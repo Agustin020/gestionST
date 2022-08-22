@@ -1,7 +1,8 @@
 <?php
-
+error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-if (!(time() - $_SESSION['time'] > 5400)) {
+if (!(time() - $_SESSION['time'] >= 3600)) {
+    $_SESSION['time'] = time();
     if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
@@ -9,7 +10,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
         <head>
             <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta http-equiv="refresh" content="3600">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Inicio - Gestión de tareas Sistemas</title>
             <?php require('libreriaEstilos.php'); ?>
@@ -62,6 +63,12 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                     margin: 10px 20px;
                 }
             </style>
+
+            <!--<script>
+                function redireccionar() {
+                    setTimeout("location.href='../vista/login.php'", 5000);
+                }
+            </script>-->
         </head>
 
         <body>
@@ -133,6 +140,14 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             ?>
 
             <section id="container">
+
+                <?php
+                if ((time() - $_SESSION['time'] > 10)) {
+                ?>
+                    <p class="fs-5">SESSION POR ACABARSE</p>
+                <?php
+                }
+                ?>
 
                 <div class="cajas animate__bounceInDown">
                     <p class="fs-5">Bienvenido <?php echo $_SESSION['nombreApellido']; ?></p>
@@ -390,7 +405,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
     </head>
 
     <body>
-        <p class="fs-5">Para acceder a esta sección debe iniciar sesión <a href="../vista/login.php" class="link-primary">Click aquí</a></p>
+        <p class="fs-5">Sesión caducada. Para acceder a esta sección debe iniciar sesión <a href="../vista/login.php" class="link-primary">Click aquí</a></p>
     </body>
 
     </html>

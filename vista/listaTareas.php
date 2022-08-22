@@ -1,7 +1,8 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-if (!(time() - $_SESSION['time'] > 5400)) {
+if (!(time() - $_SESSION['time'] >= 3600)) {
     if ($_SESSION['rol'] == 1) {
+        $_SESSION['time'] = time();
 ?>
 
 
@@ -10,6 +11,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
         <head>
             <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="3600">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
@@ -251,7 +253,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                     }
                                                     ?>
                                                 </select>
-                                                <label for="floatingSelect">Seleccione la Dirección donde se desempeña</label>
+                                                <label for="floatingSelect">Seleccione la Dirección o Entidad donde se desempeña</label>
                                             </div>
 
                                         </div>
@@ -286,7 +288,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                         <th scope="col">Afectado/a</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Fecha Problema</th>
-                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Dirección/Entidad</th>
                                         <th scope="col">Asignado</th>
                                         <th scope="col">Área</th>
                                         <th scope="col">Acción</th>
@@ -391,7 +393,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                     <th scope="col">Afectado/a</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
-                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Dirección/Entidad</th>
                                     <th scope="col">Asignado</th>
                                     <th scope="col">Área</th>
                                     <th scope="col">Acción</th>
@@ -595,7 +597,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
 
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                        <label for="floatingInput">Dirección donde se desempeña</label>
+                                                        <label for="floatingInput">Dirección o Entidad donde se desempeña</label>
                                                     </div>
 
                                                     <div class="form-floating mb-3">
@@ -695,7 +697,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
                                                                 }
                                                                 ?>
                                                             </select>
-                                                            <label for="floatingSelect">Dirección donde se desempeña el/la afectado/a</label>
+                                                            <label for="floatingSelect">Dirección o Entidad donde se desempeña el/la afectado/a</label>
                                                         </div>
 
                                                         <hr>

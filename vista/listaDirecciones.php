@@ -1,14 +1,16 @@
 <?php
-session_start();
 error_reporting(E_ALL ^ E_NOTICE);
-if (!(time() - $_SESSION['time'] > 5400)) {
+session_start();
+if (!(time() - $_SESSION['time'] >= 3600)) {
     if ($_SESSION['rol'] == 1) {
+        $_SESSION['time'] = time();
 ?>
         <!DOCTYPE html>
         <html lang="en">
 
         <head>
             <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="3600">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
@@ -109,7 +111,7 @@ if (!(time() - $_SESSION['time'] > 5400)) {
             ?>
 
             <section id="container">
-                <p class="fs-5">Lista de Direcciones de la Municipalidad</p>
+                <p class="fs-5">Lista de Direcciones/Entidades</p>
                 <hr>
 
                 <table class="table table-responsive table-bordered table-hover" id="tablaDinamicaLoad">

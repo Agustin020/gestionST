@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
-if (!(time() - $_SESSION['time'] > 10)) {
+if (!(time() - $_SESSION['time'] >= 3600)) {
+    $_SESSION['time'] = time();
     if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
 ?>
         <!DOCTYPE html>
@@ -8,6 +9,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
 
         <head>
             <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="3600">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
@@ -358,7 +360,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
                                                     }
                                                     ?>
                                                 </select>
-                                                <label for="floatingSelect">Seleccione el área donde se desempeña</label>
+                                                <label for="floatingSelect">Seleccione la Dirección o Entidad donde se desempeña</label>
                                             </div>
 
                                         </div>
@@ -396,7 +398,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
                                         <th scope="col">Estado</th>
                                         <th scope="col">Fecha Problema</th>
 
-                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Dirección/Entidad</th>
                                         <th scope="col">Asignado</th>
                                         <th scope="col">Área encargada</th>
                                         <th scope="col">Acción</th>
@@ -645,7 +647,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
 
                                                         <div class="form-floating mb-3">
                                                             <input type="text" name="area" value="<?php echo $completas[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                            <label for="floatingInput">Dirección donde se desempeña el/la afectado/a</label>
+                                                            <label for="floatingInput">Dirección o Entidad donde se desempeña el/la afectado/a</label>
                                                         </div>
 
                                                         <div class="form-floating mb-3">
@@ -764,7 +766,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
                                                                     }
                                                                     ?>
                                                                 </select>
-                                                                <label for="floatingSelect">Seleccione el área donde se desempeña</label>
+                                                                <label for="floatingSelect">Seleccione la Dirección o Entidad donde se desempeña</label>
                                                             </div>
 
 
@@ -871,7 +873,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
 
-                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Dirección/Entidad</th>
                                     <th scope="col">Asignado</th>
                                     <th scope="col">Área encargada</th>
                                     <th scope="col">Acción</th>
@@ -1129,7 +1131,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
 
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                        <label for="floatingInput">Dirección donde se desempeña el/la afectado/a</label>
+                                                        <label for="floatingInput">Dirección o Entidad donde se desempeña el/la afectado/a</label>
                                                     </div>
 
                                                     <div class="form-floating mb-3">
@@ -1321,7 +1323,7 @@ if (!(time() - $_SESSION['time'] > 10)) {
                                                                 }
                                                                 ?>
                                                             </select>
-                                                            <label for="floatingSelect">Seleccione el área donde se desempeña</label>
+                                                            <label for="floatingSelect">Seleccione la Dirección o Entidad donde se desempeña</label>
                                                         </div>
 
 

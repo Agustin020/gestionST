@@ -97,8 +97,21 @@
                     Datos Erróneos. Ingrese nuevamente
                 </div>
             <?php
+                unset($_SESSION['errLogin']);
             }
-            unset($_SESSION['errLogin']);
+
+            if ($_SESSION['session_caducada']) {
+            ?>
+
+                <div class="alert alert-warning" role="alert">
+                    Sesión caducada.
+                    <br>
+                    Iniciar sesión nuevamente.
+                </div>
+
+            <?php
+                unset($_SESSION['session_caducada']);
+            }
             ?>
 
             <div class="form-floating mb-3">

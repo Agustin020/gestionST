@@ -1,5 +1,7 @@
 <?php
-if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
+error_reporting(E_ALL ^ E_NOTICE);
+if (!(time() - $_SESSION['time'] >= 3600)) {
+    $_SESSION['time'] = time();
     if ($_SESSION['rol'] == 2) {
 ?>
         <!DOCTYPE html>
@@ -7,6 +9,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
         <head>
             <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="3600">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
@@ -384,7 +387,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                     }
                                                     ?>
                                                 </select>
-                                                <label for="floatingSelect">Seleccione la Dirección donde se desempeña</label>
+                                                <label for="floatingSelect">Seleccione la Dirección o Entidad donde se desempeña</label>
                                             </div>
 
                                         </div>
@@ -434,7 +437,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                         <th scope="col">Estado</th>
                                         <th scope="col">Fecha Problema</th>
 
-                                        <th scope="col">Dirección</th>
+                                        <th scope="col">Dirección/Entidad</th>
                                         <th scope="col">Asignado</th>
                                         <th scope="col">Área</th>
                                         <th scope="col">Acción</th>
@@ -592,7 +595,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                     <th scope="col">Estado</th>
                                     <th scope="col">Fecha Problema</th>
 
-                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Dirección/Entidad</th>
                                     <th scope="col">Asignado</th>
                                     <th scope="col">Área</th>
                                     <th scope="col">Acción</th>
@@ -840,7 +843,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
 
                                                     <div class="form-floating mb-3">
                                                         <input type="text" name="area" value="<?php echo $listTarea[14]; ?>" class="form-control" id="floatingInput" placeholder="..." disabled>
-                                                        <label for="floatingInput">Dirección donde se desempeña</label>
+                                                        <label for="floatingInput">Dirección o Entidad donde se desempeña</label>
                                                     </div>
 
                                                     <?php
@@ -1055,7 +1058,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['rol'])) {
                                                                 }
                                                                 ?>
                                                             </select>
-                                                            <label for="floatingSelect">Seleccione la Dirección donde se desempeña</label>
+                                                            <label for="floatingSelect">Seleccione la Dirección o Entidad donde se desempeña</label>
                                                         </div>
 
 
