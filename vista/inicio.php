@@ -29,35 +29,12 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                 padding: 15px;
             }
 
-            .cajas {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                column-gap: 20px;
+            section a {
+                text-decoration: none;
             }
 
-            .cajas .caja1 {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .cajas .principal {
-                grid-column: 1/5;
-                display: flex;
-                justify-content: center;
-            }
-
-            .cajas .caja1 i {
-                font-size: 70px;
-                color: gray;
-            }
-
-            .cajas .caja1:hover i {
-                animation: pulse;
-                animation-duration: 1.5s;
-            }
-
-            .cajas .caja1>* {
-                margin: 10px 20px;
+            section a:hover {
+                text-decoration: underline;
             }
         </style>
 
@@ -98,73 +75,85 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                 $totalCompletas = $co->contarTareasCompletas();
                 $totalCanceladas = $co->contarTareasCanceladas();
                 $totalEliminadas = $co->contarTareasEliminadas();
+                $totalDirecciones = $co->contarDirecciones();
                 $cantAgentes = $co->contarAgentes();
                 ?>
 
-                <div class="cajas">
 
-                    <div class="principal">
-                        <div class="card border-dark mb-3 principal" style="max-width: auto;">
-                            <div class="card-body caja1 text-dark">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $totalTareas; ?></h1>
-                                    <p class="card-text">Total de tareas</p>
-                                </div>
-                                <i class="bi bi-clipboard-data"></i>
-                            </div>
-                        </div>
-
-                        <div class="card border-dark mb-3 principal" style="max-width: auto; margin-left: 10px;">
-                            <div class="card-body caja1 text-dark">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $totalEliminadas; ?></h1>
-                                    <p class="card-text">Total de eliminadas</p>
-                                </div>
-                                <i class="bi bi-clipboard-data"></i>
-                            </div>
+                <div class="row justify-content-center">
+                    <div class="card border-dark mb-3 col-auto">
+                        <div class="card-body text-dark d-flex flex-column align-items-center">
+                            <i class="bi bi-clipboard-data" style="font-size: 40px;"></i>
+                            <h1 class="card-title"><?php echo $totalTareas; ?></h1>
+                            <p class="card-text">Total de tareas</p>
                         </div>
                     </div>
 
-                    <div class="card border-secondary mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-secondary">
-                            <div id="txtInfo">
+                    <div class="card border-dark mb-3 col-auto ms-5">
+                        <div class="card-body text-dark d-flex flex-column align-items-center">
+                            <i class="bi bi-bookmark-x" style="font-size: 40px;"></i>
+                            <h1 class="card-title"><?php echo $totalEliminadas; ?></h1>
+                            <p class="card-text">Total de eliminadas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="estados" class="row justify-content-evenly">
+
+                    <a href="index.php?accion=listarTareas&listado=actual" class="text-secondary col-auto">
+                        <div class="card border-secondary mb-3">
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <i class="bi bi-list-task" style="font-size: 40px;"></i>
                                 <h1 class="card-title"><?php echo $totalPendientes; ?></h1>
                                 <p class="card-text">Total de tareas 'Pendientes'</p>
                             </div>
-                            <i class="bi bi-list-task"></i>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="card border-primary mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-primary">
-                            <div id="txtInfo">
+                    <a href="index.php?accion=listarTareas&listado=actual" class="text-primary col-auto">
+                        <div class="card border-primary mb-3">
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <i class="bi bi-list-ul" style="font-size: 40px;"></i>
                                 <h1 class="card-title"><?php echo $totalEnProgreso; ?></h1>
                                 <p class="card-text">Total de tareas 'En progreso'</p>
                             </div>
-                            <i class="bi bi-list-ul"></i>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="card border-success mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-success">
-                            <div id="txtInfo">
+                    <a href="index.php?accion=listarTareas&listado=completadas" class="text-success col-auto">
+                        <div class="card border-success mb-3">
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <i class="bi bi-list-check" style="font-size: 40px;"></i>
                                 <h1 class="card-title"><?php echo $totalCompletas; ?></h1>
                                 <p class="card-text">Total de tareas 'Completas'</p>
                             </div>
-                            <i class="bi bi-list-check"></i>
                         </div>
-                    </div>
+                    </a>
 
 
-                    <div class="card border-danger mb-3" style="max-width: auto;">
-                        <div class="card-body caja1 text-danger">
-                            <div id="txtInfo">
+                    <a href="index.php?accion=listarTareas&listado=canceladas" class="text-danger col-auto">
+                        <div class="card border-danger mb-3">
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <i class="bi bi-clipboard-x" style="font-size: 40px;"></i>
                                 <h1 class="card-title"><?php echo $totalCanceladas; ?></h1>
                                 <p class="card-text">Total de tareas 'Canceladas'</p>
                             </div>
-                            <i class="bi bi-clipboard-x"></i>
                         </div>
-                    </div>
+                    </a>
+
+                </div>
+
+                <div id="direccion" class="row justify-content-center">
+                    <a href="index.php?accion=listarAreas" class="text-dark col-auto">
+                        <div class="card border-dark mb-3">
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <i class="bi bi-card-list" style="font-size: 40px;"></i>
+                                <h1 class="card-title"><?php echo $totalDirecciones; ?></h1>
+                                <p class="card-text">Total de Direcciones/Entidades</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
             </section>
         </body>

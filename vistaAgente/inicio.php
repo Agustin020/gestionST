@@ -27,41 +27,14 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                     padding: 15px;
                 }
 
-                .cajas {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr 1fr;
-                    column-gap: 20px;
+                section a{
+                    text-decoration: none;
                 }
 
-                .cajas p {
-                    grid-column: 1/5;
+                section a:hover{
+                    text-decoration: underline;
                 }
 
-                .cajas .principal {
-                    grid-column: 1/5;
-                    display: flex;
-                    justify-content: center;
-                }
-
-                .cajas .caja1 {
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 0 !important;
-                }
-
-                .cajas .caja1 i {
-                    font-size: 70px;
-                    color: gray;
-                }
-
-                .cajas .caja1:hover i {
-                    animation: pulse;
-                    animation-duration: 1.5s;
-                }
-
-                .cajas .caja1>* {
-                    margin: 10px 20px;
-                }
             </style>
 
             <!--<script>
@@ -141,241 +114,291 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
 
             <section id="container">
 
-                <?php
-                if ((time() - $_SESSION['time'] > 10)) {
-                ?>
-                    <p class="fs-5">SESSION POR ACABARSE</p>
-                <?php
-                }
-                ?>
+                <p class="fs-5">Bienvenido <?php echo $_SESSION['nombreApellido']; ?></p>
+                <p class="fs-5 text-center">Tareas</p>
 
-                <div class="cajas animate__bounceInDown">
-                    <p class="fs-5">Bienvenido <?php echo $_SESSION['nombreApellido']; ?></p>
-                    <p class="fs-5 text-center">Tareas</p>
-
-                    <div class="principal">
-
-                        <?php
-                        if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
-                        ?>
-
-                            <div class="card border-dark mb-3" style="max-width: auto;">
-                                <div class="card-body caja1 text-dark">
-                                    <div id="txtInfo">
-                                        <h1 class="card-title"><?php echo $tareasTotalArea; ?></h1>
-                                        <p class="card-text">Total de tareas de <?php echo $_SESSION['areaUsuarioNombre']; ?></p>
-                                    </div>
-                                    <i class="bi bi-clipboard-data"></i>
-                                </div>
-                            </div>
-
-
-                        <?php
-                        } else {
-                        ?>
-
-                            <div class="card border-dark mb-3" style="max-width: auto;">
-                                <div class="card-body caja1 text-dark">
-                                    <div id="txtInfo">
-                                        <h1 class="card-title"><?php echo $totalTareasSistemas; ?></h1>
-                                        <p class="card-text">Total de tareas</p>
-                                    </div>
-                                    <i class="bi bi-clipboard-data"></i>
-                                </div>
-                            </div>
-
-                            <div class="card border-dark mb-3" style="max-width: auto; margin-left: 10px;">
-                                <div class="card-body caja1 text-dark">
-                                    <div id="txtInfo">
-                                        <h1 class="card-title"><?php echo $totalTareasEliminadas; ?></h1>
-                                        <p class="card-text">Total de eliminadas</p>
-                                    </div>
-                                    <i class="bi bi-clipboard-data"></i>
-                                </div>
-                            </div>
-
-
-                        <?php
-                        }
-                        ?>
-
-                    </div>
+                <div class="row justify-content-center">
 
                     <?php
                     if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
                     ?>
 
-                        <div class="card border-secondary mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-secondary">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasPendientesArea; ?></h1>
-                                    <p class="card-text">Total de tareas 'Pendientes'</p>
-                                </div>
-                                <i class="bi bi-list-task"></i>
+                        <div class="card border-dark mb-3 col-auto">
+                            <div class="card-body text-dark d-flex flex-column align-items-center">
+                                <i class="bi bi-clipboard-data" style="font-size: 40px;"></i>
+                                <h1 class="card-title"><?php echo $tareasTotalArea; ?></h1>
+                                <p class="card-text">Total de tareas de <?php echo $_SESSION['areaUsuarioNombre']; ?></p>
                             </div>
                         </div>
 
-                        <div class="card border-primary mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-primary">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasEnProgresoArea; ?></h1>
-                                    <p class="card-text">Total de tareas 'En progreso'</p>
-                                </div>
-                                <i class="bi bi-list-ul"></i>
-                            </div>
-                        </div>
-
-                        <div class="card border-success mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-success">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasCompletasArea; ?></h1>
-                                    <p class="card-text">Total de tareas 'Completas'</p>
-                                </div>
-                                <i class="bi bi-list-check"></i>
-                            </div>
-                        </div>
-
-                        <div class="card border-danger mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-danger">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasCanceladasArea; ?></h1>
-                                    <p class="card-text">Total de tareas 'Canceladas'</p>
-                                </div>
-                                <i class="bi bi-clipboard-x"></i>
-                            </div>
-                        </div>
-
-
-                        <div class="card border-success mb-3 principal" style="max-width: auto;">
-                            <div class="card-body caja1 text-success">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $nroCompletasUser; ?></h1>
-                                    <p class="card-text">Total de tareas 'Completas' por <?php echo $_SESSION['nombreApellido']; ?></p>
-                                </div>
-                                <i class="bi bi-list-check"></i>
-                            </div>
-                        </div>
 
                     <?php
                     } else {
                     ?>
 
-                        <div class="card border-secondary mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-secondary">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasPendientes; ?></h1>
-                                    <p class="card-text">Total de tareas 'Pendientes'</p>
-                                </div>
-                                <i class="bi bi-list-task"></i>
+                        <div class="card border-dark mb-3 col-auto">
+                            <div class="card-body text-dark d-flex flex-column align-items-center">
+                                <i class="bi bi-clipboard-data" style="font-size: 40px;"></i>
+                                <h1 class="card-title"><?php echo $totalTareasSistemas; ?></h1>
+                                <p class="card-text">Total de tareas</p>
                             </div>
                         </div>
 
-                        <div class="card border-primary mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-primary">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasEnProgreso; ?></h1>
+                        <a href="index.php?accion=listarTareasEliminadas" class="col-auto text-dark">
+                            <div class="card border-dark mb-3 ms-5">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-clipboard-data" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $totalTareasEliminadas; ?></h1>
+                                    <p class="card-text">Total de eliminadas</p>
+
+                                </div>
+                            </div>
+                        </a>
+
+
+                    <?php
+                    }
+                    ?>
+
+                </div>
+
+                <?php
+                if ($_SESSION['rol'] == 2) {
+                ?>
+
+                    <div class="row justify-content-evenly" id="estados">
+
+                        <a href="index.php?accion=listarTareas&listado=actual&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>&area3=<?php echo $_SESSION['areaUsuario3'] ?>" class="text-secondary col-auto">
+                            <div class="card border-secondary mb-3">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-task" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasPendientesArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'Pendientes'</p>
+
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="index.php?accion=listarTareas&listado=actual&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>&area3=<?php echo $_SESSION['areaUsuario3'] ?>" class="text-primary col-auto">
+                            <div class="card border-primary mb-3 col-auto">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-ul" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasEnProgresoArea; ?></h1>
                                     <p class="card-text">Total de tareas 'En progreso'</p>
                                 </div>
-                                <i class="bi bi-list-ul"></i>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="card border-success mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-success">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasCompletas; ?></h1>
+                        <a href="index.php?accion=listarTareas&listado=completas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>&area3=<?php echo $_SESSION['areaUsuario3'] ?>" class="text-success col-auto">
+                            <div class="card border-success mb-3 col-auto">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-check" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasCompletasArea; ?></h1>
                                     <p class="card-text">Total de tareas 'Completas'</p>
                                 </div>
-                                <i class="bi bi-list-check"></i>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="card border-danger mb-3" style="max-width: auto;">
-                            <div class="card-body caja1 text-danger">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $tareasCanceladas; ?></h1>
+                        <a href="index.php?accion=listarTareas&listado=canceladas&area=<?php echo $_SESSION['areaUsuario']; ?>&area2=<?php echo $_SESSION['areaUsuario2']; ?>&area3=<?php echo $_SESSION['areaUsuario3'] ?>" class="text-danger col-auto">
+                            <div class="card border-danger mb-3 col-auto">
+                                <div class="card-body text-danger d-flex flex-column align-items-center">
+                                    <i class="bi bi-clipboard-x" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasCanceladasArea; ?></h1>
                                     <p class="card-text">Total de tareas 'Canceladas'</p>
                                 </div>
-                                <i class="bi bi-clipboard-x"></i>
                             </div>
-                        </div>
+                        </a>
 
-                    <?php
-                    }
-                    ?>
+                    </div>
 
-                    <?php
-                    if ($_SESSION['rol'] == 3) {
-                    ?>
-                        <p class="fs-5 text-center">Usuarios</p>
-
-                        <div class="card border-dark mb-3 principal" style="max-width: auto;">
-                            <div class="card-body caja1 text-dark">
-                                <div id="txtInfo">
-                                    <h1 class="card-title"><?php echo $totalUsuarios; ?></h1>
-                                    <p class="card-text">Total de Usuarios</p>
-                                </div>
-
-                                <div class="card border-info mb-3" style="max-width: auto;">
-                                    <div class="card-body caja1 text-info">
-                                        <div id="txtInfo">
-                                            <h1 class="card-title"><?php echo $totalAdmin; ?></h1>
-                                            <p class="card-text">Usuarios Administradores</p>
-                                        </div>
-                                        <i class="bi bi-person-lines-fill"></i>
-                                    </div>
-                                </div>
-
-                                <div class="card border-info mb-3" style="max-width: auto;">
-                                    <div class="card-body caja1 text-info">
-                                        <div id="txtInfo">
-                                            <h1 class="card-title"><?php echo $totalSuperv; ?></h1>
-                                            <p class="card-text">Usuarios Supervisores</p>
-                                        </div>
-                                        <i class="bi bi-people-fill"></i>
-                                    </div>
-                                </div>
-
-                                <div class="card border-info mb-3" style="max-width: auto;">
-                                    <div class="card-body caja1 text-info">
-                                        <div id="txtInfo">
-                                            <h1 class="card-title"><?php echo $totalAgentes; ?></h1>
-                                            <p class="card-text">Usuarios Agentes</p>
-                                        </div>
-                                        <i class="bi bi-people-fill"></i>
-                                    </div>
-                                </div>
-
-                                <div class="card border-info mb-3" style="max-width: auto;">
-                                    <div class="card-body caja1 text-info">
-                                        <div id="txtInfo">
-                                            <h1 class="card-title"><?php echo $totalEncargados; ?></h1>
-                                            <p class="card-text">Usuarios encargados de los reclamos</p>
-                                        </div>
-                                        <i class="bi bi-person-video3"></i>
-                                    </div>
-                                </div>
-
+                    <div class="card border-success mb-3 col-12">
+                        <div class="card-body text-success d-flex flex-column justify-content-start">
+                            <div class="d-flex justify-content-between">
+                                <h1 class="card-title"><?php echo $nroCompletasUser; ?></h1>
+                                <i class="bi bi-list-check" style="font-size: 40px;"></i>
                             </div>
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-
-                    <p class="fs-5 text-center">Direcciones</p>
-
-                    <div class="card border-dark mb-3 principal" style="max-width: auto;">
-                        <div class="card-body text-dark caja1">
-                            <div id="txtInfo">
-                                <h1 class="card-title"><?php echo $totalDirecciones; ?></h1>
-                                <p class="card-text">Total de Direcciones</p>
-                            </div>
-                            <i class="bi bi-list"></i>
+                            <p class="card-text">Total de tareas 'Completas' por <?php echo $_SESSION['nombreApellido']; ?></p>
                         </div>
                     </div>
 
-                </div>
+                <?php
+                } else if ($_SESSION['rol'] == 4) {
+                ?>
+
+                    <div class="row justify-content-evenly" id="estados">
+
+                        <a href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>&lista=actual" class="text-secondary col-auto">
+                            <div class="card border-secondary mb-3">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-task" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasPendientesArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'Pendientes'</p>
+
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>&lista=actual" class="text-primary col-auto">
+                            <div class="card border-primary mb-3 col-auto">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-ul" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasEnProgresoArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'En progreso'</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>&lista=completas" class="text-success col-auto">
+                            <div class="card border-success mb-3 col-auto">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-check" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasCompletasArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'Completas'</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="index.php?accion=listarTareasAdmin&area=<?php echo $_SESSION['areaUsuario']; ?>&lista=canceladas" class="text-danger col-auto">
+                            <div class="card border-danger mb-3">
+                                <div class="card-body text-danger d-flex flex-column align-items-center">
+                                    <i class="bi bi-clipboard-x" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasCanceladasArea; ?></h1>
+                                    <p class="card-text">Total de tareas 'Canceladas'</p>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <div class="card border-success mb-3 col-12">
+                        <div class="card-body text-success d-flex flex-column justify-content-start">
+                            <div class="d-flex justify-content-between">
+                                <h1 class="card-title"><?php echo $nroCompletasUser; ?></h1>
+                                <i class="bi bi-list-check" style="font-size: 40px;"></i>
+                            </div>
+                            <p class="card-text">Total de tareas 'Completas' por <?php echo $_SESSION['nombreApellido']; ?></p>
+                        </div>
+                    </div>
+
+                <?php
+                } else {
+                ?>
+                    <div id="estados" class="row justify-content-evenly">
+
+                        <a href="index.php?accion=listarTareasAdmin&lista=actual" class="col-auto text-secondary">
+                            <div class="card border-secondary mb-3">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-task" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasPendientes; ?></h1>
+                                    <p class="card-text">Total de tareas 'Pendientes'</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="index.php?accion=listarTareasAdmin&lista=actual" class="col-auto text-primary">
+                            <div class="card border-primary mb-3">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-ul" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasEnProgreso; ?></h1>
+                                    <p class="card-text">Total de tareas 'En progreso'</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="index.php?accion=listarTareasAdmin&lista=completas" class="col-auto text-success">
+                            <div class="card border-success mb-3">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-list-check" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasCompletas; ?></h1>
+                                    <p class="card-text">Total de tareas 'Completas'</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="index.php?accion=listarTareasAdmin&lista=canceladas" class="col-auto text-danger">
+                            <div class="card border-danger mb-3">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <i class="bi bi-clipboard-x" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $tareasCanceladas; ?></h1>
+                                    <p class="card-text">Total de tareas 'Canceladas'</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                <?php
+                }
+                ?>
+
+                <?php
+                if ($_SESSION['rol'] == 3) {
+                ?>
+                    <p class="fs-5 text-center">Usuarios</p>
+
+                    <div class="card border-dark mb-3">
+                        <div class="card-body text-dark row justify-content-evenly">
+                            <a href="index.php?accion=listarUsuarios" class="mb-3 text-dark">
+                                <h1 class="card-title"><?php echo $totalUsuarios; ?></h1>
+                                <p class="card-text">Total de Usuarios</p>
+                            </a>
+
+                            <div class="card border-info mb-3 col-auto">
+                                <div class="card-body text-info d-flex flex-column align-items-center">
+                                    <i class="bi bi-person-lines-fill" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $totalAdmin; ?></h1>
+                                    <p class="card-text">Usuarios Administradores</p>
+                                </div>
+                            </div>
+
+                            <a href="index.php?accion=listarAgentes" class="text-info col-auto">
+                                <div class="card border-info mb-3 col-auto">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <i class="bi bi-people-fill" style="font-size: 40px;"></i>
+                                        <h1 class="card-title"><?php echo $totalSuperv; ?></h1>
+                                        <p class="card-text">Usuarios Supervisores</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="index.php?accion=listarAgentes" class="text-info col-auto">
+                                <div class="card border-info mb-3">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <i class="bi bi-people-fill" style="font-size: 40px;"></i>
+                                        <h1 class="card-title"><?php echo $totalAgentes; ?></h1>
+                                        <p class="card-text">Usuarios Agentes</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="card border-info mb-3 col-auto">
+                                <div class="card-body text-info d-flex flex-column align-items-center">
+                                    <i class="bi bi-person-video3" style="font-size: 40px;"></i>
+                                    <h1 class="card-title"><?php echo $totalEncargados; ?></h1>
+                                    <p class="card-text">Usuarios encargados de los reclamos</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                <?php
+                }
+                ?>
+
+                <p class="fs-5 text-center">Direcciones/Entidades</p>
+
+                <a href="index.php?accion=listarDirecciones" class="text-dark">
+                    <div class="card border-dark mb-3 col-md-12">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h1 class="card-title"><?php echo $totalDirecciones; ?></h1>
+                                <i class="bi bi-list" style="font-size: 40px;"></i>
+                            </div>
+                            <p class="card-text">Total</p>
+                        </div>
+                    </div>
+                </a>
+
             </section>
         </body>
 

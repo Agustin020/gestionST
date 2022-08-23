@@ -1,5 +1,6 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
+
 if (!(time() - $_SESSION['time'] >= 3600)) {
     $_SESSION['time'] = time();
     if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
