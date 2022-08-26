@@ -92,7 +92,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
         </body>
 
         <script>
-            //Total Áreas Sistemas
+            //Total Motivos Sistemas
             const labels = [
                 <?php
                 foreach ($totalPendientes as $pendiente) {

@@ -572,7 +572,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                                                         if ($completas[5] == '' || $completas[5] == null) {
                                                             $nombreApellidoAfectado = 'No proporcionado';
                                                         } else {
-                                                            $nombreApellidoAfectado = $listTarea[5];
+                                                            $nombreApellidoAfectado = $completas[5];
                                                         }
                                                         ?>
 

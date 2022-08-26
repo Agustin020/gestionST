@@ -27,21 +27,16 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                     padding: 15px;
                 }
 
-                section a{
+                section a {
                     text-decoration: none;
                 }
 
-                section a:hover{
+                section a:hover {
                     text-decoration: underline;
                 }
-
             </style>
 
-            <!--<script>
-                function redireccionar() {
-                    setTimeout("location.href='../vista/login.php'", 5000);
-                }
-            </script>-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         </head>
 
         <body>
@@ -398,6 +393,10 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                         </div>
                     </div>
                 </a>
+
+                <div id="totalMotivosArea">
+                    <canvas id="diagramaMotivosRedes"></canvas>
+                </div>
 
             </section>
         </body>

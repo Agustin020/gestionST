@@ -1400,6 +1400,28 @@ class Consultas extends Conexion
         return $nroEliminadas;
     }
 
+
+    //LISTAR CANTIDAD DE REQ POR DIRECCION
+
+    public function listarCantidadMotivosAreas($codArea)
+    {
+        try {
+            $link = parent::conexionBD();
+            $sql = "SELECT count(*), m.motivos from tareas t, motivos m, areas a  
+                    where t.id_motivos = m.id and m.codigoArea = a.codigo and a.codigo = '$codArea' group by m.motivos";
+            $result = mysqli_query($link, $sql);
+            $motivos = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $motivos[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $motivos;
+    }
+
     //Contar Usuarios
     public function contarTotalUsuarios()
     {
