@@ -36,7 +36,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                 }
             </style>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         </head>
 
         <body>
@@ -394,12 +394,107 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                     </div>
                 </a>
 
-                <div id="totalMotivosArea">
-                    <canvas id="diagramaMotivosRedes"></canvas>
-                </div>
+                <?php
+                if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
+                ?>
+
+                    <hr class="mt-5 mb-5">
+
+                    <div id="totalMotivosArea">
+                        <canvas id="diagramaMotivos" width="600px"></canvas>
+                    </div>
+
+                <?php
+                }
+                ?>
 
             </section>
         </body>
+
+        <?php
+        if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 4) {
+            require_once('../modelo/m_consultas.php');
+            $co = new Consultas();
+            $listMotivos = $co->listarCantidadMotivosAreas($_SESSION['areaUsuario'], $_SESSION['areaUsuario2'], $_SESSION['areaUsuario3']);
+        ?>
+
+            <script>
+                //Total Motivos Sistemas
+                const labels = [
+                    <?php
+                    foreach ($listMotivos as $motivo) {
+                        echo "'" . $motivo[1] . "',";
+                    }
+                    ?>
+                ];
+
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total de motivos de Sistemas',
+                        backgroundColor: [
+                            'Aquamarine',
+                            'LightBlue',
+                            'LightCyan',
+                            'MediumPurple',
+                            'MediumSlateBlue',
+                            'RoyalBlue',
+                            'DeepSkyBlue',
+                            'Lavender',
+                            'LightGreen',
+                            'MediumOrchid',
+                            'MediumSeaGreen',
+                            'NavajoWhite',
+                            'Wheat',
+                            'Crimson',
+                            'DarkSlateGray',
+                            'Khaki',
+                            'LightSalmon',
+                            'LightSeaGreen',
+                        ],
+
+                        data: [
+                            <?php
+                            foreach ($listMotivos as $motivo) {
+                                echo $motivo[0] . ", ";
+                            }
+                            ?>
+                        ],
+                    }]
+                };
+
+                const config = {
+                    type: 'pie',
+                    data: data,
+                    options: {
+                        plugins: {
+                            title: {
+                                text: 'Total de motivos',
+                                display: true,
+                            },
+                            legend: {
+                                display: true,
+                                position: 'left',
+                                align: 'middle',
+                            },
+
+                        },
+
+                        responsive: true,
+                        maintainAspectRatio: false,
+
+                    }
+                };
+
+                const motivosTareas = new Chart(
+                    document.getElementById('diagramaMotivos'),
+                    config
+                );
+            </script>
+
+        <?php
+        }
+        ?>
 
         </html>
     <?php

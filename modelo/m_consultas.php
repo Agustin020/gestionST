@@ -1403,12 +1403,14 @@ class Consultas extends Conexion
 
     //LISTAR CANTIDAD DE REQ POR DIRECCION
 
-    public function listarCantidadMotivosAreas($codArea)
+    public function listarCantidadMotivosAreas($codArea, $codArea2, $codArea3)
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT count(*), m.motivos from tareas t, motivos m, areas a  
-                    where t.id_motivos = m.id and m.codigoArea = a.codigo and a.codigo = '$codArea' group by m.motivos";
+            $sql = "SELECT count(*), concat(m.motivos, ' - (', a.nombre, ')') from tareas t, motivos m, areas a  
+                    where t.id_motivos = m.id and m.codigoArea = a.codigo and a.codigo in 
+                    (select a2.codigo from areas a2 where a2.codigo = '$codArea' || a2.codigo = '$codArea2' || a2.codigo = '$codArea3') 
+                    group by m.motivos order by a.codigo";
             $result = mysqli_query($link, $sql);
             $motivos = [];
             $i = 0;
