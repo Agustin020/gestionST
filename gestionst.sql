@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 26-08-2022 a las 13:57:32
+-- Tiempo de generación: 30-08-2022 a las 13:54:56
 -- Versión del servidor: 10.8.4-MariaDB-1:10.8.4+maria~ubu2004
 -- Versión de PHP: 7.4.3
 
@@ -232,7 +232,8 @@ INSERT INTO `motivos` (`id`, `motivos`, `codigoArea`) VALUES
 (7010, 'Reseteo de clave - WEBMAIL', 4),
 (7011, 'Interno ', 5),
 (7012, 'Instalacion de telefono', 2),
-(7013, 'Cambios Generales - SAYGES', 4);
+(7013, 'Cambios Generales - SAYGES', 4),
+(7014, 'Desarchivo', 4);
 
 -- --------------------------------------------------------
 
@@ -464,7 +465,7 @@ INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreAp
 (195, 4013, 'fernanda sabbatini solicita asistencia remota visto que no tomaba la firma, se asiste con ip 192.168.28.186 y se comprueba que tiene tildada la opción de token, se destilda y se solicita intentar nuevamente dando como resultado una firma existosa.', '', 'fernanda sabbatini', '', 'resuelto', '2022-08-24 12:01:57', '2022-08-24 12:04:57', 3, 5011, 28700618, NULL, NULL, NULL, 4, '2022-08-24', 'German SANCHEZ'),
 (196, 7010, 'catastro/rentas: se resetea clave de luis vargas vista la necesidad de cambio por cambio de pc.', '', 'luis vargas', '', 'resuelto', '2022-08-24 12:04:31', '2022-08-24 12:05:13', 3, 3009, 28700618, NULL, NULL, NULL, 4, '2022-08-24', 'German SANCHEZ'),
 (197, 4012, 'Se habla personalmente con las agentes de intendencia para explicar el accionar frente a los expedientes externos para su mejor uso y trazabilidad.  Se explica el inconveniente de usar asignación directa para esos casos y sus posibles problemas.', '', 'laura dantonio y cia', '', 'realizado 10:30 a 11:00', '2022-08-24 12:11:08', '2022-08-24 12:11:39', 3, 1008, 28700618, NULL, NULL, NULL, 4, '2022-08-24', 'German SANCHEZ'),
-(198, 7005, 'Planificacion no puede reproducir filmacion entregada por seguridad interna.', '', 'Cintia Brucky', '', NULL, '2022-08-24 13:38:18', NULL, 1, 3004, 0, NULL, NULL, NULL, 7, '2022-08-24', 'Admin AD'),
+(198, 7005, 'Planificacion no puede reproducir filmacion entregada por seguridad interna.', '', 'Cintia Brucky', '', 'solucionado', '2022-08-24 13:38:18', '2022-08-30 08:26:18', 3, 3004, 2000001, NULL, NULL, NULL, 7, '2022-08-24', 'Admin AD'),
 (199, 3003, 'Problemas con el mouse inalambrico', '', 'ALICIA ZARATE', '', 'configruacion de tv', '2022-08-24 13:40:56', '2022-08-26 08:30:11', 3, 1007, 29112717, NULL, NULL, NULL, 3, '2022-08-24', 'Admin AD'),
 (200, 4002, 'Habilitarla para crear NE y EE a Maeva.shuster', '', 'Maeva Schuster', '', 'permisos otorgados', '2022-08-24 13:41:48', '2022-08-25 07:36:01', 3, 1005, 29148522, NULL, NULL, NULL, 4, '2022-08-24', 'Admin AD'),
 (201, 3005, 'De mesa de entradas llama por que la pc se traba en todos los programas', '192.168.100.103', 'Analía', '', 'era el proxy del navegador', '2022-08-24 13:54:59', '2022-08-25 10:19:57', 3, 1005, 36768171, NULL, NULL, NULL, 3, '2022-08-24', 'Sonia ROMAN'),
@@ -497,14 +498,52 @@ INSERT INTO `tareas` (`nroArreglo`, `id_motivos`, `descripcion`, `ip`, `nombreAp
 (228, 7010, 'se asiste a claudio peralta para evitar reseteo de clave, se explica como proceder.\r\n', '', 'claudio peralta', '0', 'la persona estaba colocando @guaymallen.gob.ar en el usuario sayges', '2022-08-26 09:44:29', '2022-08-26 09:45:26', 3, 2000, 29148522, NULL, NULL, NULL, 4, '2022-08-26', 'German SANCHEZ'),
 (229, 4007, 'Se comiezan algunas pruebas del sistema de desarrollo 14.6.1\r\nse encuentran detalles:\r\n\r\nGermán: cuando se crea un expediente genus desde usuario profesional (externo) al adjuntar un archivo y pedir elejir tipo, no aparecen \"Tipos\" para seleccionar, no dejando adjuntar.\r\nGermán: otro detalle es que si cambio el cuil, colocando uno invalido aparece un cartel rojo que el cuil es invalido, pero continúa aparece el cartel de [se iniciará un tramite electrónico si/no]\r\n\r\nse envian al grupo de genus', '', 'micaela martinez', '', 'accionando', '2022-08-26 10:15:43', '2022-08-26 11:33:44', 3, 1012, 28700618, NULL, NULL, NULL, 4, '2022-08-26', 'German SANCHEZ'),
 (230, 4004, 'sistema de industria y comercio: se empiezan algunas pruebas para verificar y dar el ok para iniciar pruebas en las primeras tareas de ind. y com.\r\nse charla en el whp con todos por la actualización', '', 'sayges desarrollo', '', 'realizado - continúa luego', '2022-08-26 10:31:09', '2022-08-26 11:34:11', 3, 2002, 28700618, NULL, NULL, NULL, 4, '2022-08-26', 'German SANCHEZ'),
-(231, 3002, 'Nieves de defunciones nercesita compartir un archivo que es de uso interno que esta en esl escritorio de su maquina y se llama \"Pases Buevos 2017\"  ip 192.168.100.177 con las ip 192.168.100.62 y 192.168.111', '', 'NIeves', '', NULL, '2022-08-26 10:54:55', NULL, 1, 2000, 0, NULL, NULL, NULL, 3, '2022-08-26', 'Sonia ROMAN'),
+(231, 3002, 'Nieves de defunciones nercesita compartir un archivo que es de uso interno que esta en esl escritorio de su maquina y se llama \"Pases Buevos 2017\"  ip 192.168.100.177 con las ip 192.168.100.62 y 192.168.111', '', 'NIeves', '', 'Se compartieron los archivos solicitados ', '2022-08-26 10:54:55', '2022-08-29 10:08:13', 3, 2000, 38101303, NULL, NULL, NULL, 3, '2022-08-26', 'Sonia ROMAN'),
 (232, 3001, 'Nicolas de Prensa tiene problemas con la impresora Xerox, arruga el papel o lo rompe y lo hace cada 2 o 3 hojas. Es de suma importancia porque estan imprimiendo continuamente a los medios de comunicación. Raúl', '', 'Nicolas', '0', 'Pedido de asistencia hecho a Quatro    \r\n', '2022-08-26 11:17:34', '2022-08-26 11:26:46', 3, 1003, 35871182, NULL, NULL, NULL, 3, '2022-08-26', 'Raul SORIA'),
 (233, 4004, 'redmine 2937\r\nDescripción:\r\n1) Aparente error: Ingresando con nuestro usuario externo Profesional: Cambio el cuil colocando uno erróneo(para probar) y aparece un cartel rojo que el cuil es invalido, pero continúa procesando y aparece el cartel de [se iniciará un tramite electrónico si no] tapando el cartel de error.\r\n2)Probable cambio: Al crear una pa de genus aparece un cartel de encuesta que contiene un link que direcciona a google forms de ATM. (se propone reemplazar)si se crea un nuevo form compartir previamente con Leila Guizzardi.\r\n3) Observación: dentro del serv. de desarrollo cuando se crea un expediente genus desde usuario profesional (externo) al adjuntar un archivo y pedir elejir tipo, no aparecen \"Tipos\" para seleccionar, no dejando adjuntar. (en la versión anterior teníamos la opción otros).', '', 'micaela martinez', '', 'cargada', '2022-08-26 11:33:24', '2022-08-26 11:34:32', 3, 1012, 28700618, NULL, NULL, NULL, 4, '2022-08-26', 'German SANCHEZ'),
 (234, 1002, 'PC sin internet nuevamente. Sale de IP 127.0.0.1', '127.0.0.1', 'Gabriela Giacovazzo', '2612 1651', NULL, '2022-08-26 11:45:33', NULL, 5, 3006, 0, NULL, 'Cable desconectado', '2022-08-26 13:07:56', 1, '2022-08-26', 'Admin AD'),
 (235, 4000, 'El profesional solicita alta de usuario remoto', '', 'Edgardo Chavez', '', 'Le informo los datos necesarios', '2022-08-26 11:52:04', '2022-08-26 11:52:26', 3, 1012, 29148522, NULL, NULL, NULL, 4, '2022-08-26', 'Nicolas MAURE'),
 (236, 7013, ' Se elimina la carpeta \"cargo de y \"retenidos\" de Sec. gobierno y se agrega la \"ordenanzas y declaraciones\" - visible', '', 'Secretaría de Gobierno', '', 'creado', '2022-08-26 12:18:06', '2022-08-26 12:18:21', 3, 1005, 28700618, NULL, NULL, NULL, 4, '2022-08-26', 'German SANCHEZ'),
 (237, 3004, 'Instalar adobe photoshop', '192.168.150.66', 'Candela Lembo', '2615 7651', 'instalado', '2022-08-26 13:07:32', '2022-08-26 13:36:15', 3, 1008, 36768171, NULL, NULL, NULL, 3, '2022-08-26', 'Admin AD'),
-(238, 3002, 'No puede escanear desde la Xerox B405', '', 'Angie Yañez', '', 'Reconfigurado', '2022-08-26 13:15:23', '2022-08-26 13:15:34', 3, 1008, 35871182, NULL, NULL, NULL, 3, '2022-08-26', 'Leandro BORQUEZ');
+(238, 3002, 'No puede escanear desde la Xerox B405', '', 'Angie Yañez', '', 'Reconfigurado', '2022-08-26 13:15:23', '2022-08-26 13:15:34', 3, 1008, 35871182, NULL, NULL, NULL, 3, '2022-08-26', 'Leandro BORQUEZ'),
+(239, 4013, 'El profesional solicita información sobre un expte Genus, EE-12183-2022', '', 'Javier Silva', '', 'Le informo en qué situación se encuentra', '2022-08-29 08:11:14', '2022-08-29 08:11:41', 3, 1012, 29148522, NULL, NULL, NULL, 4, '2022-08-29', 'Nicolas MAURE'),
+(240, 4000, 'El profesional envía los datos solicitados', '', 'Gerardo Lopez', '', 'Le creo usuario y paso datos de acceso', '2022-08-29 08:19:21', '2022-08-29 08:19:43', 3, 1012, 29148522, NULL, NULL, NULL, 4, '2022-08-29', 'Nicolas MAURE'),
+(241, 3005, 'Sistema Denwa no funcionando en una PC del call center', '192.168.48.185', 'Pablo Nuñez', '2616531404', 'no tiene el programa denwa,tiene el microsip..y abria ', '2022-08-29 08:49:33', '2022-08-29 09:45:40', 3, 5033, 36768171, NULL, NULL, NULL, 3, '2022-08-29', 'Admin AD'),
+(242, 4017, 'creación de cuenta webmail para mauro.dominguez (no posee sayges hasta el momento)', '', 'mauro dominguez', '', 'creado', '2022-08-29 09:06:34', '2022-08-29 09:08:42', 3, 4004, 28700618, NULL, NULL, NULL, 4, '2022-08-29', 'German SANCHEZ'),
+(243, 4014, 'Se revisa y comprueba que está impactado el cambio de la solicitud realizada #2937 ', '', 'sayges', '', 'realizado', '2022-08-29 09:08:28', '2022-08-29 09:10:50', 3, 1012, 28700618, NULL, NULL, NULL, 4, '2022-08-29', 'German SANCHEZ'),
+(244, 1002, 'Sin conexión playa de Secuestro', '', 'Andrea', '2613847182', NULL, '2022-08-29 09:13:49', NULL, 2, 5027, 18079575, NULL, NULL, NULL, 1, '2022-08-29', 'Evelyn CARDENAS'),
+(245, 1002, 'Intermitencia en la conexión. Terminal ', '192.168.46.192', 'Luciana Tello', '..', NULL, '2022-08-29 09:15:43', NULL, 1, 1002, 0, NULL, NULL, NULL, 1, '2022-08-29', 'Evelyn CARDENAS'),
+(246, 3002, 'De mesa entradas llaman porque no pueden trabajar por lo lenta que están las máquinas, le es imporsible habrir alguna página ', '', 'Silvia', '', 'configuracion del proxy', '2022-08-29 09:27:34', '2022-08-29 10:04:33', 3, 1005, 36768171, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(247, 3002, 'Una arquitecta de obras no tiene internet', '192.168.120.112', 'Anita', '', 'proxy', '2022-08-29 09:29:03', '2022-08-29 09:43:06', 3, 3000, 29112717, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(248, 3002, 'De comercio llaman porque una pc esta muy lenta no le permitecargar la aplicaciones pide que alguien se acerque', '192.168.90.65', 'Marta', '', 'configuracion de proxy', '2022-08-29 09:34:41', '2022-08-29 09:44:01', 3, 2002, 36768171, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(249, 4013, 'La profesional manifiesta que no puede solicitar inspección porque le dice que ya hay una en curso.', '', 'Laura Piñeiro', '', 'Alejandro Lecerassi dice que lo pasa a programación y que el se va a comunicar con la profesional para avisarle que está resuelto', '2022-08-29 09:42:37', '2022-08-29 12:41:07', 3, 1012, 29148522, NULL, NULL, NULL, 4, '2022-08-29', 'Nicolas MAURE'),
+(250, 3002, 'No tiene internet', '', 'Horacio', '', 'Se cambio cable de red ', '2022-08-29 10:36:15', '2022-08-29 10:37:32', 3, 2004, 38101303, NULL, NULL, NULL, 3, '2022-08-29', 'Leandro BORQUEZ'),
+(251, 3002, 'de defensa de consumido no puede entrar al SasyGers  le dijeron wque entrara por chrome pero no puede trabar ke sujerí el momozilla pero dice que se queda cargando y no pasa nada ', '192.168.90.153', 'Facundo', '', 'No tenía las excepciones en el proxy', '2022-08-29 10:42:12', '2022-08-29 10:53:05', 3, 1001, 35871182, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(252, 3002, 'Funciona muy mal internet se corta y vuelve y esta muy lento.', '192.168.150.184', 'Angi', '', 'proxy', '2022-08-29 10:54:38', '2022-08-29 13:49:18', 3, 1008, 29112717, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(253, 3003, 'Delegacion Dorrego solicita que actualicen las pc´s, reparen el cpu de una de las maquinas y un cable de video dañado. Para mas info ver la NE-13843-22 (Programen para ir a la Delegacion)', '', 'Norma Hut', '', NULL, '2022-08-29 11:25:36', NULL, 1, 5009, 0, NULL, NULL, NULL, 3, '2022-08-29', 'Admin AD'),
+(254, 1002, 'De la Dirección de Obras Privadas, intentan ingresar al sistemas de stock y NO pueden ingresar a la página.\r\nhttp://http://compras.guaymallen.gob.ar:1000\r\n', '192.168.110.132', 'Obras Privadas', '8258', NULL, '2022-08-29 11:44:55', NULL, 1, 3001, 0, NULL, NULL, NULL, 1, '2022-08-29', 'Monica LIVOLSI'),
+(255, 3003, 'Buenos días, una PC de Salud Laboral, no enciende. Y no se pueden atender al público. Necesitan urgente que alguien se acerque y resuelva el problema.', '', '', '8311', 'se ordenaron los cable de alimentación de la pc ', '2022-08-29 12:18:43', '2022-08-29 12:55:15', 3, 4007, 38101303, NULL, NULL, NULL, 3, '2022-08-29', 'Monica LIVOLSI'),
+(256, 3002, 'Intentan entrar por el mozilla al SayGes y solo salen letras ', '192.168.110.106', 'Rodrigo', '', 'Se instalo Firefox y se coloco regla de proxy ', '2022-08-29 13:21:56', '2022-08-29 13:48:19', 3, 3001, 38101303, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(257, 3002, 'Eugenia de desarrollo Economico necesita urgente usar Sayges y no lo puede hacer porque  se le sale del sistema', '192.168.20.129', 'Eugenia', '', 'Intentaba entrar por el enlace público. Lo modifiqué por la IP del servidor', '2022-08-29 13:42:03', '2022-08-29 13:47:27', 3, 4002, 35871182, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(258, 3001, 'Del Pascual Lauriente necesitan imprimir y la impresora esta como atascada y no imprime necesitan un técnico.', '', 'Carolina Ruiz', '', NULL, '2022-08-29 13:44:19', NULL, 1, 4003, 0, NULL, NULL, NULL, 3, '2022-08-29', 'Sonia ROMAN'),
+(259, 1002, 'Generar archivo para OSEP a pedido de Matias Cacace. Por inconvenientes en la generación la gente de OSEP pidió el archivo nuevamente, como Matías está de licencia me pidió que lo genere y se lo envie para él remitirlo a OSEP', '', 'OSEP y Matías Cacace', '', 'El archivo fue generado y remitido a Cacace.', '2022-08-29 18:41:16', '2022-08-29 18:41:55', 3, 2003, 18079575, NULL, NULL, NULL, 1, '2022-08-29', 'Pedro  GARBARINO'),
+(260, 4000, 'El profesional solicita alta de usuario remoto', '', 'Joshua Villarreal', '', 'Le informo los datos requeridos.', '2022-08-30 07:54:27', '2022-08-30 07:55:06', 3, 1012, 29148522, NULL, NULL, NULL, 4, '2022-08-30', 'Nicolas MAURE'),
+(261, 4002, 'Se coloca al usuario leandro.picon, perteneciente a la U.O. \"DIR. OBRAS MUNICIPALES - PERSONAL Y RRHH como supervisor de ambas, pedido realizado por helvio grili por correo', '', 'leandro.picon', '', 'realizado\r\n', '2022-08-30 07:59:07', '2022-08-30 07:59:25', 3, 3000, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(262, 7013, 'Se desincorpora la ne-13084-2022 del ee14293-2021 a pedido de Viviana Cadile por correo\r\n', '', 'viviana cadile', '', 'realizado', '2022-08-30 08:02:47', '2022-08-30 08:03:07', 3, 4002, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(263, 3005, 'Buen dia chicos de obras privadas necesitan que vayan urgente porque aye fuerona arreglar los importes de LA UTM para los aforos pero ahora no suma a las 10 vienen los profesionales a buscarlos para pagar.  Además tienen  dicen que desde ayer que se corto SayGes no puden imprimir.', '', 'Santos', '', NULL, '2022-08-30 08:50:57', NULL, 2, 3001, 41191664, NULL, NULL, NULL, 3, '2022-08-30', 'Sonia ROMAN'),
+(264, 4004, 'se confinuan pruebas en cambios realizados según informe redmine', '', 'micaela martinez', '', 'realizado', '2022-08-30 09:14:09', '2022-08-30 11:38:00', 3, 1012, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(265, 3001, 'El Sub Director de Comercio, tiene problemas con el scaner de la impresora. No pueden trabajar con el scaner y solucionar los problemas de la oficina. Necesitan que se acerquen a solucionarlo.', '', '', '8142', 'Se reemplazo tonner ', '2022-08-30 09:35:57', '2022-08-30 09:54:51', 3, 2002, 38101303, NULL, NULL, NULL, 3, '2022-08-30', 'Monica LIVOLSI'),
+(266, 4016, 'se acuerda reunión con garbarino para ver como proceder con turnero (problema de tiempo para entregar el ticket)', '', 'pedro, german s y nico', '', NULL, '2022-08-30 09:49:50', NULL, 2, 4005, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(267, 4013, 'Asistencia para romper relación de una PA anexada.', '', 'marcela werkalec', '', 'realizado', '2022-08-30 09:51:38', '2022-08-30 10:14:01', 3, 3005, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(268, 3001, 'Cristina de Defensa del Consumidor, tiene trabada la impresora con papel. Raúl', '', 'Cristina', '', 'atasco de papeliño sacadiño', '2022-08-30 09:53:53', '2022-08-30 10:26:37', 3, 1001, 36768171, NULL, NULL, NULL, 3, '2022-08-30', 'Raul SORIA'),
+(269, 3002, 'Lidia de Defunción cuando quiere acceder a un archivo compartido le pide: Nombre de Usuario.\r\nIP pc Lidia 192.168.100.62\r\nIP pc propietario 192.168.100.177', '192.168.100.62', 'Lidia', '0', 'Se agrego el compartido que necesitaba el usuario ', '2022-08-30 10:04:31', '2022-08-30 10:07:23', 3, 2000, 38101303, NULL, NULL, NULL, 3, '2022-08-30', 'Raul SORIA'),
+(270, 3000, 'Matias Fernandez (HCD) necesita le instalen el scanner en su pc. Ya tiene el scanner en la oficina.', '', 'Matias Fernandez', '', NULL, '2022-08-30 10:32:51', NULL, 2, 10000, 38101303, NULL, NULL, NULL, 3, '2022-08-30', 'Admin AD'),
+(271, 7013, 'solicitud de planif.: ee-12567-2021 necesitan activar tarea recurso \"Inactiva\" (factibilidad de obra)', '', 'planificación', '', NULL, '2022-08-30 10:45:58', NULL, 2, 1012, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(272, 3002, 'Llaman varias personas del juzgado  anda muy lento y mal internet y no pueden trabajar con el sistema JAT', '', 'PAULA DE MIGUEL', '', NULL, '2022-08-30 12:04:00', NULL, 1, 1004, 0, NULL, NULL, NULL, 3, '2022-08-30', 'Sonia ROMAN'),
+(273, 7014, 'se desarchiva listado de tesoreria enviado por marina al whp:\r\nee863-22\r\nee864-22\r\nee865-22\r\nee6746-22\r\nee7034-22\r\nee8759-22\r\nee8755-22\r\nee8758-22\r\nee8760-22\r\nee8757-22\r\nee13842-22', '', 'marina sosa', '', 'realizado', '2022-08-30 12:25:40', '2022-08-30 12:31:54', 3, 2004, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(274, 7014, 'se desarchiva ne-12620-2022 a pedido de eliana.bertani para trabajarlo', '', 'eliana bertani', '', 'realizado\r\n', '2022-08-30 12:31:38', '2022-08-30 12:32:04', 3, 5029, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(275, 4013, 'se solicita asistencia para romper relación desde el concejo deliberante (alejandro.mercuri) a fin de desvincular pa. se corrobora que ya posee permisos y se explica via whp hasta lograr realizarlo hora: 9:15hs', '', 'alejandro mercuri', '', 'resuelto', '2022-08-30 12:39:28', '2022-08-30 12:39:42', 3, 10000, 28700618, NULL, NULL, NULL, 4, '2022-08-30', 'German SANCHEZ'),
+(276, 7013, 'Planificación solicita que se deshabilite el usuario beatriz.toledo, legajo 8480.', '', 'Beatriz Toledo', '', 'Se procede a poner como inactivo.', '2022-08-30 12:53:47', '2022-08-30 12:54:17', 3, 3004, 29148522, NULL, NULL, NULL, 4, '2022-08-30', 'Nicolas MAURE');
 
 -- --------------------------------------------------------
 
@@ -551,30 +590,30 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `idRol2`, `motivoBaja`, `ultimoAcceso`) VALUES
 (0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$/u8oZKm/xNswIicsb4ZC2ONgDo3AuFZNq/ulv.Fx47FXLpulV0no6', 1, NULL, '2022-08-24 11:05:59'),
-(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$WYKtVVo27UNn044KHkmBwuWFenzX/Zn8JRcGkrNP6kAH17gEOV/im', 2, NULL, '2022-08-26 08:45:31'),
-(2000001, 'Agente', 'CCTV - Infraestructura', '', 'infr.cctv', '$2y$10$y5pNkqgrxN5LPBV22s6BIuEE0.kV3pXPOA70wT3xEtCUOjhb6ve.u', 2, NULL, '2022-08-19 13:20:47'),
-(3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL, '2022-08-26 13:06:22'),
-(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$7B1xJ.MwWMUKOgqoKB1S..im/76v5W/HnncZowyrzk5Od5Hll3h1q', 4, NULL, '2022-08-24 10:32:23'),
+(1000000, 'Reclamos', 'ST', 'ejemplo@gmail.com', 'reclamos', '$2y$10$/u8oZKm/xNswIicsb4ZC2ONgDo3AuFZNq/ulv.Fx47FXLpulV0no6', 1, NULL, '2022-08-30 12:03:58'),
+(2000000, 'Agente', 'Ag', 'alguien@gmail.com', 'agente', '$2y$10$WYKtVVo27UNn044KHkmBwuWFenzX/Zn8JRcGkrNP6kAH17gEOV/im', 2, NULL, '2022-08-30 08:12:05'),
+(2000001, 'Agente', 'CCTV - Infraestructura', '', 'infr.cctv', '$2y$10$y5pNkqgrxN5LPBV22s6BIuEE0.kV3pXPOA70wT3xEtCUOjhb6ve.u', 2, NULL, '2022-08-30 08:25:17'),
+(3000000, 'Admin', 'AD', 'adminst@correo.com', 'admin', '$2y$10$aLqdvXR8sYLUsXwH/B/NqeFcWUCFTaUVQ6sPuSWFksxJ/0i36vBoK', 3, NULL, '2022-08-30 10:32:14'),
+(4000000, 'Supervisor', 'SU', 'alguien@gmail.com', 'supervisor', '$2y$10$7B1xJ.MwWMUKOgqoKB1S..im/76v5W/HnncZowyrzk5Od5Hll3h1q', 4, NULL, '2022-08-29 10:45:53'),
 (12345667, 'Agente', 'Infraestructura', 'alguien@gmail.com', 'agenteinfr', '$2y$10$z60iSgNERwmQzu1TLnigWOpF9S5srVwH1Ga5.N6kRU59TTAvnYnbm', 2, NULL, NULL),
-(16179758, 'Sonia', 'ROMAN', '', 'sonia.roman', '$2y$10$Zemt4.UBxxDUaLahDU.8a.EFWNAaSBXhps49zlaCogii6UbNsxrfq', 1, NULL, '2022-08-26 10:36:58'),
-(16222799, 'Raul', 'SORIA', '', 'raul.soria', '$2y$10$52Ih7O06NHyd6wJ6MiMuq.unbXAY2L6FdhLDcakLST6k1tAj0sYY6', 1, NULL, '2022-08-26 11:14:34'),
-(18079575, 'Pedro', ' GARBARINO', '', 'pedro.garbarino', '$2y$10$ScILno.6Y3ymFYQvaXSN.emg9hMJ73FJpL4ajTY3hFrfXDhr8g0BG', 2, NULL, '2022-08-26 12:06:28'),
-(24207076, 'Javier', 'Crayachichi', 'javier.crayachichi@guaymallen.gob.ar', 'javier.crayachichi', '$2y$10$InkqYRHI5TVq.2bx29j9R.mjAOjdPpuC3lZcQ..ie.RZoqkPae63i', 2, NULL, '2022-08-16 08:43:35'),
-(24925742, 'Monica', 'LIVOLSI', '', 'monica.livolsi', '$2y$10$f5bZHuKZagtQdBMC0M9z5uojoaS/JKzYH9GPdfITFKlz62M51nnOq', 1, NULL, NULL),
-(28700618, 'German', 'SANCHEZ', '', 'german.sanchez', '$2y$10$HS7RVZ59x.bqKfDdIvB3ouo0Vum0gvNRzv8Etf9CaEM1Sz/DsZkf.', 4, NULL, '2022-08-26 12:12:19'),
+(16179758, 'Sonia', 'ROMAN', '', 'sonia.roman', '$2y$10$Zemt4.UBxxDUaLahDU.8a.EFWNAaSBXhps49zlaCogii6UbNsxrfq', 1, NULL, '2022-08-30 11:55:46'),
+(16222799, 'Raul', 'SORIA', '', 'raul.soria', '$2y$10$52Ih7O06NHyd6wJ6MiMuq.unbXAY2L6FdhLDcakLST6k1tAj0sYY6', 1, NULL, '2022-08-30 11:59:55'),
+(18079575, 'Pedro', ' GARBARINO', '', 'pedro.garbarino', '$2y$10$ScILno.6Y3ymFYQvaXSN.emg9hMJ73FJpL4ajTY3hFrfXDhr8g0BG', 2, NULL, '2022-08-29 18:35:23'),
+(24207076, 'Javier', 'Crayachichi', 'javier.crayachichi@guaymallen.gob.ar', 'javier.crayachichi', '$2y$10$InkqYRHI5TVq.2bx29j9R.mjAOjdPpuC3lZcQ..ie.RZoqkPae63i', 2, NULL, '2022-08-30 08:25:09'),
+(24925742, 'Monica', 'LIVOLSI', '', 'monica.livolsi', '$2y$10$f5bZHuKZagtQdBMC0M9z5uojoaS/JKzYH9GPdfITFKlz62M51nnOq', 1, NULL, '2022-08-30 09:31:35'),
+(28700618, 'German', 'SANCHEZ', '', 'german.sanchez', '$2y$10$HS7RVZ59x.bqKfDdIvB3ouo0Vum0gvNRzv8Etf9CaEM1Sz/DsZkf.', 4, NULL, '2022-08-30 12:15:55'),
 (28757006, 'Mauricio', 'SCARAVILLI', '', 'mauricio.scaravilli', '$2y$10$YwYosNnkthhqYTAzoWFgp.qcN93Kl6QwKzt4P/diTYgYgYpSU5HoK', 1, NULL, NULL),
-(29112717, 'Lucas', 'SALEME', '', 'lucas.saleme', '$2y$10$qhQ3rYPzHHQrQmhnjKhrtuY5aRifpJSI6CJAHcBCv0TGoVGHyTv1K', 4, NULL, '2022-08-26 09:45:52'),
-(29148522, 'Nicolas', 'MAURE', '', 'nicolas.maure', '$2y$10$oDtCtvEhbNcJQ1qsflTqjeAOpIOQwo8sbZw0/47lFbJCU8JgIh77W', 2, NULL, '2022-08-26 11:51:30'),
+(29112717, 'Lucas', 'SALEME', '', 'lucas.saleme', '$2y$10$qhQ3rYPzHHQrQmhnjKhrtuY5aRifpJSI6CJAHcBCv0TGoVGHyTv1K', 4, NULL, '2022-08-29 13:49:04'),
+(29148522, 'Nicolas', 'MAURE', '', 'nicolas.maure', '$2y$10$oDtCtvEhbNcJQ1qsflTqjeAOpIOQwo8sbZw0/47lFbJCU8JgIh77W', 2, NULL, '2022-08-30 12:52:13'),
 (30839932, 'Marcelo', 'ALARCON', 'marcelo.alarcon@gmail.com', 'marcelo.alarcon', '$2y$10$7KccNJPq5IOo4qEB3QNDZulL.ue8hUdSotixicoc2fGIByDvMPerC', 2, NULL, '2022-08-26 10:18:24'),
-(33966823, 'Evelyn', 'CARDENAS', '', 'evelyn.cardenas', '$2y$10$E0TlAsgGDGnEji3iIAc0MOvnRB8uvl9ZpFr0zMB1.ESchS2nlbd9G', 1, NULL, '2022-08-25 09:57:40'),
-(35871182, 'Leandro', 'BORQUEZ', '', 'leandro.borquez', '$2y$10$68/hJFosD2RTKkJI77czXen4/ux8LLobk4WLB0qYfZxyAvIlyy3.6', 2, NULL, '2022-08-26 13:37:12'),
-(36768171, 'Cristian', 'BARRERA', '', 'barrera.cristian', '$2y$10$5/0.J37eUX5Tjy6zL2fUVOyU615MlrEDxK/x5/RkK0S9M.NLhwz4W', 2, NULL, '2022-08-26 13:38:00'),
+(33966823, 'Evelyn', 'CARDENAS', '', 'evelyn.cardenas', '$2y$10$E0TlAsgGDGnEji3iIAc0MOvnRB8uvl9ZpFr0zMB1.ESchS2nlbd9G', 1, NULL, '2022-08-29 14:34:31'),
+(35871182, 'Leandro', 'BORQUEZ', '', 'leandro.borquez', '$2y$10$68/hJFosD2RTKkJI77czXen4/ux8LLobk4WLB0qYfZxyAvIlyy3.6', 2, NULL, '2022-08-30 12:56:11'),
+(36768171, 'Cristian', 'BARRERA', '', 'barrera.cristian', '$2y$10$5/0.J37eUX5Tjy6zL2fUVOyU615MlrEDxK/x5/RkK0S9M.NLhwz4W', 2, NULL, '2022-08-30 11:32:51'),
 (37513387, 'Renzo', 'BAVETTA', '', '37513387', '$2y$10$U.VcWhp.lu97D2Omg/TYuOOe2EoBYBAsefmQJ4UTRHOMM1lK7vxWK', 1, NULL, NULL),
-(38101303, 'Emanuel', 'GARCIA', '', 'emanuel.garcia', '$2y$10$E/zZC8afK6l1dqs.9J51QeZa4c7hywcbxGhpxnkaraCBlOmm7nTde', 2, NULL, '2022-08-26 13:37:44'),
-(41191664, 'Franco', 'Moreno', 'franco.moreno@guaymallen.gob.ar', 'franco.moreno', '$2y$10$gZoVZEKJSH5/VCOu.0djju5kFbeUIceYGLI0aNxFdyvLz3uioGKu6', 2, NULL, '2022-08-23 13:39:29'),
-(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$hlvaCVn742FJJumABLaqHOKrqclW5pxJqWGPwySvv0IjDzUxUDl/O', 3, NULL, '2022-08-26 08:49:11'),
-(88888889, 'Agente', 'Req', '', 'agentereq', '$2y$10$30/pBVceIhp5alJ1GemNFOdXxD8WuBu0OzvaATEX0GHeHgLF0AduK', 2, NULL, '2022-08-26 10:32:57');
+(38101303, 'Emanuel', 'GARCIA', '', 'emanuel.garcia', '$2y$10$E/zZC8afK6l1dqs.9J51QeZa4c7hywcbxGhpxnkaraCBlOmm7nTde', 2, NULL, '2022-08-30 13:11:35'),
+(41191664, 'Franco', 'Moreno', 'franco.moreno@guaymallen.gob.ar', 'franco.moreno', '$2y$10$gZoVZEKJSH5/VCOu.0djju5kFbeUIceYGLI0aNxFdyvLz3uioGKu6', 2, NULL, '2022-08-30 10:50:16'),
+(42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '$2y$10$hlvaCVn742FJJumABLaqHOKrqclW5pxJqWGPwySvv0IjDzUxUDl/O', 3, NULL, '2022-08-30 13:54:25'),
+(88888889, 'Agente', 'Req', '', 'agentereq', '$2y$10$30/pBVceIhp5alJ1GemNFOdXxD8WuBu0OzvaATEX0GHeHgLF0AduK', 2, NULL, '2022-08-30 09:47:56');
 
 -- --------------------------------------------------------
 
@@ -689,13 +728,13 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `motivos`
 --
 ALTER TABLE `motivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7014;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7015;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
+  MODIFY `nroArreglo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_area`
