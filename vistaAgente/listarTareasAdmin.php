@@ -149,6 +149,17 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                         valor.value = valor.value.substring(0, valor.value.length - 1);
                     }
                 }
+
+                function validarComillas(valor) {
+                    valor.value = valor.value.replace('\'', '"');
+                }
+
+                function buscarComillaSimple(valor) {
+                    if (valor.value.includes('\'')) {
+                        alert('Debe tener comillas dobles');
+                        valor.focus();
+                    }
+                }
             </script>
         </head>
 
@@ -322,7 +333,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
 
 
                                             <div class="form-floating mb-3">
-                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required></textarea>
+                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 200px;" onchange="buscarComillaSimple(this)" oninput="validarComillas(this);" required></textarea>
                                                 <label for="floatingTextarea">Descripción</label>
                                             </div>
 
@@ -339,7 +350,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="nombreApellidoAfectado" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                <input type="text" name="nombreApellidoAfectado" onchange="buscarComillaSimple(this)" oninput="validarComillas(this);" class="form-control" id="floatingInput" placeholder="ejemplo">
                                                 <label for="floatingInput">Nombre y apellido del afectado/a (Opcional)</label>
                                             </div>
 
@@ -735,7 +746,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                                                             </div>
 
                                                             <div class="form-floating mb-3">
-                                                                <textarea class="form-control" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required><?php echo $completas[3]; ?></textarea>
+                                                                <textarea class="form-control" onchange="buscarComillaSimple(this)" oninput="validarComillas(this);" name="descripcion" placeholder="Leave a comment" id="floatingTextarea" style="height: 170px" required><?php echo $completas[3]; ?></textarea>
                                                                 <label for="floatingTextarea">Descripción</label>
                                                             </div>
 
@@ -745,7 +756,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                                                             </div>
 
                                                             <div class="form-floating mb-3">
-                                                                <input type="text" name="nombreApellidoAfectado" value="<?php echo $completas[5]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo">
+                                                                <input type="text" name="nombreApellidoAfectado" onchange="buscarComillaSimple(this)" oninput="validarComillas(this);" value="<?php echo $completas[5]; ?>" class="form-control" id="floatingInput" placeholder="ejemplo">
                                                                 <label for="floatingInput">Nombre y apellido del afectado/a (Opcional)</label>
                                                             </div>
 
@@ -824,7 +835,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                                                             <input type="hidden" name="id" value="<?php echo $completas[0]; ?>">
 
                                                             <div class="form-floating mb-3">
-                                                                <textarea class="form-control" name="motivoEliminacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                                <textarea class="form-control" onchange="buscarComillaSimple(this)" oninput="validarComillas(this);" name="motivoEliminacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
                                                                 <label for="floatingTextarea">Motivo de la eliminación</label>
                                                             </div>
 
@@ -1211,7 +1222,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                                                         <input type="hidden" name="id" value="<?php echo $listTarea[0]; ?>">
 
                                                         <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                            <textarea class="form-control" onchange="buscarComillaSimple(this)" oninput="validarComillas(this);" name="motivoCancelacion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
                                                             <label for="floatingTextarea">Motivo de la cancelación</label>
                                                         </div>
 
@@ -1382,7 +1393,7 @@ if (!(time() - $_SESSION['time'] >= 3600)) {
                                                         <input type="hidden" name="id" value="<?php echo $listTarea[0]; ?>">
 
                                                         <div class="form-floating mb-3">
-                                                            <textarea class="form-control" name="solucion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
+                                                            <textarea class="form-control" onchange="buscarComillaSimple(this)" oninput="validarComillas(this);" name="solucion" placeholder="Leave a comment" id="floatingTextarea" style="height: 100px" required></textarea>
                                                             <label for="floatingTextarea">Solución</label>
                                                         </div>
 
