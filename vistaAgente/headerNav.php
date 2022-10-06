@@ -199,12 +199,18 @@ if (isset($_SESSION['rol'])) {
             if (selectRol == 1 || selectRol == 3) {
                 $('.selectCantArea').hide(200).find('select').prop('disabled', true);
                 $('.selectArea').hide(200).find('select').prop('disabled', true);
+                $('.selectArea2').hide(200).find('select').prop('disabled', true);
+                $('.selectArea3').hide(200).find('select').prop('disabled', true);
             } else if (selectRol == 2) {
                 $('.selectCantArea').show(200).find('select').prop('disabled', false);
-
+                $('.selectArea').hide(200).find('select').prop('disabled', false);
+                $('.selectArea2').hide(200).find('select').prop('disabled', false);
+                $('.selectArea3').hide(200).find('select').prop('disabled', false);
             } else if (selectRol == 4) {
-                $('.selectArea').show(200).find('select').prop('disabled', false);
                 $('.selectCantArea').hide(200).find('select').prop('disabled', true);
+                $('.selectArea').show(200).find('select').prop('disabled', false);
+                $('.selectArea2').hide(200).find('select').prop('disabled', true);
+                $('.selectArea3').hide(200).find('select').prop('disabled', true);
             } else if (selectRol == '') {
                 $('.selectCantArea').hide(200).find('select').prop('disabled', true);
                 $('.selectArea').hide(200).find('select').prop('disabled', true);
@@ -220,7 +226,7 @@ if (isset($_SESSION['rol'])) {
             } else if (cantAreas == 2) {
                 $('.selectArea').show(200).find('select').prop('disabled', false);
                 $('.selectArea2').show(200).find('select').prop('disabled', false);
-                $('.selectArea3').show(200).find('select').prop('disabled', false);
+                $('.selectArea3').hide(200).find('select').prop('disabled', true);
             } else if (cantAreas == 3) {
                 $('.selectArea').show(200).find('select').prop('disabled', false);
                 $('.selectArea2').show(200).find('select').prop('disabled', false);

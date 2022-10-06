@@ -24,24 +24,29 @@ if (isset($_POST['correo'])) {
 $username = $_POST['user'];
 $pass = $_POST['pass'];
 
+
+foreach ($selectArea as $area) {
+    echo 'Area: ' . $area;
+}
+
 /*echo 'tipoUsuario: ' . $tipoUsuario . '<br>' .
     'dni: ' . $dni . '<br>' .
-    'cantAreas: ' . $cantAreas . '<br>' .
+    'cantAreas: ' . $selectAreas . '<br>' .
     'nombre: ' . $nombre . '<br>' .
     'apellido: ' . $apellido . '<br>' .
     'correo: ' . $correo . '<br>' .
     'username: ' . $username . '<br>' .
     'pass: ' . $pass . '<br>';*/
 
-foreach ($selectArea as $area) {
-    echo 'Area: ' . $area;
-}
-
 if ($co->agregarUsuario($tipoUsuario, $dni, $nombre, $apellido, $correo, $username, $pass)) {
     if (isset($selectAreas)) {
         foreach ($selectAreas as $codArea) {
             $co->agregarUsuarioAreas($dni, $codArea);
         }
+        session_start();
+        $_SESSION['usuarioAgregado'] = true;
+        header('Location: ../vistaAgente/index.php?accion=listarUsuarios');
+    }else{
         session_start();
         $_SESSION['usuarioAgregado'] = true;
         header('Location: ../vistaAgente/index.php?accion=listarUsuarios');

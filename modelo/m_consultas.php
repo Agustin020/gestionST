@@ -914,7 +914,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::conexionBD();
-            $sql = "SELECT * FROM direcciones";
+            $sql = "SELECT * FROM direcciones d order by d.nombre asc";
             $result = mysqli_query($link, $sql);
             $listDirecciones = [];
             $i = 0;
